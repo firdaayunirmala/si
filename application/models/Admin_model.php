@@ -166,4 +166,20 @@ class Admin_model extends CI_Model
     
         $this->db->delete('datata', ['id' => $id]);
     }
+
+    public function updateCountDown()
+    {
+
+        $data = [
+            'date' => $this->input->post('date', true),
+            'time' => $this->input->post('time', true),
+        ];
+
+        $query = "SELECT id FROM countdown order by id desc limit 1";
+        $id = $this->db->query($query)->row_array();
+
+        $this->db->set($data);
+        $this->db->where('id', $id['id']);
+        $this->db->update('countdown');
+    }
 }
