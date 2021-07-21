@@ -37,10 +37,9 @@
                 <label for="jurusan" class="col-sm-3 col-form-label">Jurusan</label>
                 <div class="col-sm-9">
                     <select name="jurusan" id="jurusan" class="form-control col-sm-9">
+                        <option selected>Pilih Jurusan</option>
                         <?php foreach ($jurusan as $j) : ?>
-
                             <option value="<?= $j['id'] ?>"><?= $j['nama_jurusan'] ?></option>
-
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -50,7 +49,7 @@
                 <label for="dosen" class="col-sm-3 col-form-label">Pembimbing 1</label>
                 <div class="col-sm-9">
                     <select name="pembimbing1" id="pembimbing1" class="form-control col-sm-9">
-                        <option selected>Pilih Dosen Pembimbing</option>
+                        <option selected>Pilih Dosen Pembimbing 1</option>
                         <?php foreach ($dosen as $pembimbing1) : ?>
                             <option value="<?= $pembimbing1['nik'] ?>"><?= $pembimbing1['name'] ?></option>
                         <?php endforeach; ?>
@@ -62,7 +61,7 @@
                 <label for="dosen" class="col-sm-3 col-form-label">Pembimbing 2</label>
                 <div class="col-sm-9">
                     <select name="pembimbing2" id="pembimbing2" class="form-control col-sm-9">
-                        <option selected>Pilih Dosen Pembimbing</option>
+                        <option selected>Pilih Dosen Pembimbing 2</option>
                         <?php foreach ($dosen as $pembimbing2) : ?>
                             <option value="<?= $pembimbing2['nik'] ?>"><?= $pembimbing2['name'] ?></option>
 
