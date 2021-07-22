@@ -156,20 +156,17 @@ class Admin_model extends CI_Model
             'pembimbing1' => $this->input->post('pembimbing1', true),
             'pembimbing2' => $this->input->post('pembimbing2', true),
         ];
-
         $this->db->insert('datata', $data);
     }
 
     public function hapusTa($id)
     {
         //$this->db->where('id', $id);
-    
         $this->db->delete('datata', ['id' => $id]);
     }
 
     public function updateCountDown()
     {
-
         $data = [
             'date' => $this->input->post('date', true),
             'time' => $this->input->post('time', true),
