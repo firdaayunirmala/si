@@ -26,7 +26,6 @@ class Administrator extends CI_Controller
         $data['pimp'] = $this->db->count_all('pimpinan');
         $data['dsn'] = $this->db->count_all('dosen');
         $data['mhs'] = $this->db->count_all('mahasiswa');
-
         $data['d'] = $this->db->count_all('datata');
 
         $this->db->like('is_active', 1);
