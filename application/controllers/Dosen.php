@@ -23,7 +23,6 @@ class Dosen extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('dosen/dashboard', $data);
         $this->load->view('templates/footer');
-        
     }
 
     public function bimbingan()
@@ -109,7 +108,13 @@ class Dosen extends CI_Controller
             $userid = $this->input->post("user");
             $pesan = $this->input->post("pesan");
             $id_target =  $this->input->post("target");
-            $result = $this->Pesan_model->send_pesan($userid, $pesan, $id_target);
+            $data = [
+                'id_user' => $userid,
+                'pesan' => $pesan,
+                'id_target' => $id_target,
+                'type_pengirim' => 'dosen',
+            ];
+            $result = $this->Pesan_model->send_pesan($data);
         }
         //echo json_encode($result);
         redirect("Pesan/ambil_pesan");

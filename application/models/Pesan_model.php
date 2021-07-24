@@ -8,23 +8,87 @@ class Pesan_model extends CI_Model
         parent::__construct();
     }
 
-    public function send_pesan($id_user, $pesan, $id_target)
+    public function send_pesan($data)
     {
-        $this->db->set('id_user', $id_user);
-        $this->db->set('pesan', $pesan);
-        $this->db->set('id_target', $id_target);
+        $this->db->set('id_user', $data['id_user']);
+        $this->db->set('pesan', $data['pesan']);
+        $this->db->set('id_target', $data['id_target']);
+        $this->db->set('type_pengirim', $data['type_pengirim']);
         $this->db->insert('pesan');
-        $this->db->insert_id();
+        return $this->db->insert_id();
     }
 
     public function get_pesan($target, $userid)
     {
-        $sql = "SELECT c.*, u.name FROM pesan c
-        JOIN mahasiswa u
-        ON c.id_user = u.nim
-        WHERE (c.id_user = '" . $userid . "' AND id_target = '" . $target . "') OR (c.id_user = '" . $target . "' AND id_target = '" . $userid . "')
-        ORDER BY waktu asc";
+        $sql = "SELECT
+                    *
+                FROM
+                    (
+                    SELECT
+                        p.pesan,
+                        m.name,
+                        p.waktu,
+                        p.type_pengirim,
+                        p.id_user
+                    from
+                        pesan p
+                    inner join mahasiswa m on
+                        m.id = p.id_user
+                    where
+                        p.id_user = $userid
+                        and p.id_target = $target
+                UNION
+                    SELECT
+                        p.pesan,
+                        d.name,
+                        p.waktu,
+                        p.type_pengirim,
+                        p.id_user
+                    from
+                        pesan p
+                    inner join dosen d on
+                        d.id = p.id_user
+                    where
+                        p.id_user = $target
+                        and p.id_target = $userid) as pesan
+                order by
+                    pesan.waktu ASC";
         $res = $this->db->query($sql);
         return $res->result_array();
+    }
+
+    public function ambil_target($jenis = 'mahasiswa', $id = 0)
+    {
+        if ($jenis == 'dosen') {
+            $sql = "SELECT
+                    d2.id as value,
+                    d2.name
+                from
+                    datata d
+                inner join datata_detail dd on
+                    dd.id_datata = d.id
+                inner join dosen d2 on
+                    d2.id = dd.id_dosen
+                where 
+                    d.id_user = $id
+                order BY
+                    dd.pembimbing_ke";
+        } elseif ($jenis == 'mahasiswa') {
+            $sql = "SELECT
+                    d.id_user as value,
+                    m.name
+                from
+                    datata d
+                inner join datata_detail dd on
+                    dd.id_datata = d.id
+                inner join mahasiswa m on
+                    m.id = d.id_user
+                where 
+                    dd.id_dosen = $id
+                order BY
+                    m.name";
+        }
+        $res = $this->db->query($sql)->result_array();
+        return $res;
     }
 }
