@@ -4,41 +4,64 @@ class Admin_model extends CI_Model
 {
     public function getAllDatata()
     {
-        // return $this->db->query(
-        //     "SELECT 
-        //         d.*,
-        //         j.nama_jurusan 
-        //     FROM datata d
-        //     INNER JOIN jurusan j ON d.kode_jurusan = j.id  
-        //     ORDER BY d.nim ASC"
-        // )->result_array();
-        // return $this->db->get('datata')->result_array();
+        return $this->db->query(
+            "SELECT
+                d.id ,
+                m.nim ,
+                m.name ,
+                d.judul ,
+                j.nama_jurusan ,
+                d2.name dosen
+            FROM
+                datata d
+            inner join datata_detail dd on
+                dd.id_datata = d.id
+            inner join mahasiswa m on
+                m.id = d.id_user
+            inner join dosen d2 on
+                d2.id = dd.id_dosen
+            inner join jurusan j on
+                j.id = d.kode_jurusan
+            ORDER BY
+                m.nim"
+        )->result();
 
-        return $this->db->get('datata')->result_array();
+        // return $this->db->get('datata')->result_array();
     }
 
     public function getDatataById($id)
     {
-        return $this->db->get_where('datata', ['id' => $id])->row_array();
+        // return $this->db->get_where('datata', ['id' => $id])->row_array();
+        return $this->db->query(
+            "SELECT
+                d.id ,
+                d.id_user ,
+                m.nim ,
+                m.name ,
+                d.judul ,
+                d.kode_jurusan,
+                dd.id_dosen,
+                dd.id as id_detail
+            FROM
+                datata d
+            inner join datata_detail dd on
+                dd.id_datata = d.id
+            inner join mahasiswa m on
+                m.id = d.id_user
+            where
+                d.id = $id"
+        )->result();
     }
 
-    public function ubahdatata($id)
+    public function ubahdatata($data, $id)
     {
-        $nama = $this->input->post('nama', true);
-        $judul = $this->input->post('judul', true);
-        $pembimbing1 = $this->input->post('pembimbing1', true);
-        $pembimbing2 = $this->input->post('pembimbing2', true);
-
-        $data = [
-            'nama' => $nama,
-            'judul' => $judul,
-            'pembimbing1' => $pembimbing1,
-            'pembimbing2' => $pembimbing2,
-
-        ];
-        $this->db->set($data);
         $this->db->where('id', $id);
-        $this->db->update('datata');
+        $this->db->update('datata', $data);
+    }
+
+    public function ubahDataTaBanyak($data)
+    {
+        $this->db->update_batch('datata_detail', $data, 'id');
     }
 
     public function getAllAdmin()
@@ -149,17 +172,15 @@ class Admin_model extends CI_Model
         return $this->db->get('name')->result_array();
     }
 
-    public function tambahDataTa()
+    public function tambahDataTa($data)
     {
-        $data = [
-            'nim' => $this->input->post('nim', true),
-            'nama' => $this->input->post('nama', true),
-            'judul' => $this->input->post('judul', true),
-            'kode_jurusan' => $this->input->post('jurusan', true),
-            'pembimbing1' => $this->input->post('pembimbing1', true),
-            'pembimbing2' => $this->input->post('pembimbing2', true),
-        ];
         $this->db->insert('datata', $data);
+        return $this->db->insert_id();
+    }
+
+    public function tambahDataTaBanyak($data)
+    {
+        $this->db->insert_batch('datata_detail', $data);
     }
 
     public function hapusTa($id)
@@ -181,5 +202,17 @@ class Admin_model extends CI_Model
         $this->db->set($data);
         $this->db->where('id', $id['id']);
         $this->db->update('countdown');
+    }
+
+
+    // get mahasiswa
+    public function get_mahasiswa()
+    {
+        $this->db->select('id, nim, name');
+        $this->db->from('mahasiswa');
+        $this->db->where('is_active', 1);
+        $this->db->order_by('name', 'ASC');
+        $res = $this->db->get()->result();
+        return $res;
     }
 }

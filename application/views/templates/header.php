@@ -22,8 +22,22 @@
     <link href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="//cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap4.min.css" rel="stylesheet">
+    <link href="<?= base_url() ?>node_modules/select2/dist/css/select2.css" rel="stylesheet">
     <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.js"></script>
+    <script src="<?= base_url() ?>node_modules/select2/dist/js/select2.js"></script>
+    <style>
+        .select2-selection__rendered {
+            line-height: 31px !important;
+        }
 
+        .select2-container .select2-selection--single {
+            height: 35px !important;
+        }
+
+        .select2-selection__arrow {
+            height: 34px !important;
+        }
+    </style>
 </head>
 
 <body id="page-top">
