@@ -22,8 +22,8 @@
     <link href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="//cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap4.min.css" rel="stylesheet">
-    <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
-    
+    <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.js"></script>
+
 </head>
 
 <body id="page-top">

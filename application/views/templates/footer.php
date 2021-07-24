@@ -35,7 +35,7 @@
         </div>
 
         <!-- Bootstrap core JavaScript-->
-        <script src="<?= base_url('assets/') ?>vendor/jquery/jquery.min.js"></script>
+        <!-- <script src="<?= base_url('assets/') ?>vendor/jquery/jquery.min.js"></script> -->
         <script src="<?= base_url('assets/') ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- Core plugin JavaScript-->
@@ -48,7 +48,7 @@
 
         <script src="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script> 
 
-            <!-- <script src="//code.jquery.com/jquery-3.4.1.min.js"></script> -->
+        <script src="//code.jquery.com/jquery-3.4.1.min.js"></script> -->
         <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
         <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
@@ -158,11 +158,11 @@
         </script>
 
         <!-- <script>
-       $(document).ready(function() {
-           $.noConflict();
-           var table = $('#dataTable').DataTable();
-       });
-     </script> -->
+          $(document).ready(function() {
+            $.noConflict();
+            var table = $('#dataTable').DataTable();
+          });
+        </script> -->
 
         <script>
           $('.custom-file-input').on('change', function() {
@@ -297,47 +297,44 @@
         </a>
 
         <script type="text/javascript">
-          $('#file_create_mhs_bimbingan').on('change', function(){
+          $('#file_create_mhs_bimbingan').on('change', function() {
             console.clear();
             const dataCheck = $('#file_create_mhs_bimbingan').val();
             const fileCheck = dataCheck.split('.').pop();
-            if(fileCheck == "docx" || fileCheck == "doc" || fileCheck == "pdf"){
-              const fsize = $( this )[0].files[0].size / 1024 / 1024; 
+            if (fileCheck == "docx" || fileCheck == "doc" || fileCheck == "pdf") {
+              const fsize = $(this)[0].files[0].size / 1024 / 1024;
               if (fsize > 10) {
                 alert("File terlalu besar, silahkan pilih dibawah 10mb");
                 $('#file_data_create_mhs_bimbingan').val('');
                 $('#file_create_mhs_bimbingan').val('');
                 $('#label_file_create_mhs_bimbingan').html('Pilih Laporan');
-              }
-              else{
+              } else {
                 var nim_create_mhs_bimbingan = $('#nim_create_mhs_bimbingan').val();
                 var nama_create_mhs_bimbingan = $('#nama_create_mhs_bimbingan').val();
                 var fd = new FormData();
-                var files = $( this )[0].files[0];
+                var files = $(this)[0].files[0];
                 fd.append('file', files);
                 $.ajax({
-                    url: 'uploadFile?nim_create_mhs_bimbingan='+nim_create_mhs_bimbingan+'&&nama_create_mhs_bimbingan='+nama_create_mhs_bimbingan,
-                    type: 'post',
-                    data: fd,
-                    contentType: false,
-                    processData: false,
-                    success: function(response){
-                      if(response != 0){
-                        $('#file_data_create_mhs_bimbingan').val(response);
-                        $('#label_file_create_mhs_bimbingan').html(response);
-                        $('#label_file_create_mhs_bimbingan').attr('style','width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;');
-                      }
-                      else{
-                        alert('Maaf, Tipe file tidak diijinkan silahkan pilih file tipe doc / docx / pdf');
-                        $('#file_data_create_mhs_bimbingan').val('');
-                        $('#file_create_mhs_bimbingan').val('');
-                        $('#label_file_create_mhs_bimbingan').html('Pilih Laporan');
-                      }
-                    },
+                  url: 'uploadFile?nim_create_mhs_bimbingan=' + nim_create_mhs_bimbingan + '&&nama_create_mhs_bimbingan=' + nama_create_mhs_bimbingan,
+                  type: 'post',
+                  data: fd,
+                  contentType: false,
+                  processData: false,
+                  success: function(response) {
+                    if (response != 0) {
+                      $('#file_data_create_mhs_bimbingan').val(response);
+                      $('#label_file_create_mhs_bimbingan').html(response);
+                      $('#label_file_create_mhs_bimbingan').attr('style', 'width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;');
+                    } else {
+                      alert('Maaf, Tipe file tidak diijinkan silahkan pilih file tipe doc / docx / pdf');
+                      $('#file_data_create_mhs_bimbingan').val('');
+                      $('#file_create_mhs_bimbingan').val('');
+                      $('#label_file_create_mhs_bimbingan').html('Pilih Laporan');
+                    }
+                  },
                 });
-              } 
-            }
-            else{
+              }
+            } else {
               alert('Maaf, Tipe file tidak diijinkan silahkan pilih file tipe doc / docx / pdf');
               $('#file_data_create_mhs_bimbingan').val('');
               $('#file_create_mhs_bimbingan').val('');
@@ -347,7 +344,7 @@
         </script>
 
         <script type="text/javascript">
-          $('#sendKegiatan').on('click', function(){
+          $('#sendKegiatan').on('click', function() {
             var nim_create_mhs_bimbingan = $('#nim_create_mhs_bimbingan').val();
             var nama_create_mhs_bimbingan = $('#nama_create_mhs_bimbingan').val();
             var tanggal = $('#tanggal').val();
@@ -355,40 +352,33 @@
             var dosbing1 = $('#dosbing1').val();
             var dosbing2 = $('#dosbing2').val();
             var file_data_create_mhs_bimbingan = $('#file_data_create_mhs_bimbingan').val();
-          
-            if( tanggal == '' || tanggal == null){
+
+            if (tanggal == '' || tanggal == null) {
               alert('upload data gagal silahkan isi tanggal');
-            }
-            else if( konsultasi == '' || konsultasi == null){
+            } else if (konsultasi == '' || konsultasi == null) {
               alert('upload data gagal silahkan isi konsultasi');
-            }
-            else if( file_data_create_mhs_bimbingan == '' || file_data_create_mhs_bimbingan == null){
+            } else if (file_data_create_mhs_bimbingan == '' || file_data_create_mhs_bimbingan == null) {
               alert('upload data gagal silahkan select file upload');
-            }
-            else{
+            } else {
               var htmlData = '';
-              htmlData += 'nim_create_mhs_bimbingan='+nim_create_mhs_bimbingan+'&&nama_create_mhs_bimbingan='+nama_create_mhs_bimbingan+'&&tanggal='+tanggal+'&&konsultasi='+konsultasi+'&&dosbing1='+dosbing1+'&&dosbing2='+dosbing2+'&&file_data_create_mhs_bimbingan='+file_data_create_mhs_bimbingan;
+              htmlData += 'nim_create_mhs_bimbingan=' + nim_create_mhs_bimbingan + '&&nama_create_mhs_bimbingan=' + nama_create_mhs_bimbingan + '&&tanggal=' + tanggal + '&&konsultasi=' + konsultasi + '&&dosbing1=' + dosbing1 + '&&dosbing2=' + dosbing2 + '&&file_data_create_mhs_bimbingan=' + file_data_create_mhs_bimbingan;
               $.ajax({
-                type : 'GET',
-                url  : '../API/data/createKegiatanMahasiswa.php?'+htmlData,
-                success :  function(response)
-                {
+                type: 'GET',
+                url: '../API/data/createKegiatanMahasiswa.php?' + htmlData,
+                success: function(response) {
                   console.log(response);
-                  if(response == "error"){
+                  if (response == "error") {
                     alert('upload data gagal');
                     return false;
+                  } else {
+
                   }
-                  else 
-                  {
-                    
-                  }
-                }    
+                }
               });
               location.reload();
               alert('upload data sukses');
-            } 
+            }
           });
-
         </script>
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
         <script src="<?= base_url('assets/js/sweetalert/sweetalert2.all.min.js'); ?>"></script>
