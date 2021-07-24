@@ -8,7 +8,6 @@
         <div class="col-lg-8">
 
             <?= form_open_multipart('administrator/tambahdatata'); ?>
-
             <div class="form-group row">
                 <label for="nim" class="col-sm-3 col-form-label">NIM</label>
                 <div class="col-sm-9">
@@ -51,7 +50,7 @@
                     <select name="pembimbing1" id="pembimbing1" class="form-control col-sm-9">
                         <option selected>Pilih Dosen Pembimbing 1</option>
                         <?php foreach ($dosen as $pembimbing1) : ?>
-                            <option value="<?= $pembimbing1['nik'] ?>"><?= $pembimbing1['name'] ?></option>
+                            <option value="<?= $pembimbing1['id'] ?>"><?= $pembimbing1['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -63,7 +62,7 @@
                     <select name="pembimbing2" id="pembimbing2" class="form-control col-sm-9">
                         <option selected>Pilih Dosen Pembimbing 2</option>
                         <?php foreach ($dosen as $pembimbing2) : ?>
-                            <option value="<?= $pembimbing2['nik'] ?>"><?= $pembimbing2['name'] ?></option>
+                            <option value="<?= $pembimbing2['id'] ?>"><?= $pembimbing2['name'] ?></option>
 
                         <?php endforeach; ?>
                     </select>
