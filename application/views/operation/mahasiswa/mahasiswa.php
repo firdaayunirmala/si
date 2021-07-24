@@ -14,14 +14,12 @@
             <?php endif; ?>
 
             <?php if ($this->session->flashdata('message')) : ?>
-
                 <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
             <?php endif; ?>
 
             <a href="<?= base_url('operation/tambahmahasiswa'); ?>" class="btn btn-success mb-3">Tambah Mahasiswa</a>
 
             <div class="table-responsive">
-
                 <table class="table table-sm table-striped table-hover" id="dataTable">
                     <thead class="thead-dark">
                         <tr>
@@ -39,7 +37,6 @@
                     </thead>
 
                     <?php
-
                     $query = "SELECT * 
                     FROM mahasiswa INNER JOIN jurusan
                     ON mahasiswa.kode_jurusan = jurusan.id  
@@ -49,10 +46,8 @@
                     ?>
 
                     <tbody>
-
                         <?php $i = 1; ?>
                         <?php foreach ($datamhs as $mhs) : ?>
-
                             <tr>
                                 <th scope="row"><?= $i; ?></th>
                                 <td><?= $mhs['nim']; ?></td>
@@ -82,9 +77,9 @@
                                             opsi
                                         </button>
                                         <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                            <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['nim']; ?>">detail</a>
-                                            <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['nim']; ?>">edit</a>
-                                            <a class=" btn btn-danger btn-sm tombol-hapus" href="<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['nim']; ?>">hapus</a>
+                                            <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['id']; ?>">detail</a>
+                                            <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['id']; ?>">edit</a>
+                                            <a class=" btn btn-danger btn-sm tombol-hapus" href="<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['id']; ?>">hapus</a>
                                         </div>
                                     </div>
                                 </td>

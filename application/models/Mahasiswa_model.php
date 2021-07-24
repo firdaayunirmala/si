@@ -8,15 +8,15 @@ class Mahasiswa_model extends CI_Model
         return $this->db->get('mahasiswa')->result_array(); //semua baris
     }
 
+
+    public function getMahasiswaById($id)
+    {
+        return $this->db->get_where('mahasiswa', ['id' => $id])->row_array();
+    }
+
     public function getAllBimbingan()
     {
         return $this->db->get('bimbingan')->result_array(); //semua baris
-    }
-
-    public function kirim()
-    {
-   
-
     }
 
     public function upload()
@@ -42,9 +42,10 @@ class Mahasiswa_model extends CI_Model
 
     public function tambahDataMahasiswa()
     {
-        $nim = $this->input->post('nim', true);
+        $id = $this->input->post('id', true);
         $data = [
-            'nim' => $nim,
+            'id' => $id,
+            'nim' => $this->input->post('nim', true),
             'name' => $this->input->post('nama', true),
             'semester' => $this->input->post('semester', true),
             'totalsks' => $this->input->post('totalsks', true),
@@ -60,11 +61,9 @@ class Mahasiswa_model extends CI_Model
         $this->db->insert('mahasiswa', $data);
     }
 
-    public function ubahDataMahasiswa($mhs, $nim)
+    public function ubahDataMahasiswa($mhs, $id)
     {
-
         $upload_image = $_FILES['imagemhs']['name'];
-
         if ($upload_image) {
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size']     = '2048';
@@ -84,6 +83,7 @@ class Mahasiswa_model extends CI_Model
             }
         }
 
+        $nim = $this->input->post('nim', true);
         $name = $this->input->post('namalengkap', true);
         $semester = $this->input->post('semester', true);
         $totalsks = $this->input->post('totalsks', true);
@@ -94,6 +94,7 @@ class Mahasiswa_model extends CI_Model
         $is_active = $this->input->post('aktifmhs', true);
 
         $data = [
+            'nim' => $nim,
             'name' => $name,
             'semester' => $semester,
             'totalsks' => $totalsks,
@@ -106,24 +107,18 @@ class Mahasiswa_model extends CI_Model
         if ($this->input->post('passwordmhs1') != null) {
             $this->db->set('password', $password);
         }
-        $this->db->where('nim', $nim);
+        $this->db->where('id', $id);
         $this->db->update('mahasiswa');
     }
 
-    public function getMahasiswaById($nim)
-    {
-        return $this->db->get_where('mahasiswa', ['nim' => $nim])->row_array();
-    }
-
-
-    public function hapusDataMahasiswa($nim, $mhs)
+    public function hapusDataMahasiswa($id, $mhs)
     {
         $old_image = $mhs['image'];
         if ($old_image != 'default.jpg') {
             unlink(FCPATH . 'assets/img/profile/mahasiswa/' . $old_image);
         }
         //$this->db->where('id', $id);
-        $this->db->delete('mahasiswa', ['nim' => $nim]);
+        $this->db->delete('mahasiswa', ['id' => $id]);
     }
 
 

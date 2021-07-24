@@ -266,8 +266,8 @@
         </script>
 
         <script type="text/javascript">
-          $('#nim').on('change', function() {
-            var nimCall = $('#nim').val();
+          $('#nims').on('change', function() {
+            var nimCall = $('#nims').val();
             $.ajax({
               type: "GET",
               url: '../API/data/dataMahasiswa.php?nim=' + nimCall,
@@ -276,10 +276,10 @@
               success: function(data) {
                 if (data == "data_found_datata") {
                   alert('Data Mahasiswa Sudah Terdaftar Didata Bimbingan, Ulangi Masukkan NIM');
-                  $('#nim').val('');
+                  $('#nims').val('');
                 } else if (data == "data_mahasiswa_not_found") {
                   alert('NIM Mahasiswa Belum Terdaftar, Silahkan Masukkan Data Mahasiswa Dahulu');
-                  $('#nim').val('');
+                  $('#nims').val('');
                 } else {
                   var StringData = JSON.stringify(data);
                   var MahasiswaData = jQuery.parseJSON(StringData);

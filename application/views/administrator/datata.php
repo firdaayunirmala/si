@@ -25,6 +25,7 @@
                             <th scope="col">Jurusan</th>
                             <th scope="col">Pembimbing 1</th>
                             <th scope="col">Pembimbing 2</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Opsi</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@
                         <?php foreach ($datata as $d) : ?>
                             <tr>
                                 <th scope="row"><?= $i; ?></th>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

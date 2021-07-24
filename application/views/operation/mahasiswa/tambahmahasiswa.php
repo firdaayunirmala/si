@@ -42,10 +42,9 @@
                 <label for="jurusan" class="col-sm-3 col-form-label">Jurusan</label>
                 <div class="col-sm-9">
                     <select name="jurusan" id="jurusan" class="form-control col-sm-9">
+                        <option selected>Pilih Jurusan</option>
                         <?php foreach ($jurusan as $j) : ?>
-
                             <option value="<?= $j['id'] ?>"><?= $j['nama_jurusan'] ?></option>
-
                         <?php endforeach; ?>
                     </select>
                 </div>

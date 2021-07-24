@@ -153,7 +153,7 @@ class Operation extends CI_Controller
         }
     }
 
-    public function detailmahasiswa($nim)
+    public function detailmahasiswa($id)
     {
         $data['title'] = 'Mahasiswa';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -161,7 +161,7 @@ class Operation extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($nim);
+        $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($id);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -170,7 +170,7 @@ class Operation extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function editmahasiswa($nim)
+    public function editmahasiswa($id)
     {
         $data['title'] = 'Mahasiswa';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -178,8 +178,8 @@ class Operation extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($nim);
-        $mhs = $this->Mahasiswa_model->getMahasiswaById($nim);
+        $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($id);
+        $mhs = $this->Mahasiswa_model->getMahasiswaById($id);
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
 
         $this->form_validation->set_rules('namalengkap', 'NamaLengkap', 'required|trim');
@@ -200,16 +200,16 @@ class Operation extends CI_Controller
             $this->load->view('templates/footer');
         } else {
 
-            $this->Mahasiswa_model->ubahDataMahasiswa($mhs, $nim);
+            $this->Mahasiswa_model->ubahDataMahasiswa($mhs, $id);
 
             $this->session->set_flashdata('message', 'Diubah!');
             redirect('operation/mahasiswa');
         }
     }
-    public function hapusmahasiswa($nim)
+    public function hapusmahasiswa($id)
     {
-        $mhs = $this->Mahasiswa_model->getMahasiswaById($nim);
-        $this->Mahasiswa_model->hapusDataMahasiswa($nim, $mhs);
+        $mhs = $this->Mahasiswa_model->getMahasiswaById($id);
+        $this->Mahasiswa_model->hapusDataMahasiswa($id, $mhs);
         $this->session->set_flashdata('message', 'Dihapus!');
         redirect('operation/mahasiswa');
     }
