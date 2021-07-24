@@ -278,7 +278,7 @@
                   alert('Data Mahasiswa Sudah Terdaftar Didata Bimbingan, Ulangi Masukkan NIM');
                   $('#nim').val('');
                 } else if (data == "data_mahasiswa_not_found") {
-                  alert('Mahasiswa Belum Terdaftar Disistem, Silahkan Masukkan Data Mahasiswa Dahulu');
+                  alert('NIM Mahasiswa Belum Terdaftar, Silahkan Masukkan Data Mahasiswa Dahulu');
                   $('#nim').val('');
                 } else {
                   var StringData = JSON.stringify(data);
@@ -292,6 +292,7 @@
             });
           });
         </script>
+        
         <a class="scroll-to-top rounded" href="#page-top">
           <i class="fas fa-angle-up"></i>
         </a>

@@ -3,7 +3,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-        <?= $this->session->flashdata('message'); ?>
+    <?= $this->session->flashdata('message'); ?>
 
     <div class="row">
         <div class="col-lg">
@@ -15,7 +15,7 @@
 
             <a href="<?= base_url('administrator/tambahdatata'); ?>" class="btn btn-success mb-3">Tambah pembagian dosbing</a>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="tbl_TA">
+                <table class="table table-bordered table-hover" id="dataTable">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">No</th>
@@ -28,6 +28,41 @@
                             <th scope="col">Opsi</th>
                         </tr>
                     </thead>
+                    <?php
+                    // $query = "SELECT * 
+                    // FROM datata INNER JOIN jurusan
+                    // ON datata.kode_jurusan = jurusan.id  
+                    // ORDER BY datata.nim ASC
+                    // ";
+                    // $datata = $this->db->query($query)->result_array();
+
+                    // echo '<pre>';
+                    // print_r($datata);
+                    // echo '</pre>';
+                    // die;
+                    ?>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        <?php foreach ($datata as $d) : ?>
+                            <tr>
+                                <th scope="row"><?= $i; ?></th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="button ">
+                                        <a class="btn btn-warning btn-sm" href="<?= base_url('administrator/editdatata/') . $d['id']; ?>">edit</a>
+                                        <a class=" btn btn-danger btn-sm hapusskripsi" href="<?= base_url('administrator/hapusskripsi/') . $d['id']; ?>">hapus</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -37,62 +72,3 @@
 
 </div>
 <!-- End of Main Content -->
-
-<!-- Modal -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        var table = $('#tbl_TA').DataTable({
-            "searchable": false,
-            "orderable": false,
-            "targets": 0,
-            "ajax": {
-                "type": 'GET',
-                "url": '<?= base_url(); ?>' + 'API/data/dataSkripsi.php',
-                "mimeType": 'json',
-            },
-            "columns": [{
-                    "data": null,
-                    "width": "4%",
-                    "sortable": false,
-                    render: function(data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    }
-                },
-                {
-                    "data": "nim"
-                },
-                {
-                    "data": "nama"
-                },
-                {
-                    "data": "judul"
-                },
-                {
-                    "data": "kode_jurusan"
-                },
-                {
-                    "data": "pembimbing1"
-                },
-                {
-                    "data": "pembimbing2"
-                },
-                {
-                    "data": "act"
-                },
-            ],
-            "columnDefs": [{
-                    "targets": 0,
-                    "className": "text-left",
-                },
-                {
-                    "targets": 1,
-                    "className": "text-left",
-                },
-                {
-                    "targets": 2,
-                    "className": "text-center",
-                },
-            ]
-        });
-    });
-</script>
