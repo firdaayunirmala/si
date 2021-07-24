@@ -73,7 +73,7 @@
         <div class="row">
           <div class="col-md-12 chat-header bg-white rounded-top p-2">
             <div class="form-group row">
-              <label class="control-label col-md-2">Nama Dosen</label>
+              <label class="control-label col-md-2">Pilih Nama Dosen</label>
               <div class="col-md-6">
                 <select id="pilihDosen" class="form-control">
                   <?php foreach ($target as $v) : ?>
@@ -118,6 +118,7 @@
       </div>
     </div>
   </div>
+  <a href="<?= base_url('mahasiswa/bimbingan'); ?>" class="btn btn-danger">Kembali</a>
 </div>
 
 <script>

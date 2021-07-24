@@ -13,14 +13,14 @@
             <div class="form-group row">
                 <label for="nim" class="col-sm-3 col-form-label">NIM</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nim" name="nim" value="<?= $datata['nim']; ?>" readonly>
+                    <input type="text" class="form-control" id="nim" name="nim" value="<?= $datata['id_user']; ?>" readonly>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nama" name="nama" value="<?= $datata['nama']; ?>">
+                    <input type="text" class="form-control" id="nama" name="nama" value="<?= $datata['id_user']; ?>">
                     <?= form_error('nama', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>

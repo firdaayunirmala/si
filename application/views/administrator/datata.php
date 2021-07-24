@@ -33,24 +33,36 @@
                     // $query = "SELECT * 
                     // FROM datata INNER JOIN jurusan
                     // ON datata.kode_jurusan = jurusan.id  
-                    // ORDER BY datata.nim ASC
+                    // ORDER BY datata.id ASC
                     // ";
                     // $datata = $this->db->query($query)->result_array();
-
+                    // // echo '<pre>';
+                    // // print_r($datata);
+                    // // echo '</pre>';
+                    // // die;
+                    ?>
+                    <?php
+                    $query = "SELECT * 
+                    FROM datata INNER JOIN mahasiswa INNER JOIN jurusan 
+                    ON datata.id_user = mahasiswa.id = jurusan.id
+                    ORDER BY datata.id ASC
+                    ";
+                    $datata = $this->db->query($query)->result_array();
                     // echo '<pre>';
                     // print_r($datata);
                     // echo '</pre>';
                     // die;
                     ?>
+                   
                     <tbody>
                         <?php $i = 1; ?>
                         <?php foreach ($datata as $d) : ?>
                             <tr>
                                 <th scope="row"><?= $i; ?></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><?= $d['nim']; ?></td>
+                                <td><?= $d['name']; ?></td>
+                                <td><?= $d['judul']; ?></td>
+                                <td><?= $d['nama_jurusan']; ?></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
