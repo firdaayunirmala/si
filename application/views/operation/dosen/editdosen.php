@@ -6,13 +6,12 @@
 
     <div class="row">
         <div class="col-lg-8">
-
             <?= form_open_multipart(); ?>
-            <input type="hidden" name="nik" value="<?= $dosen['nik']; ?>">
+            <input type="hidden" name="id" value="<?= $dosen['id']; ?>">
             <div class="form-group row">
                 <label for="nik" class="col-sm-3 col-form-label">NIDN</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nik" name="nik" value="<?= $dosen['nik']; ?>" readonly>
+                    <input type="text" class="form-control" id="nik" name="nik" value="<?= $dosen['nik']; ?>">
                     <?= form_error('nik', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>

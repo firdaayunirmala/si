@@ -12,9 +12,9 @@ class Dosen_model extends CI_Model
         return $this->db->get('bimbingan_dsn')->result_array(); //semua baris
     }
     
-    public function getDosenById($nik)
+    public function getDosenById($id)
     {
-        return $this->db->get_where('dosen', ['nik' => $nik])->row_array();
+        return $this->db->get_where('dosen', ['id' => $id])->row_array();
     }
 
     public function upload()
@@ -37,9 +37,10 @@ class Dosen_model extends CI_Model
 
     public function tambahDataDosen()
     {
-        $nik = $this->input->post('nik', true);
+        $id = $this->input->post('id', true);
         $data = [
-            'nik' => $nik,
+            'id' => $id,
+            'nik' => $this->input->post('nik', true),
             'name' => $this->input->post('name', true),
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'email' => $this->input->post('email', true),
@@ -53,7 +54,7 @@ class Dosen_model extends CI_Model
     }
 
 
-    public function ubahDataDosen($dosen, $nik)
+    public function ubahDataDosen($dosen, $id)
     {
 
         // cek jika ada gambar yang akan diupload
@@ -78,33 +79,33 @@ class Dosen_model extends CI_Model
             }
         }
 
+        $nik = $this->input->post('nik', true);
         $name = $this->input->post('namalengkap', true);
         $email = $this->input->post('email', true);
         $hp = $this->input->post('hp', true);
         $password = password_hash($this->input->post('passworddosen1'), PASSWORD_DEFAULT);
 
         $data = [
+            'nik' => $nik,
             'name' => $name,
             'email' => $email,
             'hp' => $hp,
-
         ];
         $this->db->set($data);
         if ($this->input->post('passworddosen1') != null) {
             $this->db->set('password', $password);
         }
-        $this->db->where('nik', $nik);
+        $this->db->where('id', $id);
         $this->db->update('dosen');
     }
 
-    public function hapusDataDosen($nik, $dosen)
+    public function hapusDataDosen($id, $dosen)
     {
         $old_image = $dosen['image'];
         if ($old_image != 'default.jpg') {
             unlink(FCPATH . 'assets/img/profile/dosen/' . $old_image);
         }
-
         //$this->db->where('id', $id);
-        $this->db->delete('dosen', ['nik' => $nik]);
+        $this->db->delete('dosen', ['id' => $id]);
     }
 }

@@ -58,7 +58,7 @@ class Administrator extends CI_Controller
         $this->session->userdata('email')])->row_array();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
-        $data['datata'] = $this->Admin_model->getAllDatata();
+        $data['datata_backup20170724'] = $this->Admin_model->getAllDatata();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

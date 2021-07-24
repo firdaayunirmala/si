@@ -65,9 +65,9 @@
                                             opsi
                                         </button>
                                         <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                            <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detaildosen/<?= $dsn['nik']; ?>">detail</a>
-                                            <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editdosen/<?= $dsn['nik']; ?>" class="badge badge-warning">edit</a>
-                                            <a class=" btn btn-danger btn-sm tombol-hapusdosen" href="<?= base_url() ?>operation/hapusdosen/<?= $dsn['nik']; ?>">hapus</a>
+                                            <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detaildosen/<?= $dsn['id']; ?>">detail</a>
+                                            <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editdosen/<?= $dsn['id']; ?>" class="badge badge-warning">edit</a>
+                                            <a class=" btn btn-danger btn-sm tombol-hapusdosen" href="<?= base_url() ?>operation/hapusdosen/<?= $dsn['id']; ?>">hapus</a>
                                         </div>
                                     </div>
                                 </td>

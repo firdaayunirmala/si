@@ -288,7 +288,7 @@ class Operation extends CI_Controller
         }
     }
 
-    public function detaildosen($nik)
+    public function detaildosen($id)
     {
         $data['title'] = 'Dosen';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -297,7 +297,7 @@ class Operation extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['dosen'] = $this->Dosen_model->getDosenById($nik);
+        $data['dosen'] = $this->Dosen_model->getDosenById($id);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -305,7 +305,7 @@ class Operation extends CI_Controller
         $this->load->view('operation/dosen/detaildosen', $data);
         $this->load->view('templates/footer');
     }
-    public function editdosen($nik)
+    public function editdosen($id)
     {
         $data['title'] = 'Dosen';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -313,8 +313,8 @@ class Operation extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['dosen'] = $this->Dosen_model->getDosenById($nik);
-        $dosen = $this->Dosen_model->getDosenById($nik);
+        $data['dosen'] = $this->Dosen_model->getDosenById($id);
+        $dosen = $this->Dosen_model->getDosenById($id);
 
         $this->form_validation->set_rules('namalengkap', 'NamaLengkap', 'required|trim');
         $this->form_validation->set_rules('passworddosen1', 'Password', 'trim|min_length[3]|matches[passworddosen2]', [
@@ -332,18 +332,18 @@ class Operation extends CI_Controller
             $this->load->view('operation/dosen/editdosen', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->Dosen_model->ubahDataDosen($dosen, $nik);
+            $this->Dosen_model->ubahDataDosen($dosen, $id);
 
             $this->session->set_flashdata('message', 'Diubah!');
             redirect('operation/dosen');
         }
     }
 
-    public function hapusdosen($nik)
+    public function hapusdosen($id)
     {
-        $dosen = $this->Dosen_model->getDosenById($nik);
+        $dosen = $this->Dosen_model->getDosenById($id);
 
-        $this->Dosen_model->hapusDataDosen($nik, $dosen);
+        $this->Dosen_model->hapusDataDosen($id, $dosen);
         $this->session->set_flashdata('message', 'Dihapus!');
         redirect('operation/dosen');
     }

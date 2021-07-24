@@ -1,22 +1,18 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <div class="row">
         <div class="col-lg-8">
             <?= $this->session->flashdata('message'); ?>
-
             <?= form_open_multipart(); ?>
-
 
             <div class="form-group row">
                 <label for="date" class="col-sm-3 col-form-label">Date</label>
                 <div class="col-sm-9">
                     <input type="date" id="date" class="form-control" name="date">
                     <?= form_error('date', ' <small class="text-danger pl-3">', '</small>'); ?>
-
                 </div>
 
             </div>
@@ -25,17 +21,13 @@
                 <div class="col-sm-9">
                     <input type="time" id="time" class="form-control" name="time" step="1">
                     <?= form_error('time', ' <small class="text-danger pl-3">', '</small>'); ?>
-
                 </div>
-
             </div>
-
 
             <div class="form-group row justify-content-end">
                 <div class="col-sm-9">
                     <button type="submit" class="btn btn-primary">Tambah</button>
                     <!-- <a href="<?= base_url('operation/mahasiswa'); ?>" class="btn btn-danger">Kembali</a> -->
-
                 </div>
             </div>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -43,14 +35,11 @@
                 <div class="col-sm-9">
                     <div id="countdown1">
                         <?php $aktif = $countdown['status']; ?>
-
                         <input type="checkbox" class="form-check-input" <?= ($aktif == 1 ? 'checked data-status="0" ' : 'data-status="1"'); ?> />
-
                         <label class="form-check-label">Munculkan Countdown? </label>
                     </div>
                 </div>
             </div>
-
             </form>
 
             <div class="row">
@@ -60,18 +49,10 @@
                     $newDate = date("d M, Y", $tt);
                     $time = $countdown['time']; ?>
                     <p>Countdown di atur : <br> <?= $newDate; ?> Jam <?= $time; ?></p>
-
                 </div>
-
             </div>
-
-
         </div>
-
     </div>
-
-
-
 </div>
 <!-- /.container-fluid -->
 
