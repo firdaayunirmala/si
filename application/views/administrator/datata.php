@@ -26,7 +26,7 @@
                             <th scope="col">Pembimbing 1</th>
                             <th scope="col">Pembimbing 2</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Opsi</th>
+                            <t scope="col">Opsi</t/h>
                         </tr>
                     </thead>
                     <?php
@@ -43,8 +43,8 @@
                     ?>
                     <?php
                     $query = "SELECT * 
-                    FROM datata INNER JOIN mahasiswa INNER JOIN jurusan 
-                    ON datata.id_user = mahasiswa.id = jurusan.id
+                    FROM datata INNER JOIN mahasiswa INNER JOIN jurusan INNER JOIN datata_detail
+                    ON datata.id_user = mahasiswa.id = jurusan.id = datata_detail.pembimbing_ke
                     ORDER BY datata.id ASC
                     ";
                     $datata = $this->db->query($query)->result_array();
@@ -53,7 +53,7 @@
                     // echo '</pre>';
                     // die;
                     ?>
-                   
+
                     <tbody>
                         <?php $i = 1; ?>
                         <?php foreach ($datata as $d) : ?>
@@ -63,8 +63,8 @@
                                 <td><?= $d['name']; ?></td>
                                 <td><?= $d['judul']; ?></td>
                                 <td><?= $d['nama_jurusan']; ?></td>
-                                <td></td>
-                                <td></td>
+                                <td><?= $d['id_dosen']; ?></td>
+                                <td><?= $d['id_dosen']; ?></td>
                                 <td></td>
                                 <td>
                                     <div class="button ">

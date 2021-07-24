@@ -64,7 +64,7 @@
 </style>
 <div class="container-fluid">
     <?php $nik = $_SESSION['nik']; ?>
-    <input type="hidden" id="nikCall" value="<?php echo $nik ?>" ;>
+    <input type="hidden" id="nik" value="<?php echo $nik ?>" ;>
 
     <h1 class="h3 mb-2 text-gray-800"><?= $title; ?></h1>
     <div class="row">

@@ -191,7 +191,6 @@ class Operation extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('hp', 'Hp', 'required');
 
-
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);

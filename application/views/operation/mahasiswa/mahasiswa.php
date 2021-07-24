@@ -40,7 +40,7 @@
                     $query = "SELECT * 
                     FROM mahasiswa INNER JOIN jurusan
                     ON mahasiswa.kode_jurusan = jurusan.id  
-                    ORDER BY mahasiswa.nim ASC
+                    ORDER BY mahasiswa.id ASC
                     ";
                     $datamhs = $this->db->query($query)->result_array();
                     ?>
@@ -61,7 +61,7 @@
                                 <td>
                                     <?php $aktif = $mhs['is_active']; ?>
                                     <div class=" form-check">
-                                        <input type="checkbox" class="form-check-input aktifmhs" <?= ($aktif == 1 ? 'checked data-status="0" ' : 'data-status="1"'); ?> data-nim="<?= $mhs['nim']; ?>" />
+                                        <input type="checkbox" class="form-check-input aktifmhs" <?= ($aktif == 1 ? 'checked data-status="0" ' : 'data-status="1"'); ?> data-nim="<?= $mhs['id']; ?>" />
                                         <?php if ($aktif == 1) {
                                             echo "Aktif";
                                         } else {
@@ -69,7 +69,6 @@
                                         } ?>
                                     </div>
                                 </td>
-
 
                                 <td>
                                     <div class="dropdown ">

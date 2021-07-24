@@ -8,7 +8,6 @@ class Mahasiswa_model extends CI_Model
         return $this->db->get('mahasiswa')->result_array(); //semua baris
     }
 
-
     public function getMahasiswaById($id)
     {
         return $this->db->get_where('mahasiswa', ['id' => $id])->row_array();
@@ -71,7 +70,6 @@ class Mahasiswa_model extends CI_Model
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('imagemhs')) {
-
                 $old_image = $mhs['image'];
                 if ($old_image != 'default.jpg') {
                     unlink(FCPATH . 'assets/img/profile/mahasiswa/' . $old_image);
