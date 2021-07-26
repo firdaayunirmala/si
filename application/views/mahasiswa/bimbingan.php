@@ -12,10 +12,10 @@
                 </div>
             <?php endif; ?>
 
-            <?php $nim = $_SESSION['nim'];
+            <?php $id = $_SESSION['id'];
             ?>
 
-            <input type="hidden" id="nimCall" value="<?php echo $nim ?>" ;>
+            <input type="hidden" id="nimCall" value="<?php echo $id ?>" ;>
             <a href="<?= base_url('mahasiswa/kirimfile') ?>" class="btn btn-success mb-3">Kirim Bimbingan</a>
             <a href="<?= base_url('mahasiswa/pesan') ?>" class="btn btn-success mb-3">Kirim Pesan</a>
             <div class="table-responsive">
@@ -28,6 +28,7 @@
                             <th scope="col">Catatan Bimbingan</th>
                             <th scope="col">Status Dospem 1</th>
                             <th scope="col">Status Dospem 2</th>
+                            <th scope="col">Batasan Waktu</th>
                             <th scope="col">Opsi</th>
 
                         </tr>
@@ -39,11 +40,27 @@
                                 <th scope="row"><?= $i ?></th>
                                 <td><?= $b['tanggal']; ?></td>
                                 <td><?= $b['catatan_mhs']; ?></td>
-                                <td><?= $b['status_dosbing']; ?></td>
-                                <td><?= $b['status_dosbing']; ?></td>
                                 <td>
-                                    <a class=" btn btn-success btn-sm" href="<?= base_url() ?>mahasiswa/detail/<?= $b['id']; ?>">detail
-                                    </a>
+                                    <?php $aktif = $b['status_dosbing']; ?>
+                                    <?php if ($aktif == 1) : ?>
+                                    <a class="badge badge-succes "> Di Terima</a>
+                                    <?php else : ?>
+                                    <a class="badge badge-warning "> Di Tunggu</a>
+                                    <?php endif; ?>
+                                    </td>
+                                <td>
+                                    <?php $aktif = $b['status_dosbing']; ?>
+                                    <?php if ($aktif == 1) : ?>
+                                    <a class="badge badge-succes "> Di Terima</a>
+                                    <?php else : ?>
+                                    <a class="badge badge-warning "> Di Tunggu</a>
+                                     <?php endif; ?>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                <a class=" btn btn-success btn-sm" href="<?= base_url() ?>mahasiswa/detail/<?= $b['id']; ?>">detail</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

@@ -28,6 +28,7 @@
                   <th scope="col">Pembimbing 1</th>
                   <th scope="col">Pembimbing 2</th>
                   <th scope="col">Status</th>
+                  <th scope="col">Batasan Waktu</th>
                   <th scope="col">Opsi</th>
                 </tr>
               </thead>
@@ -50,6 +51,9 @@
                       <?php else : ?>
                         <a class="badge badge-warning "> Di Tunggu</a>
                       <?php endif; ?>
+                    </td>
+                    <td>
+                      
                     </td>
                     <td>
                       <div class="dropdown ">

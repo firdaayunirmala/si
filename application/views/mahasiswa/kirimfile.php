@@ -1,6 +1,6 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <?php $nim_create_mhs_bimbingan = $_SESSION['nim']; ?>
+    <?php $nim_create_mhs_bimbingan = $_SESSION['id']; ?>
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Upload Form Bimbingan Tugas Akhir</h1>
 
@@ -49,7 +49,7 @@
                     <select name="dosbing" id="dosbing" class="form-control col-sm-9">
                         <option selected>Pilih Dosen Pembimbing</option>
                         <?php foreach ($dosen as $d) : ?>
-                            <option value="<?= $d['nik'] ?>"><?= $d['name'] ?></option>
+                            <option value="<?= $d['id'] ?>"><?= $d['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -57,14 +57,10 @@
 
             <div class="form-group row">
                 <div class="col-sm-3">Upload File Laporan</div>
-                <div class="col-sm-6">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="file_create_mhs_bimbingan" name="file">
-                        <label class="custom-file-label" for="file" id="label_file_create_mhs_bimbingan">Pilih Laporan</label>
-                        <small class="text-danger"> Dalam Bentuk Word atau Pdf </small>
-                        <input type="hidden" id="file_data_create_mhs_bimbingan">
-                    </div>
-
+                <div class="custom-file col-sm-9">
+                    <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input" required>
+                    <?= form_error('filename', ' <small class="text-danger pl-3">', '</small>'); ?>
+                    <label class="custom-file-label" for="customFile">Pilih File</label>
                 </div>
             </div>
 

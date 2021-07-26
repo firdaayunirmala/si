@@ -11,6 +11,7 @@ class Admin_model extends CI_Model
                 m.name ,
                 d.judul ,
                 d.sinopsis,
+                d.status,
                 j.nama_jurusan ,
                 d2.name dosen
             FROM
@@ -74,7 +75,7 @@ class Admin_model extends CI_Model
             $data = [
                 'sinopsis' =>  $sinopsis
             ];
-            $this->db->insert('tbl_file', $data);
+            $this->db->insert('datata', $data);
         }
     }
 

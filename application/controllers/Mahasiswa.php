@@ -36,6 +36,7 @@ class Mahasiswa extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
         $data['bimbingan_mhs'] = $this->db->get('bimbingan_mhs')->result_array();
+        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -62,21 +63,23 @@ class Mahasiswa extends CI_Controller
     public function kirimfile()
     {
         $data['title'] = 'Upload Data Bimbingan';
-        $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-        $this->session->userdata('nim')])->row_array();
+        $data['user'] = $this->db->get_where('mahasiswa', ['id' =>
+        $this->session->userdata('id')])->row_array();
 
-        $data['user_data'] = $this->db->get_where('mahasiswa', ['nim' =>
-        $this->session->userdata('nim')])->result_array();
+        $data['user_data'] = $this->db->get_where('mahasiswa', ['id' =>
+        $this->session->userdata('id')])->result_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
         //get data TA
-        $data_ta = $this->db->get_where('datata', ['nim' =>
-        $this->session->userdata('nim')])->row_array();
+        $datata = $this->db->get_where('datata', ['id' =>
+        $this->session->userdata('id')])->row_array();
 
-        $where = 'nik = ' . $data_ta['pembimbing1'] . ' OR nik = ' . $data_ta['pembimbing2'] . '';
-        $data['dosen'] = $this->db->get_where('dosen', $where)->result_array();
+        // $where = 'nik = ' . $datata['pembimbing1'] . ' OR nik = ' . $datata['pembimbing2'] . '';
+        // $data['dosen'] = $this->db->get_where('dosen', $where)->result_array();
+
+        $data['dosen'] = $this->db->get('dosen')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
