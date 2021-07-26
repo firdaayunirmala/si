@@ -70,6 +70,7 @@
                     var item1 = mahasiswaDataPush[0];
                     var item2 = mahasiswaDataPush[1];
                     html1 += '<div class="row no-gutters"><div class=""><p class="card-text">Nama Dosen Pembimbing = ' + item1.name + '</p><p class="card-text">Email Dosen = ' + item1.email + '</p><p class="card-text">WhatsApp = ' + item1.hp + '</p></div></div></div>';
+                  
                     html2 += '<div class="row no-gutters"><div class=""><p class="card-text">Nama Dosen Pembimbing = ' + item2.name + '</p><p class="card-text">Email Dosen = ' + item2.email + '</p><p class="card-text">WhatsApp = ' + item2.hp + '</p></div></div></div>';
                     
                     $('#pembimbing1').html(html1);

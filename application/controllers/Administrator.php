@@ -68,6 +68,8 @@ class Administrator extends CI_Controller
                     'nim' => $value->nim,
                     'name' => $value->name,
                     'judul' => $value->judul,
+                    'sinopsis' => $value->sinopsis,
+                    'status' => $value->sinopsis,
                     'nama_jurusan' => $value->nama_jurusan,
                     'pembimbing1' => $value->dosen,
                 ];
@@ -93,6 +95,7 @@ class Administrator extends CI_Controller
 
         $data['mahasiswa'] = $this->Admin_model->get_mahasiswa();
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
+        $data['sinopsis'] = $this->db->get('sinopsis')->result_array();
         $data['dosen'] = $this->db->get('dosen')->result_array();
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
 
@@ -106,6 +109,8 @@ class Administrator extends CI_Controller
             $datata = [
                 'id_user' => $this->input->post('id_user', true),
                 'judul' => $this->input->post('judul', true),
+                'sinopsis' => $this->input->post('sinopsis', true),
+                'status' => $this->input->post('status', true),
                 'kode_jurusan' => $this->input->post('jurusan', true),
             ];
             $last_id = $this->Admin_model->tambahDataTa($datata);
@@ -149,6 +154,8 @@ class Administrator extends CI_Controller
                     'nim' => $value->nim,
                     'name' => $value->name,
                     'judul' => $value->judul,
+                    'sinopsis' => $value->sinopsis,
+                    'status' => $value->status,
                     'kode_jurusan' => $value->kode_jurusan,
                     'id_dosen1' => $value->id_dosen,
                     'id_detail1' => $value->id_detail,
@@ -165,6 +172,7 @@ class Administrator extends CI_Controller
         if ($this->input->post('update') == 'update') {
             $datata = [
                 'judul' => $this->input->post('judul', true),
+                'sinopsis' => $this->input->post('sinopsis', true),
                 'kode_jurusan' => $this->input->post('jurusan', true),
             ];
             $this->Admin_model->ubahDatata($datata, $id);

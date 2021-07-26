@@ -169,8 +169,7 @@
             let fileName = $(this).val().split('\\').pop();
             $(this).next('.custom-file-label').addClass("selected").html(fileName);
           });
-
-
+          
           $('.roleakses').on('click', function() {
             const menuId = $(this).data('menu');
             const roleId = $(this).data('role');
@@ -265,7 +264,7 @@
           });
         </script>
 
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
           $('#nims').on('change', function() {
             var nimCall = $('#nims').val();
             $.ajax({
@@ -291,7 +290,7 @@
               }
             });
           });
-        </script>
+        </script> -->
         
         <a class="scroll-to-top rounded" href="#page-top">
           <i class="fas fa-angle-up"></i>

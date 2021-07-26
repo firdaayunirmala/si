@@ -10,6 +10,7 @@ class Admin_model extends CI_Model
                 m.nim ,
                 m.name ,
                 d.judul ,
+                d.sinopsis,
                 j.nama_jurusan ,
                 d2.name dosen
             FROM
@@ -39,6 +40,8 @@ class Admin_model extends CI_Model
                 m.nim ,
                 m.name ,
                 d.judul ,
+                d.sinopsis,
+                d.status,
                 d.kode_jurusan,
                 dd.id_dosen,
                 dd.id as id_detail

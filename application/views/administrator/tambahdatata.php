@@ -5,7 +5,7 @@
   <h1 class="h3 mb-4 text-gray-800">Tambah Data Tugas Akhir</h1>
 
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <div class="card shadow">
         <div class="card-body">
 
@@ -25,8 +25,6 @@
                   <option value="<?= $v->id ?>" data-nim="<?= $v->nim ?>"><?= $v->name ?></option>
                 <?php endforeach; ?>
               </select>
-              <!-- <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Lengkap" value=""> -->
-              <?= form_error('id_user', ' <small class="text-danger pl-3">', '</small>'); ?>
             </div>
           </div>
 
@@ -35,6 +33,15 @@
             <div class="col-sm-9">
               <textarea class="form-control" id="judul" name="judul" placeholder="Masukan Judul Skripsi" value="<?= set_value('judul'); ?>"></textarea>
               <?= form_error('judul', ' <small class="text-danger pl-3">', '</small>'); ?>
+            </div>
+          </div>
+
+          <div class="form-group row">
+          <label for="jurusan" class="col-sm-3 col-form-label">Sinopsis</label>
+            <div class="custom-file col-sm-9">
+              <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input" required>
+              <?= form_error('filename', ' <small class="text-danger pl-3">', '</small>'); ?>
+              <label class="custom-file-label" for="customFile">Choose File</label>
             </div>
           </div>
 

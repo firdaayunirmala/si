@@ -76,9 +76,9 @@
                                             opsi
                                         </button>
                                         <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                            <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['id']; ?>">detail</a>
-                                            <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['id']; ?>">edit</a>
-                                            <a class=" btn btn-danger btn-sm tombol-hapus" href="<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['id']; ?>">hapus</a>
+                                            <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['nim']; ?>">detail</a>
+                                            <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['nim']; ?>">edit</a>
+                                            <a class=" btn btn-danger btn-sm tombol-hapus" href="<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['nim']; ?>">hapus</a>
                                         </div>
                                     </div>
                                 </td>

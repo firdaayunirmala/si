@@ -52,6 +52,15 @@
           </div>
 
           <div class="form-group row">
+            <label for="jurusan" class="col-sm-3 col-form-label">Sinopsis</label>
+            <div class="custom-file col-sm-9">
+              <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input"><?= $datata['sinopsis']; ?>
+              <?= form_error('filename', ' <small class="text-danger pl-3">', '</small>'); ?>
+              <label class="custom-file-label" for="customFile">Choose File</label>
+            </div>
+          </div>
+
+          <div class="form-group row">
             <label for="pembimbing1" class="col-sm-3 col-form-label">Pembimbing 1</label>
             <div class="col-sm-9">
               <select name="pembimbing1" id="pembimbing1" class="form-control col-sm-9">
