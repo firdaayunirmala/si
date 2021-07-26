@@ -8,6 +8,7 @@ class Dosen extends CI_Controller
         parent::__construct();
         is_logged_indsn();
         $this->load->model('Dosen_model');
+        $this->load->model('Pesan_model');
     }
 
     public function index()
@@ -110,6 +111,8 @@ class Dosen extends CI_Controller
         $data['namarole'] = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
+        $data['target'] = $this->Pesan_model->ambil_target('mahasiswa', $this->session->userdata('id'));
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -124,7 +127,7 @@ class Dosen extends CI_Controller
         $this->form_validation->set_rules('target', 'Target', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            redirect("Pesan/ambil_pesan");
+            redirect("Dosen/ambil_pesan");
             //echo "salah";
         } else {
             $userid = $this->input->post("user");
@@ -138,25 +141,47 @@ class Dosen extends CI_Controller
             ];
             $result = $this->Pesan_model->send_pesan($data);
         }
-        //echo json_encode($result);
-        redirect("Pesan/ambil_pesan");
+        $hasil = [];
+        if ($result > 0) {
+            $req = [
+                'id_user' => $userid,
+                'id_target' => $id_target,
+            ];
+            $hasil['status'] = 200;
+            $hasil['data'] = $this->ambil_pesan($req);
+        } else {
+            $hasil['status'] = 404;
+            $hasil['message'] = 'Pesan tidak diketahui';
+        }
+        echo json_encode($hasil);
+        // redirect("Mahasiswa/ambil_pesan");
     }
 
-    public function ambil_pesan()
+    public function ambil_pesan($custom = [])
     {
-        //$session_data = $this->session->userdata('sess_member');
-        //$userid = $session_data['id_user'];
-        $id_target = $this->input->GET('target');
-        $userid = $this->input->get('user');
+        if (count($custom) > 0) {
+            $id_target = $custom['id_target'];
+            $userid = $custom['id_user'];
+        } else {
+            $id_target = $this->input->GET('target');
+            $userid = $this->input->get('user');
+        }
         // echo "OYYYY = " . $id_target;
         $tampil = $this->Pesan_model->get_pesan($id_target, $userid);
 
+        $pesan = '';
         foreach ($tampil as $r) {
-            if ($r['id_user'] == $userid) {
-                echo "<li class='p-2 mb-1 rounded bg-default'><h5><b>$r[name]</b> : $r[pesan] </h5>(<i>$r[waktu]</i>)</li>";
+            if ($r['id_user'] == $userid && $r['type_pengirim'] == 'dosen') {
+                $pesan .= "<li class='p-2 mb-1 rounded bg-default'><h5><b>$r[name]</b> : $r[pesan] </h5>(<i>$r[waktu]</i>)</li>";
             } else {
-                echo "<li class='p-2 mb-1 rounded bg-success text-white'><h6>$r[name] : $r[pesan] </h6>(<i>$r[waktu]</i>)</li>";
+                $pesan .= "<li class='p-2 mb-1 rounded bg-success text-white'><h6>$r[name] : $r[pesan] </h6>(<i>$r[waktu]</i>)</li>";
             }
+        }
+
+        if (count($custom) > 0) {
+            return $pesan;
+        } else {
+            echo $pesan;
         }
     }
 }

@@ -85,7 +85,7 @@
                         <div class="row">
                             <div class="col-md-3 image"><img src="<?= base_url('assets/img/profile/default.jpg') ?>" class="rounded"></div>
                             <div class="col-md-5 user-detail pt-2">
-                                <h6 class="pt-1" id="MahasiswaName"><?php echo $user['name'] ?></h6>
+                                <h6 class="pt-1" id="mahasiswaName"><?php echo $user['name'] ?></h6>
                                 <i class="fa fa-circle active ml-1" aria-hidden="true"></i>
                             </div>
                         </div>
@@ -159,9 +159,7 @@
                 url: "<?= site_url('Dosen/ambil_pesan'); ?>",
                 data: 'target=' + target + '&user=' + user,
                 success: function(data) {
-
                     $('#isi_chat').html(data);
-
                 }
             });
         }

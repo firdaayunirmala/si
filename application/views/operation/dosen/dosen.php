@@ -1,10 +1,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-
-
 
     <div class="row">
         <div class="col-lg">
@@ -12,12 +9,9 @@
                 <div class="alert alert-danger" role="alert">
                     <?= validation_errors(); ?>
                 </div>
-
-
             <?php endif; ?>
 
             <?php if ($this->session->flashdata('message')) : ?>
-
                 <div class="flashdatadosen" data-flashdatadosen="<?= $this->session->flashdata('message'); ?>"></div>
             <?php endif; ?>
 

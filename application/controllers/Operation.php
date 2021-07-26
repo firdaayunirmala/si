@@ -198,9 +198,7 @@ class Operation extends CI_Controller
             $this->load->view('operation/mahasiswa/editmahasiswa', $data);
             $this->load->view('templates/footer');
         } else {
-
             $this->Mahasiswa_model->ubahDataMahasiswa($mhs, $id);
-
             $this->session->set_flashdata('message', 'Diubah!');
             redirect('operation/mahasiswa');
         }
