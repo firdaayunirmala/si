@@ -8,9 +8,9 @@ class Mahasiswa_model extends CI_Model
         return $this->db->get('mahasiswa')->result_array(); //semua baris
     }
 
-    public function getMahasiswaById($nim)
+    public function getMahasiswaById($id)
     {
-        return $this->db->get_where('mahasiswa', ['nim' => $nim])->row_array();
+        return $this->db->get_where('mahasiswa', ['id' => $id])->row_array();
     }
 
     public function getAllBimbingan()
@@ -59,7 +59,7 @@ class Mahasiswa_model extends CI_Model
         $this->db->insert('mahasiswa', $data);
     }
 
-    public function ubahDataMahasiswa($mhs, $nim)
+    public function ubahDataMahasiswa($mhs, $id)
     {
         $upload_image = $_FILES['imagemhs']['name'];
         if ($upload_image) {
@@ -79,6 +79,7 @@ class Mahasiswa_model extends CI_Model
                 echo $this->upload->display_errors();
             }
         }
+        $nim = $this->input->post('nim', true);
         $name = $this->input->post('namalengkap', true);
         $semester = $this->input->post('semester', true);
         $totalsks = $this->input->post('totalsks', true);
@@ -89,6 +90,7 @@ class Mahasiswa_model extends CI_Model
         $is_active = $this->input->post('aktifmhs', true);
 
         $data = [
+            'nim' => $nim,
             'name' => $name,
             'semester' => $semester,
             'totalsks' => $totalsks,
@@ -101,7 +103,7 @@ class Mahasiswa_model extends CI_Model
         if ($this->input->post('passwordmhs1') != null) {
             $this->db->set('password', $password);
         }
-        $this->db->where('nim', $nim);
+        $this->db->where('id', $id);
         $this->db->update('mahasiswa');
     }
 

@@ -8,11 +8,11 @@
         <div class="col-lg-8">
 
             <?= form_open_multipart(); ?>
-            <input type="hidden" name="nim" value="<?= $mahasiswa['nim'] ?>">
+            <input type="hidden" name="id" value="<?= $mahasiswa['id'] ?>">
             <div class="form-group row">
                 <label for="nim" class="col-sm-3 col-form-label">NIM</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nim" name="nim" value="<?= $mahasiswa['nim'];?>"readonly>
+                    <input type="text" class="form-control" id="nim" name="nim" value="<?= $mahasiswa['nim'];?>">
                     <?= form_error('nim', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
