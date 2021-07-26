@@ -11,8 +11,7 @@
         <div class="card-body">
           <?php if (validation_errors()) : ?>
             <div class="alert alert-danger" role="alert">
-              <?= validation_errors(); ?>
-            </div>
+              <?= validation_errors(); ?> </div>
           <?php endif; ?>
 
           <a href="<?= base_url('administrator/tambahdatata'); ?>" class="btn btn-success mb-3">Tambah pembagian dosbing</a>
@@ -53,14 +52,21 @@
                       <?php endif; ?>
                     </td>
                     <td>
-                      <div class="button ">
-                        <a class="btn btn-warning btn-sm" href="<?= base_url('administrator/editdatata/') . $d['id']; ?>">edit</a>
-                        <a class="btn btn-danger btn-sm hapusskripsi" href="javascript:void();" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url('administrator/hapusdatata/') . $d['id']; ?>' : null">hapus</a>
+                      <div class="dropdown ">
+                        <button class="btn btn-primary btn-sm dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          opsi
+                        </button>
+                        <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                          <a class="btn btn-warning btn-sm" href="<?= base_url('administrator/editdatata/') . $d['id']; ?>">edit</a>
+                          <a class="btn btn-success btn-sm" href="<?= base_url('administrator/detaildatata/') . $d['id']; ?>">detail</a>
+                          <a class="btn btn-danger btn-sm hapusskripsi" href="javascript:void();" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url('administrator/hapusdatata/') . $d['id']; ?>' : null">hapus</a>
+                        </div>
                       </div>
                     </td>
                   </tr>
                   <?php $i++; ?>
                 <?php endforeach; ?>
+              </tbody>
             </table>
           </div>
         </div>

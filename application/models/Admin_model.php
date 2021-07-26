@@ -56,6 +56,28 @@ class Admin_model extends CI_Model
         )->result();
     }
 
+    public function sinopsis()
+    {
+        $upload_file = $_FILES['filename']['name'];
+        if ($upload_file) {
+            $config['upload_path']          = './filebimbingan/';
+            $config['allowed_types']        = 'doc|docx|pdf';
+            $config['max_size']             = 1000000;
+            // $config['max_width']            = 1024;
+            // $config['max_height']           = 768;
+            $this->load->library('upload', $config);
+            if ($this->upload->do_upload('filename')) {
+                $sinopsis =  $this->upload->data('file_name');
+            } else {
+                echo $this->upload->display_errors();
+            }
+            $data = [
+                'sinopsis' =>  $sinopsis
+            ];
+            $this->db->insert('tbl_file', $data);
+        }
+    }
+
     public function ubahdatata($data, $id)
     {
         $this->db->where('id', $id);

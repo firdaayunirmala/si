@@ -37,7 +37,7 @@
           </div>
 
           <div class="form-group row">
-          <label for="jurusan" class="col-sm-3 col-form-label">Sinopsis</label>
+          <label for="sinopsis" class="col-sm-3 col-form-label">Sinopsis</label>
             <div class="custom-file col-sm-9">
               <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input" required>
               <?= form_error('filename', ' <small class="text-danger pl-3">', '</small>'); ?>

@@ -95,7 +95,6 @@ class Administrator extends CI_Controller
 
         $data['mahasiswa'] = $this->Admin_model->get_mahasiswa();
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
-        $data['sinopsis'] = $this->db->get('sinopsis')->result_array();
         $data['dosen'] = $this->db->get('dosen')->result_array();
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
 
