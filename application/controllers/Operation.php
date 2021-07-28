@@ -101,11 +101,7 @@ class Operation extends CI_Controller
     public function mahasiswa()
     {
         $data['title'] = 'Mahasiswa';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
-
-        $data['namarole'] = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -136,8 +132,6 @@ class Operation extends CI_Controller
             'is_unique' => 'This email has already registered!'
         ]);
 
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
 
         if ($this->form_validation->run() == false) {
@@ -149,7 +143,7 @@ class Operation extends CI_Controller
         } else {
             $this->Mahasiswa_model->tambahDataMahasiswa();
             $this->session->set_flashdata('message', 'Ditambahkan!');
-            redirect('operation/mahasiswa');
+            redirect('operation/mahasiswa', 'refresh');
         }
     }
 
@@ -399,7 +393,7 @@ class Operation extends CI_Controller
             'min_length' => 'password too short!'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
-      
+
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[pimpinan.email]', [
             'is_unique' => 'This email has already registered!'

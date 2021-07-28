@@ -2,97 +2,103 @@
 
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-3 text-gray-800"><?= $title; ?></h1>
+  <!-- Page Heading -->
+  <h1 class="h3 mb-3 text-gray-800"><?= $title; ?></h1>
 
-    <div class="row">
-        <div class="col-lg">
-            <?php if (validation_errors()) : ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= validation_errors(); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($this->session->flashdata('message')) : ?>
-                <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
-            <?php endif; ?>
-
-            <a href="<?= base_url('operation/tambahmahasiswa'); ?>" class="btn btn-success mb-3">Tambah Mahasiswa</a>
-
-            <div class="table-responsive">
-                <table class="table table-sm table-striped table-hover" id="dataTable">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>No</th>
-                            <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Semester</th>
-                            <th>Total SKS</th>
-                            <th>Jurusan</th>
-                            <th>Email</th>
-                            <th>Whatsapp</th>
-                            <th>Status Aktif</th>
-                            <th>Opsi</th>
-                        </tr>
-                    </thead>
-
-                    <?php
-                    $query = "SELECT * 
-                    FROM mahasiswa INNER JOIN jurusan
-                    ON mahasiswa.kode_jurusan = jurusan.id  
-                    ORDER BY mahasiswa.id ASC
-                    ";
-                    $datamhs = $this->db->query($query)->result_array();
-                    ?>
-
-                    <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($datamhs as $mhs) : ?>
-                            <tr>
-                                <th scope="row"><?= $i; ?></th>
-                                <td><?= $mhs['nim']; ?></td>
-                                <td><?= $mhs['name']; ?></td>
-                                <td><?= $mhs['semester']; ?></td>
-                                <td><?= $mhs['totalsks']; ?></td>
-                                <td><?= $mhs['nama_jurusan']; ?></td>
-                                <td><?= $mhs['email']; ?></td>
-                                <td><?= $mhs['hp']; ?></td>
-                                <td>
-                                    <?php $aktif = $mhs['is_active']; ?>
-                                    <div class=" form-check">
-                                        <input type="checkbox" class="form-check-input aktifmhs" <?= ($aktif == 1 ? 'checked data-status="0" ' : 'data-status="1"'); ?> data-nim="<?= $mhs['id']; ?>" />
-                                        <?php if ($aktif == 1) {
-                                            echo "Aktif";
-                                        } else {
-                                            echo "Pasif";
-                                        } ?>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="dropdown ">
-                                        <button class="btn btn-primary btn-sm dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            opsi
-                                        </button>
-                                        <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                            <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['id']; ?>">detail</a>
-                                            <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['id']; ?>">edit</a>
-                                            <a class=" btn btn-danger btn-sm tombol-hapus" href="<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['id']; ?>">hapus</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php $i++; ?>
-                        <?php endforeach; ?>
-
-                    </tbody>
-                </table>
+  <div class="row">
+    <div class="col-lg">
+      <div class="card shadow">
+        <div class="card-body">
+          <?php if (validation_errors()) : ?>
+            <div class="alert alert-danger" role="alert">
+              <?= validation_errors(); ?>
             </div>
-        </div>
-    </div>
+          <?php endif; ?>
 
+          <?php if ($this->session->flashdata('message')) : ?>
+            <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
+            <?php unset($_SESSION['message']); ?>
+          <?php endif; ?>
+
+          <a href="<?= base_url('operation/tambahmahasiswa'); ?>" class="btn btn-success mb-3">Tambah Mahasiswa</a>
+
+          <div class="table-responsive">
+            <table class="table table-sm table-striped table-hover table-bordered" id="dataTable">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="text-center" width="5%">No</th>
+                  <th class="text-center" width="10%">NIM</th>
+                  <th class="text-center" width="25%">Nama</th>
+                  <th class="text-center" width="20%">Jurusan</th>
+                  <th class="text-center" width="15%">Email</th>
+                  <th class="text-center" width="10%">Status</th>
+                  <th class="text-center" width="15%">Aksi</th>
+                </tr>
+              </thead>
+
+              <?php
+              $query = "SELECT
+                      m.id ,
+                      m.nim ,
+                      m.name ,
+                      m.semester ,
+                      m.totalsks ,
+                      j.nama_jurusan ,
+                      m.email ,
+                      m.hp ,
+                      m.is_active 
+                    FROM
+                      mahasiswa m
+                    INNER JOIN jurusan j ON
+                      m.kode_jurusan = j.id
+                    ORDER BY
+                      m.id ASC
+                    ";
+              $datamhs = $this->db->query($query)->result_array();
+              ?>
+
+              <tbody>
+                <?php $i = 1; ?>
+                <?php foreach ($datamhs as $mhs) : ?>
+                  <tr>
+                    <th scope="row" class="text-center"><?= $i; ?></th>
+                    <td class="text-center"><?= $mhs['nim']; ?></td>
+                    <td><?= $mhs['name']; ?></td>
+                    <td><?= $mhs['nama_jurusan']; ?></td>
+                    <td><?= $mhs['email']; ?></td>
+                    <td class="text-center">
+                      <?php $aktif = $mhs['is_active'];
+                      if ($aktif == 1) { ?>
+                        <span class="badge badge-success">Aktif</span>
+                      <?php } else { ?>
+                        <span class="badge badge-danger">Non Aktif</span>
+                      <?php } ?>
+                    </td>
+                    <td class="text-center">
+                      <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['id']; ?>" title="detail"><i class="fa fa-eye"></i></a>
+                      <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['id']; ?>" title="edit"><i class="fa fa-pencil-alt"></i></a>
+                      <a class=" btn btn-danger btn-sm" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['id']; ?>' : return" href="javascript:void(0);" title="hapus"><i class="fa fa-trash"></i></a>
+                    </td>
+                  </tr>
+                  <?php $i++; ?>
+                <?php endforeach; ?>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 <!-- /.container-fluid -->
+
+<!-- script for this page -->
+<script>
+
+</script>
+<!-- /script for this page -->
 
 </div>
 <!-- End of Main Content -->
