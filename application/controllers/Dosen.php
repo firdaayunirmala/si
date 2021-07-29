@@ -21,7 +21,7 @@ class Dosen extends CI_Controller
         $this->session->userdata('id')])->row_array();
 
         $datata = $this->Admin_model->getAllDatata();
-
+      
         $id = $i = 0;
         foreach ($datata as $key => $value) {
             if ($value->id != $id) {
@@ -67,7 +67,7 @@ class Dosen extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function detailbimbingan()
+    public function detaildata()
     {
         $data['title'] = 'Bimbingan';
         $data['user'] = $this->db->get_where('dosen', ['nik' =>
@@ -75,7 +75,6 @@ class Dosen extends CI_Controller
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
-
         $data['bimbingan'] = $this->Dosen_model->getAllBimbingan();
 
         $this->load->view('templates/header', $data);

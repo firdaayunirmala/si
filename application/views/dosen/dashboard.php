@@ -17,8 +17,6 @@
                         <td>Judul</td>
                         <td>Sinopsis</td>
                         <td>Jurusan</td>
-                        <td>DosPem 1</td>
-                        <td>DosPem 2</td>
                         <td>Status</td>
                         <td>Opsi</td>
                     </tr>
@@ -26,28 +24,27 @@
 
                 <?php
               $query = "SELECT
-                d.id ,
-                d.id_user ,
-                m.nim ,
-                m.name ,
-                d.judul ,
-                d.sinopsis,
-                d.status,
-                d.kode_jurusan,
-                dd.id_dosen,
-                dd.id as id_detail
-            FROM
-                datata d
-            inner join datata_detail dd on
-                dd.id_datata = d.id
-            inner join mahasiswa m on
-                m.id = d.id_user
-            inner join jurusan j on
-                j.id = d.kode_jurusan
-            where
-                d.id = id_dosen";
+              d.id ,
+              d.id_user ,
+              m.nim ,
+              m.name ,
+              d.judul ,
+              d.sinopsis,
+              d.status,
+              j.nama_jurusan,
+              dd.id_dosen,
+              dd.id as id_detail
+          FROM
+              datata d
+          inner join datata_detail dd on
+              dd.id_datata = d.id
+          inner join mahasiswa m on
+              m.id = d.id_user
+          inner join jurusan j on
+          m.kode_jurusan = j.id
+          where
+              d.id = id_dosen";
             $datata = $this->db->query($query)->result_array();
-
               ?>
                 <tbody>
                     <?php $i = 1; ?>
@@ -59,19 +56,19 @@
                             <td><?= $d['judul']; ?></td>
                             <td><?= $d['sinopsis']; ?></td>
                             <td><?= $d['nama_jurusan']; ?></td>
-                            <td><?= $d['pembimbing1']; ?></td>
-                            <td><?= $d['pembimbing2']; ?></td>
                             <td>
                                 <?php $aktif = $d['status']; ?>
                                 <?php if ($aktif == 1) : ?>
-                                    <a class="badge badge-succes "> Di Terima</a>
+                                    <a class="badge badge-succes "> Di Setujui</a>
+                                <?php elseif ($aktif == 0) : ?>
+                                    <a class="badge badge-warning "> Belum di setujui</a>
                                 <?php else : ?>
-                                    <a class="badge badge-warning "> Di Tunggu</a>
+                                    <a class="badge badge-danger "> Tidak di setujui</a>
                                 <?php endif; ?>
                             </td>
                             <td>
                             <div class="button ">
-                            <a class="btn btn-warning btn-sm" href="<?= base_url('dosen/detaildata/') . $d['id']; ?>">detail</a>
+                            <a class="btn btn-primary btn-sm" href="<?= base_url('dosen/detaildata/') . $d['id']; ?>">detail</a>
                             </div>
                             </td>
                         </tr>

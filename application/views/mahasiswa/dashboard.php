@@ -15,8 +15,9 @@
                         </div>
                     <?php endif; ?>
                     <?php $nim = $_SESSION['nim']; ?>
-                    <input type="hidden" id="nimCall" value="<?php echo $nim ?>" ;>
+                    <input type="hidden" id="nim" value="<?php echo $nim ?>" ;>
 
+                    <a href="<?= base_url('mahasiswa/judul'); ?>" class="btn btn-success mb-3">Ajukan Judul Proposal</a>
                     <div class=row>
                         <div class="col-lg-6">
                             <div class="card-header bg-success py-3">
