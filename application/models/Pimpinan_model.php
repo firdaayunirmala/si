@@ -7,9 +7,9 @@ class Pimpinan_model extends CI_Model
         return $this->db->get('pimpinan')->result_array();
     }
 
-    public function getPimpinanById($nidn)
+    public function getPimpinanById($id)
     {
-        return $this->db->get_where('pimpinan', ['nidn' => $nidn])->row_array();
+        return $this->db->get_where('pimpinan', ['id' => $id])->row_array();
     }
 
     public function upload()
@@ -30,12 +30,12 @@ class Pimpinan_model extends CI_Model
         return "default.jpg";
     }
 
-
     public function tambahDataPimpinan()
     {
-        $nidn = $this->input->post('nidn', true);
+        $id = $this->input->post('id', true);
         $data = [
-            'nidn' => $nidn,
+            'id' => $id,
+            'nidn' => $this->input->post('nidn', true),
             'name' => $this->input->post('namalengkap', true),
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'email' => $this->input->post('email', true),
@@ -43,26 +43,22 @@ class Pimpinan_model extends CI_Model
             'is_active' => $this->input->post('aktif', true),
             'image' => $this->upload(),
             'role_id' => 6
-
         ];
-
         $this->db->insert('pimpinan', $data);
     }
 
-
-    public function ubahDataPimpinan($pimpinan, $nidn)
+    public function ubahDataPimpinan($pimpinan, $id)
     {
         // cek jika ada gambar yang akan diupload
         $upload_image = $_FILES['imagepimpinan']['name'];
 
         if ($upload_image) {
-            $config['allowed_types'] = 'gif|jpg|png';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['max_size']     = '2048';
             $config['upload_path'] = './assets/img/profile/pimpinan';
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('imagepimpinan')) {
-
                 $old_image = $pimpinan['image'];
                 if ($old_image != 'default.jpg') {
                     unlink(FCPATH . 'assets/img/profile/pimpinan/' . $old_image);
@@ -73,6 +69,7 @@ class Pimpinan_model extends CI_Model
                 echo $this->upload->display_errors();
             }
         }
+        $nidn = $this->input->post('nidn', true);
         $name = $this->input->post('namalengkap', true);
         $email = $this->input->post('email', true);
         $hp = $this->input->post('hp', true);
@@ -80,6 +77,7 @@ class Pimpinan_model extends CI_Model
         $is_active =  $this->input->post('aktifpimpinan', true);
 
         $data = [
+            'nidn' => $nidn,
             'name' => $name,
             'email' => $email,
             'hp' => $hp,
@@ -89,18 +87,17 @@ class Pimpinan_model extends CI_Model
         if ($this->input->post('password') != null) {
             $this->db->set('password', $password);
         }
-        $this->db->where('nidn', $nidn);
+        $this->db->where('id', $id);
         $this->db->update('pimpinan');
     }
 
-
-    public function hapusDataPimpinan($nidn, $pimpinan)
+    public function hapusDataPimpinan($id, $pimpinan)
     {
         $old_image = $pimpinan['image'];
         if ($old_image != 'default.jpg') {
             unlink(FCPATH . 'assets/img/profile/pimpinan/' . $old_image);
         }
         //$this->db->where('id', $id);
-        $this->db->delete('pimpinan', ['nidn' => $nidn]);
+        $this->db->delete('pimpinan', ['id' => $id]);
     }
 }

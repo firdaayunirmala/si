@@ -44,7 +44,7 @@
                                 <td>
                                     <?php $aktif = $dsn['is_active']; ?>
                                     <div class=" form-check">
-                                        <input type="checkbox" class="form-check-input aktifdsn" <?= ($aktif == 1 ? 'checked data-status="0" ' : 'data-status="1"'); ?> data-nik="<?= $dsn['nik']; ?>" />
+                                        <input type="checkbox" class="form-check-input aktifdsn" <?= ($aktif == 1 ? 'checked data-status="0" ' : 'data-status="1"'); ?> data-nik="<?= $dsn['id']; ?>" />
                                         <?php if ($aktif == 1) {
                                             echo "Aktif";
                                         } else {

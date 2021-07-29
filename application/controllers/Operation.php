@@ -224,14 +224,14 @@ class Operation extends CI_Controller
     public function dosenAccess()
     {
         $status = $this->input->post('status');
-        $nik = $this->input->post('nik');
+        $id = $this->input->post('id');
 
         $data = [
             'name' => $status
         ];
 
         $this->db->set($data);
-        $this->db->where('nik', $nik);
+        $this->db->where('id', $id);
         $this->db->update('dosen');
 
         if ($status == 1) {
@@ -344,7 +344,6 @@ class Operation extends CI_Controller
         $data['title'] = 'Pimpinan';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
-
         $data['pimpinan'] = $this->Pimpinan_model->getAllPimpinan();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -359,14 +358,14 @@ class Operation extends CI_Controller
     public function pimpinanAccess()
     {
         $status = $this->input->post('status');
-        $nidn = $this->input->post('nidn');
+        $id = $this->input->post('id');
 
         $data = [
             'is_active' => $status
         ];
 
         $this->db->set($data);
-        $this->db->where('nidn', $nidn);
+        $this->db->where('id', $id);
         $this->db->update('pimpinan');
 
         if ($status == 1) {
@@ -417,7 +416,7 @@ class Operation extends CI_Controller
             redirect('operation/pimpinan');
         }
     }
-    public function detailpimpinan($nidn)
+    public function detailpimpinan($id)
     {
         $data['title'] = 'Pimpinan';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -425,7 +424,7 @@ class Operation extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['pimpinan'] = $this->Pimpinan_model->getPimpinanById($nidn);
+        $data['pimpinan'] = $this->Pimpinan_model->getPimpinanById($id);
 
 
         $this->load->view('templates/header', $data);
@@ -434,7 +433,7 @@ class Operation extends CI_Controller
         $this->load->view('operation/pimpinan/detailpimpinan', $data);
         $this->load->view('templates/footer');
     }
-    public function editpimpinan($nidn)
+    public function editpimpinan($id)
     {
         $data['title'] = 'Pimpinan';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -454,8 +453,8 @@ class Operation extends CI_Controller
 
         $this->form_validation->set_rules('hp', 'Hp', 'required|trim');
 
-        $data['pimpinan'] = $this->Pimpinan_model->getPimpinanById($nidn);
-        $pimpinan = $this->Pimpinan_model->getPimpinanById($nidn);
+        $data['pimpinan'] = $this->Pimpinan_model->getPimpinanById($id);
+        $pimpinan = $this->Pimpinan_model->getPimpinanById($id);
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -464,17 +463,17 @@ class Operation extends CI_Controller
             $this->load->view('operation/pimpinan/editpimpinan', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->Pimpinan_model->ubahDataPimpinan($pimpinan, $nidn);
+            $this->Pimpinan_model->ubahDataPimpinan($pimpinan, $id);
 
             $this->session->set_flashdata('message', 'Diubah!');
             redirect('operation/pimpinan');
         }
     }
-    public function hapuspimpinan($nidn)
+    public function hapuspimpinan($id)
     {
-        $pimpinan = $this->Pimpinan_model->getPimpinanById($nidn);
+        $pimpinan = $this->Pimpinan_model->getPimpinanById($id);
 
-        $this->Pimpinan_model->hapusDataPimpinan($nidn, $pimpinan);
+        $this->Pimpinan_model->hapusDataPimpinan($id, $pimpinan);
         $this->session->set_flashdata('message', 'Dihapus!');
         redirect('operation/pimpinan');
     }
