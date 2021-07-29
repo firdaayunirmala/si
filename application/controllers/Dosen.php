@@ -9,6 +9,7 @@ class Dosen extends CI_Controller
         is_logged_indsn();
         $this->load->model('Dosen_model');
         $this->load->model('Pesan_model');
+        $this->load->model('Admin_model');
     }
 
     public function index()

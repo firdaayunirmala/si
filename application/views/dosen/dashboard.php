@@ -5,20 +5,50 @@
         <h5>Data Mahasiswa Bimbingan</h5>
         <?php $nik = $_SESSION['nik']; ?>
 
-        <input type="hidden" id="nikDosen" value="<?php echo $nik ?>" ;>
+        <input type="hidden" id="nik" value="<?php echo $nik ?>" ;>
 
-        <body id="page-top">
+        <div class="table-responsive">
             <table class="table table-bordered table-hover" id="dataTable">
                 <thead class="thead-dark">
                     <tr>
+                        <td>No</td>
                         <td>NIM</td>
                         <td>Nama</td>
                         <td>Judul</td>
                         <td>Sinopsis</td>
+                        <td>Jurusan</td>
+                        <td>DosPem 1</td>
+                        <td>DosPem 2</td>
                         <td>Status</td>
                         <td>Opsi</td>
                     </tr>
                 </thead>
+
+                <?php
+              $query = "SELECT
+                d.id ,
+                d.id_user ,
+                m.nim ,
+                m.name ,
+                d.judul ,
+                d.sinopsis,
+                d.status,
+                d.kode_jurusan,
+                dd.id_dosen,
+                dd.id as id_detail
+            FROM
+                datata d
+            inner join datata_detail dd on
+                dd.id_datata = d.id
+            inner join mahasiswa m on
+                m.id = d.id_user
+            inner join jurusan j on
+                j.id = d.kode_jurusan
+            where
+                d.id = id_dosen";
+            $datata = $this->db->query($query)->result_array();
+
+              ?>
                 <tbody>
                     <?php $i = 1; ?>
                     <?php foreach ($datata as $d) : ?>
@@ -49,6 +79,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+        </div>
     </div>
     <!-- 
     <script type="text/javascript">
