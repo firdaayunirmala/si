@@ -18,9 +18,10 @@ class Pesan_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function get_pesan($target, $userid)
+    public function get_pesan($target, $userid, $jenis = 'mahasiswa')
     {
-        $sql = "SELECT
+        if ($jenis == 'mahasiswa') {
+            $sql = "SELECT
                     *
                 FROM
                     (
@@ -53,6 +54,41 @@ class Pesan_model extends CI_Model
                         and p.id_target = $userid) as pesan
                 order by
                     pesan.waktu ASC";
+        } else {
+            $sql = "SELECT
+                    *
+                FROM
+                    (
+                    SELECT
+                        p.pesan,
+                        d.name,
+                        p.waktu,
+                        p.type_pengirim,
+                        p.id_user
+                    from
+                        pesan p
+                    inner join dosen d on
+                        d.id = p.id_user
+                    where
+                        p.id_user = $userid
+                        and p.id_target = $target
+                UNION
+                    SELECT
+                        p.pesan,
+                        m.name,
+                        p.waktu,
+                        p.type_pengirim,
+                        p.id_user
+                    from
+                        pesan p
+                    inner join mahasiswa m on
+                        m.id = p.id_user
+                    where
+                        p.id_user = $target
+                        and p.id_target = $userid) as pesan
+                order by
+                    pesan.waktu ASC";
+        }
         $res = $this->db->query($sql);
         return $res->result_array();
     }

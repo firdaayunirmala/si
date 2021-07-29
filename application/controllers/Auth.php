@@ -120,7 +120,7 @@ class Auth extends CI_Controller
         $this->session->unset_userdata('nidn');
         $this->session->unset_userdata('nik');
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Keluar</div>');
+        $this->session->set_flashdata('message', '<div class=\'alert alert-success\' role=\'alert\'>Berhasil Keluar</div>');
         redirect('home');
     }
 

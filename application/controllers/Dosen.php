@@ -21,7 +21,7 @@ class Dosen extends CI_Controller
         $this->session->userdata('id')])->row_array();
 
         $datata = $this->Admin_model->getAllDatata();
-      
+
         $id = $i = 0;
         foreach ($datata as $key => $value) {
             if ($value->id != $id) {
@@ -167,7 +167,7 @@ class Dosen extends CI_Controller
             $userid = $this->input->get('user');
         }
         // echo "OYYYY = " . $id_target;
-        $tampil = $this->Pesan_model->get_pesan($id_target, $userid);
+        $tampil = $this->Pesan_model->get_pesan($id_target, $userid, 'dosen');
 
         $pesan = '';
         foreach ($tampil as $r) {
