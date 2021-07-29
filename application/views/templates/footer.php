@@ -134,8 +134,8 @@
             var table = $('#dataTable').dataTable({
 
               "aLengthMenu": [
-                [10, 25, 50, 100, 250, 500, -1],
-                [10, 25, 50, 100, 250, 500, 'All']
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, 'All']
               ],
               "oLanguage": {
                 "sInfo": 'Total _TOTAL_ Data ditampilkan (_START_ sampai _END_)',
@@ -169,7 +169,7 @@
             let fileName = $(this).val().split('\\').pop();
             $(this).next('.custom-file-label').addClass("selected").html(fileName);
           });
-          
+
           $('.roleakses').on('click', function() {
             const menuId = $(this).data('menu');
             const roleId = $(this).data('role');
@@ -291,7 +291,7 @@
             });
           });
         </script> -->
-        
+
         <a class="scroll-to-top rounded" href="#page-top">
           <i class="fas fa-angle-up"></i>
         </a>
