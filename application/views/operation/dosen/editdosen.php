@@ -50,7 +50,24 @@
                     <?= form_error('hp', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
-
+            <div class="form-group row">
+                <?php
+                $aktif = $dosen['is_active']; ?>
+                <label for="aktif" class="col-sm-3 col-form-label">Aktif</label>
+                <div class="form-check form-check-inline pl-3">
+                    <input type="radio" name="aktifdosen" <?php if ($aktif == '1') {
+                                                                echo 'checked';
+                                                            } ?> value="1">
+                    <label class="form-check-label" for="aktifdosen">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="aktifdosen" <?php if ($aktif == '0') {
+                                                                echo 'checked';
+                                                            } ?> value="0">
+                    <label class="form-check-label" for="aktifdosen">Tidak</label>
+                </div>
+            </div>
+            
             <div class="form-group row">
                 <div class="col-sm-3">Foto</div>
                 <div class="col-sm-9">

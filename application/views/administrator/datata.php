@@ -47,9 +47,11 @@
                     <td>
                       <?php $aktif = $d['status']; ?>
                       <?php if ($aktif == 1) : ?>
-                        <a class="badge badge-succes "> Di Terima</a>
+                        <a class="badge badge-succes "> Di Setujui</a>
+                      <?php elseif ($aktif == 0) : ?>
+                        <a class="badge badge-warning "> Belum Di Setujui</a>
                       <?php else : ?>
-                        <a class="badge badge-warning "> Di Tunggu</a>
+                        <a class="badge badge-danger "> Tidak Di Setujui</a>
                       <?php endif; ?>
                     </td>
                     <td>

@@ -225,22 +225,18 @@ class Operation extends CI_Controller
     {
         $status = $this->input->post('status');
         $id = $this->input->post('id');
-
         $data = [
-            'name' => $status
+            'is_active' => $status
         ];
-
         $this->db->set($data);
         $this->db->where('id', $id);
         $this->db->update('dosen');
-
         if ($status == 1) {
             $this->session->set_flashdata('message', 'Aktif!');
         } else {
             $this->session->set_flashdata('message', 'Tidak Aktif');
         }
     }
-
 
     public function tambahdosen()
     {

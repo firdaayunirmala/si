@@ -15,7 +15,6 @@
                         <td>NIM</td>
                         <td>Nama</td>
                         <td>Judul</td>
-                        <td>Sinopsis</td>
                         <td>Jurusan</td>
                         <td>Status</td>
                         <td>Opsi</td>
@@ -29,7 +28,6 @@
               m.nim ,
               m.name ,
               d.judul ,
-              d.sinopsis,
               d.status,
               j.nama_jurusan,
               dd.id_dosen,
@@ -54,7 +52,6 @@
                             <td><?= $d['nim']; ?></td>
                             <td><?= $d['name']; ?></td>
                             <td><?= $d['judul']; ?></td>
-                            <td><?= $d['sinopsis']; ?></td>
                             <td><?= $d['nama_jurusan']; ?></td>
                             <td>
                                 <?php $aktif = $d['status']; ?>
@@ -68,7 +65,7 @@
                             </td>
                             <td>
                             <div class="button ">
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('dosen/detaildata/') . $d['id']; ?>">detail</a>
+                            <a class="btn btn-primary btn-sm" href="<?= base_url('dosen/detaildata/') . $d['id']; ?>">Detail</a>
                             </div>
                             </td>
                         </tr>

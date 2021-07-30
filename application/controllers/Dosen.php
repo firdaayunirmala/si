@@ -30,7 +30,6 @@ class Dosen extends CI_Controller
                     'nim' => $value->nim,
                     'name' => $value->name,
                     'judul' => $value->judul,
-                    'sinopsis' => $value->sinopsis,
                     'status' => $value->sinopsis,
                     'nama_jurusan' => $value->nama_jurusan,
                     'pembimbing1' => $value->dosen,
@@ -69,7 +68,7 @@ class Dosen extends CI_Controller
 
     public function detaildata()
     {
-        $data['title'] = 'Bimbingan';
+        $data['title'] = 'Detail Bimbingan';
         $data['user'] = $this->db->get_where('dosen', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
@@ -182,6 +181,25 @@ class Dosen extends CI_Controller
             return $pesan;
         } else {
             echo $pesan;
+        }
+    }
+
+    public function dosenAccess()
+    {
+        $status = $this->input->post('status');
+        $id = $this->input->post('id');
+        $data = [
+            'status' => $status
+        ];
+        $this->db->set($data);
+        $this->db->where('id', $id);
+        $this->db->update('datata');
+        if ($status == 1) {
+            $this->session->set_flashdata('message', 'Disetujui');
+        } elseif ($status == 0) {
+            $this->session->set_flashdata('message', 'Belum Disetujui');
+        } else {
+            $this->session->set_flashdata('message', 'Tidak Disetujui');
         }
     }
 }

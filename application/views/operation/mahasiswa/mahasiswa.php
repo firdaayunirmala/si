@@ -71,7 +71,7 @@
                       if ($aktif == 1) { ?>
                         <span class="badge badge-success">Aktif</span>
                       <?php } else { ?>
-                        <span class="badge badge-danger">Non Aktif</span>
+                        <span class="badge badge-danger">Tidak Aktif</span>
                       <?php } ?>
                     </td>
                     <td class="text-center">

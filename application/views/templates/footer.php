@@ -229,14 +229,14 @@
         <script>
           $('.aktifdsn').on('click', function() {
             const status = $(this).data('status');
-            const nik = $(this).data('nik');
+            const id = $(this).data('id');
 
             $.ajax({
               url: "<?= base_url('operation/dosenaccess'); ?>",
               type: 'post',
               data: {
                 status: status,
-                nik: nik
+                id: id
               },
               success: function() {
                 document.location.href = "<?= base_url('operation/dosen'); ?>";
@@ -251,14 +251,14 @@
             const id = $(this).data('id');
 
             $.ajax({
-              url: "<?= base_url('dosen/statusAccess'); ?>",
+              url: "<?= base_url('dosen/dosenAccess'); ?>",
               type: 'post',
               data: {
                 status: status,
                 id: id
               },
               success: function() {
-                document.location.href = "<?= base_url('dosen/bimbingan'); ?>";
+                document.location.href = "<?= base_url('dosen'); ?>";
               }
             });
           });

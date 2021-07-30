@@ -41,17 +41,18 @@
                 <td><?= $dsn['email']; ?></td>
                 <td><?= $dsn['hp']; ?></td>
                 <td><?= $dsn['image']; ?></td>
-                <td>
-                  <?php $aktif = $dsn['is_active']; ?>
+                <td>         
+                  <?php $aktif = $dsn['is_active'];?>
                   <div class=" form-check">
-                    <input type="checkbox" class="form-check-input aktifdsn" <?= ($aktif == 1 ? 'checked data-status="0" ' : 'data-status="1"'); ?> data-nik="<?= $dsn['id']; ?>" />
-                    <?php if ($aktif == 1) {
-                      echo "Aktif";
-                    } else {
-                      echo "Pasif";
-                    } ?>
+                  <input type="checkbox" class="form-check-input aktifdsn" <?= ($aktif==1 ? 'checked data-status="0" ' : 'data-status="1"' );?> data-id="<?= $dsn['id']; ?>"   />    
+                  <?php if ($aktif == 1){
+                  echo "Aktif";
+                  }
+                  else{
+                  echo "Pasif";
+                  }?>
                   </div>
-                </td>
+                  </td>
 
                 <td>
                   <div class="dropdown ">
