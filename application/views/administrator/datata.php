@@ -23,6 +23,7 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">No</th>
+                  <th scope="col">Tanggal</th>
                   <th scope="col">Nim</th>
                   <th scope="col">Nama</th>
                   <th scope="col">Judul</th>
@@ -40,6 +41,7 @@
                 <?php foreach ($datata as $d) : ?>
                   <tr>
                     <th scope="row"><?= $i; ?></th>
+                    <td><?= $d['tanggal']; ?></td>
                     <td><?= $d['nim']; ?></td>
                     <td><?= $d['name']; ?></td>
                     <td><?= $d['judul']; ?></td>

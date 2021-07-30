@@ -65,6 +65,7 @@ class Administrator extends CI_Controller
             if ($value->id != $id) {
                 $data['datata'][$i] = [
                     'id' => $value->id,
+                    'tanggal' => $value->tanggal,
                     'nim' => $value->nim,
                     'name' => $value->name,
                     'judul' => $value->judul,
@@ -106,6 +107,7 @@ class Administrator extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $datata = [
+                'tanggal' => $this->input->post('tanggal', true),
                 'id_user' => $this->input->post('id_user', true),
                 'judul' => $this->input->post('judul', true),
                 'sinopsis' => $this->input->post('sinopsis', true),
@@ -150,6 +152,7 @@ class Administrator extends CI_Controller
                 $data['datata'] = [
                     'id' => $value->id,
                     'id_user' => $value->id_user,
+                    'tanggal' => $value->tanggal,
                     'nim' => $value->nim,
                     'name' => $value->name,
                     'judul' => $value->judul,

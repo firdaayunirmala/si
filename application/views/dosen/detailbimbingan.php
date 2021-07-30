@@ -62,7 +62,7 @@
                     name="aktifstatus" <?php if ($aktif == '0') {
                     } ?> value="1"> Belum Di Setujui
                     <a class="btn btn-danger btn-sm" for="aktif" 
-                    name="aktifstatus" <?php if ($aktif == '') {
+                    name="aktifstatus" <?php if ($aktif == '2') {
                     } ?> value="1"> Tidak Di Setujui
                     </td>
                 </tr>

@@ -12,6 +12,13 @@
           <?= form_open_multipart(); ?>
           <input type="hidden" name="id" value="<?= $datata['id']; ?>">
 
+          <div class="form-group row" style="margin-top: 20px;">
+                <label class="col-sm-3 col-form-label" for="tanggal">Tanggal</label>
+                <div class="col-sm-6">
+                  <input name="tanggal" id="tanggal" type="date" class="form-control" value="<?= $datata['tanggal']; ?>" readonly >
+                </div>
+            </div>
+
           <div class="form-group row">
             <label for="nim" class="col-sm-3 col-form-label">NIM</label>
             <div class="col-sm-9">

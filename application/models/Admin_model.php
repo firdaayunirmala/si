@@ -7,6 +7,7 @@ class Admin_model extends CI_Model
         return $this->db->query(
             "SELECT
                 d.id ,
+                d.tanggal,
                 m.nim ,
                 m.name ,
                 d.judul ,
@@ -38,6 +39,7 @@ class Admin_model extends CI_Model
             "SELECT
                 d.id ,
                 d.id_user ,
+                d.tanggal,
                 m.nim ,
                 m.name ,
                 d.judul ,
@@ -181,14 +183,12 @@ class Admin_model extends CI_Model
         $this->db->update('user');
     }
 
-
     public function hapusDataAdmin($id, $admin)
     {
         $old_image = $admin['image'];
         if ($old_image != 'default.jpg') {
             unlink(FCPATH . 'assets/img/profile/' . $old_image);
         }
-
         //$this->db->where('id', $id);
         $this->db->delete('user', ['id' => $id]);
     }

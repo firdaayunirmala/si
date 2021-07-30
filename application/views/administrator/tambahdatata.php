@@ -10,6 +10,17 @@
         <div class="card-body">
 
           <?= form_open_multipart('administrator/tambahdatata'); ?>
+          
+          <div class="form-group row" style="margin-top: 20px;">
+                <label class="col-sm-3 col-form-label" for="tanggal">Tanggal </label>
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input value="<?= set_value('tanggal'); ?>" name="tanggal" id="tanggal" type="date" class="form-control" placeholder="Periode Tanggal">
+                    </div>
+                    <?= form_error('tanggal', '<small class="text-danger">', '</small>'); ?>
+                </div>
+            </div>
+
           <div class="form-group row">
             <label for="nim" class="col-sm-3 col-form-label">NIM</label>
             <div class="col-sm-9">

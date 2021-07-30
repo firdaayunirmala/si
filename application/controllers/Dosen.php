@@ -196,7 +196,7 @@ class Dosen extends CI_Controller
         $this->db->update('datata');
         if ($status == 1) {
             $this->session->set_flashdata('message', 'Disetujui');
-        } elseif ($status == 0) {
+        } elseif ($status == 2) {
             $this->session->set_flashdata('message', 'Belum Disetujui');
         } else {
             $this->session->set_flashdata('message', 'Tidak Disetujui');
