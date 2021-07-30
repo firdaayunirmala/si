@@ -10,6 +10,7 @@
             <?php if ($this->session->flashdata('message')) : ?>
 
                 <div class="jurusan" data-juru="<?= $this->session->flashdata('message'); ?>"></div>
+                <?php unset($_SESSION['message']); ?>
             <?php endif; ?>
 
             <a href="" class="btn btn-success mb-3" data-toggle="modal" data-target="#newSubMenuModal">Tambah Jurusan</a>
@@ -68,7 +69,7 @@
                                         </div>
                                     </div>
 
-                                    <a href="<?= base_url() ?>operation/hapusjurusan/<?=  $j['id']; ?>" class="btn btn-danger btn-sm tombol-hapusjur" >Hapus</a>
+                                    <a href="<?= base_url() ?>operation/hapusjurusan/<?= $j['id']; ?>" class="btn btn-danger btn-sm tombol-hapusjur">Hapus</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

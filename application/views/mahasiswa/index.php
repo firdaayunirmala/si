@@ -6,7 +6,10 @@
 
     <div class="row">
         <div class="col-lg-8">
-            <?= $this->session->flashdata('message'); ?>
+            <?php if ($this->session->flashdata('message')) : ?>
+                <?= $this->session->flashdata('message'); ?>
+                <?php unset($_SESSION['message']); ?>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -28,13 +31,13 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">Nim Mahasiswa     =<?= $datamhs['nim']; ?></h5>
-                    <p class="card-text">Nama Lengkap Mahasiswa     =<?= $datamhs['name']; ?></p>
-                    <p class="card-text">Semester   = <?= $datamhs['semester']; ?></p>
-                    <p class="card-text">Total Sks  =<?= $datamhs['totalsks']; ?> sks</p>
-                    <p class="card-text">Jurusan    =<?= $datamhs['nama_jurusan']; ?></p>
-                    <p class="card-text">Email      = <?= $datamhs['email']; ?></p>
-                    <p class="card-text">Whatsapp   = <?= $datamhs['hp']; ?></p>
+                    <h5 class="card-title">Nim Mahasiswa =<?= $datamhs['nim']; ?></h5>
+                    <p class="card-text">Nama Lengkap Mahasiswa =<?= $datamhs['name']; ?></p>
+                    <p class="card-text">Semester = <?= $datamhs['semester']; ?></p>
+                    <p class="card-text">Total Sks =<?= $datamhs['totalsks']; ?> sks</p>
+                    <p class="card-text">Jurusan =<?= $datamhs['nama_jurusan']; ?></p>
+                    <p class="card-text">Email = <?= $datamhs['email']; ?></p>
+                    <p class="card-text">Whatsapp = <?= $datamhs['hp']; ?></p>
                 </div>
             </div>
         </div>

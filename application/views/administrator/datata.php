@@ -3,7 +3,10 @@
 
   <!-- Page Heading -->
   <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-  <?= $this->session->flashdata('message'); ?>
+  <?php if ($this->session->flashdata('message')) : ?>
+    <?= $this->session->flashdata('message'); ?>
+    <?php unset($_SESSION['message']); ?>
+  <?php endif; ?>
 
   <div class="row">
     <div class="col-lg">
@@ -53,7 +56,7 @@
                       <?php endif; ?>
                     </td>
                     <td>
-                      
+
                     </td>
                     <td>
                       <div class="dropdown ">

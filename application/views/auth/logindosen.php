@@ -15,7 +15,10 @@
                                     <h1 class="h4 text-gray-900 mb-5">Login Dosen Pembimbing</h1>
                                 </div>
 
-                                <?= $this->session->flashdata('message'); ?>
+                                <?php if ($this->session->flashdata('message')) : ?>
+                                    <?= $this->session->flashdata('message'); ?>
+                                    <?php unset($_SESSION['message']); ?>
+                                <?php endif; ?>
 
                                 <form class="user" method="post" action="<?= base_url('auth/dosen'); ?>">
                                     <div class="form-group">
@@ -35,7 +38,7 @@
                                         Logout
                                     </a>
                                 </form>
-                                
+
                             </div>
                         </div>
                     </div>
