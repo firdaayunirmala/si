@@ -15,7 +15,10 @@
                                     <h1 class="h4 text-gray-900 mb-5">Login Mahasiswa</h1>
                                 </div>
 
-                                <?= $this->session->flashdata('message'); ?>
+                                <?php if ($this->session->flashdata('message')) : ?>
+                                    <?= $this->session->flashdata('message'); ?>
+                                    <?php unset($_SESSION['message']); ?>
+                                <?php endif; ?>
 
                                 <form class="user" method="post" action="<?= base_url('auth/mahasiswa'); ?>">
                                     <div class="form-group">
@@ -27,7 +30,7 @@
                                         <input type="checkbox" onclick="myFunction()"> Lihat Password
                                         <br><?= form_error('password', ' <small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
-                                  
+
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Login
                                     </button>

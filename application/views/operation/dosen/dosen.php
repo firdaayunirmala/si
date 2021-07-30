@@ -13,6 +13,7 @@
 
       <?php if ($this->session->flashdata('message')) : ?>
         <div class="flashdatadosen" data-flashdatadosen='<?= $this->session->flashdata('message'); ?>'></div>
+        <?php unset($_SESSION['message']); ?>
       <?php endif; ?>
 
       <a href="<?= base_url('operation/tambahdosen'); ?>" class="btn btn-success mb-3">Tambah Dosen Pembimbing</a>

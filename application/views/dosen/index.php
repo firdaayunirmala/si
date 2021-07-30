@@ -6,7 +6,10 @@
 
     <div class="row">
         <div class="col-lg-8">
-            <?= $this->session->flashdata('message'); ?>
+            <?php if ($this->session->flashdata('message')) : ?>
+                <?= $this->session->flashdata('message'); ?>
+                <?php unset($_SESSION['message']); ?>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -19,12 +22,12 @@
                 <div class="card-body">
                     <h5 class="card-title"><?= $user['nik']; ?></h5>
                     <p class="card-text"><?= $user['name']; ?></p>
-                   <p class="card-text"><?= $user['email']; ?></p>
-                   <p class="card-text"><?= $user['hp']; ?></p>
-               </div>
-           </div>
-       </div>
-   </div>
+                    <p class="card-text"><?= $user['email']; ?></p>
+                    <p class="card-text"><?= $user['hp']; ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 <!-- /.container-fluid -->

@@ -12,7 +12,10 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Lupa Password</h1>
                                 </div>
-                                <?= $this->session->flashdata('message'); ?>
+                                <?php if ($this->session->flashdata('message')) : ?>
+                                    <?= $this->session->flashdata('message'); ?>
+                                    <?php unset($_SESSION['message']); ?>
+                                <?php endif; ?>
                                 <form class="user" method="post" action="<?= base_url('auth/forgotpassword'); ?>">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Masukan alamat email" value="<?= set_value('email'); ?>">

@@ -9,6 +9,7 @@
             <?php if ($this->session->flashdata('message')) : ?>
 
                 <div class="flashdatakomen" data-flashdatakomen="<?= $this->session->flashdata('message'); ?>"></div>
+                <?php unset($_SESSION['message']); ?>
             <?php endif; ?>
 
             <?= form_open_multipart('user/komentar'); ?>

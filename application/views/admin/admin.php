@@ -16,6 +16,7 @@
             <?php if ($this->session->flashdata('message')) : ?>
 
                 <div class="flashdataadmin" data-flashdataadmin="<?= $this->session->flashdata('message'); ?>"></div>
+                <?php unset($_SESSION['message']); ?>
             <?php endif; ?>
 
             <a href="<?= base_url('admin/tambahadmin'); ?>" class="btn btn-success mb-3">Tambah admin</a>

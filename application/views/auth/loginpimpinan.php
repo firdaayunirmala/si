@@ -12,7 +12,10 @@
                                     <div class="text-center">
                                         <h2 class="h4 text-gray-900 mb-4">Login Pimpinan</h2>
                                     </div>
-                                    <?= $this->session->flashdata('message'); ?>
+                                    <?php if ($this->session->flashdata('message')) : ?>
+                                        <?= $this->session->flashdata('message'); ?>
+                                        <?php unset($_SESSION['message']); ?>
+                                    <?php endif; ?>
 
                                     <form class="user" method="post" action="<?= base_url('auth/pimpinan'); ?>">
 

@@ -11,7 +11,10 @@
             <?= form_error('role', '<div class="alert
                     alert-danger" role="alert">', '</div>'); ?>
 
-            <?= $this->session->flashdata('message'); ?>
+            <?php if ($this->session->flashdata('message')) : ?>
+                <?= $this->session->flashdata('message'); ?>
+                <?php unset($_SESSION['message']); ?>
+            <?php endif; ?>
 
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newRoleModal">Tambah Data Role</a>
             <div class="table-responsive">

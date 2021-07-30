@@ -6,7 +6,10 @@
 
     <div class="row">
         <div class="col-lg-8">
-            <?= $this->session->flashdata('message'); ?>
+            <?php if ($this->session->flashdata('message')) : ?>
+                <?= $this->session->flashdata('message'); ?>
+                <?php unset($_SESSION['message']); ?>
+            <?php endif; ?>
         </div>
     </div>
     <?php

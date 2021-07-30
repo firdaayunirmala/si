@@ -7,7 +7,10 @@
     <div class="row">
         <div class="col-lg-8">
 
-            <?= $this->session->flashdata('message'); ?>
+            <?php if ($this->session->flashdata('message')) : ?>
+                <?= $this->session->flashdata('message'); ?>
+                <?php unset($_SESSION['message']); ?>
+            <?php endif; ?>
 
             <h5>Role : <?= $role['role']; ?></h5>
             <div class="table-responsive">
@@ -39,7 +42,7 @@
             </div>
         </div>
     </div>
-    
+
     <a href="<?= base_url(); ?>admin/role" class="btn btn-primary mb-3">
         Kembali
     </a>
