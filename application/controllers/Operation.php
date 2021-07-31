@@ -90,7 +90,6 @@ class Operation extends CI_Controller
         }
     }
 
-
     public function hapusjurusan($id)
     {
         $this->Jurusan_model->hapusDataJurusan($id);
@@ -371,10 +370,8 @@ class Operation extends CI_Controller
         }
     }
 
-
     public function tambahpimpinan()
     {
-
         $data['title'] = 'Pimpinan';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
@@ -388,12 +385,9 @@ class Operation extends CI_Controller
             'min_length' => 'password too short!'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
-
-
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[pimpinan.email]', [
             'is_unique' => 'This email has already registered!'
         ]);
-
         $this->form_validation->set_rules('hp', 'Hp', 'required|trim');
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
@@ -421,7 +415,6 @@ class Operation extends CI_Controller
         $this->session->userdata('id')])->row_array();
 
         $data['pimpinan'] = $this->Pimpinan_model->getPimpinanById($id);
-
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

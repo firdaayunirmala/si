@@ -53,17 +53,18 @@
                             <td><?= $d['name']; ?></td>
                             <td><?= $d['judul']; ?></td>
                             <td><?= $d['nama_jurusan']; ?></td>
+                            <td class="text-center">
+                            <?php $aktif = $d['status'];
+                            if ($aktif == 1) { ?>
+                            <span class="badge badge-primary">Belum diproses</span>
+                            <?php } elseif ($aktif == 2) { ?>
+                            <span class="badge badge-success">Di Setujui</span>
+                            <?php } else {?> 
+                                <span class="badge badge-danger">Tidak Di Setujui</span> 
+                            <?php } ?>
+                             </td>      
                             <td>
-                                <?php $aktif = $d['status']; ?>
-                                <?php if ($aktif == 1) : ?>
-                                    <a class="badge badge-succes "> Di Setujui</a>
-                                <?php elseif ($aktif == 0) : ?>
-                                    <a class="badge badge-warning "> Belum di setujui</a>
-                                <?php else : ?>
-                                    <a class="badge badge-danger "> Tidak di setujui</a>
-                                <?php endif; ?>
-                            </td>
-                            <td>
+                                
                             <div class="button ">
                             <a class="btn btn-primary btn-sm" href="<?= base_url('dosen/detaildata/') . $d['id']; ?>">Detail</a>
                             </div>

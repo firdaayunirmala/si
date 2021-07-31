@@ -209,6 +209,51 @@ class Administrator extends CI_Controller
         redirect('administrator/datata');
     }
 
+    public function detaildata($id)
+    {
+        $data['title'] = 'Detail Data Tugas Akhir';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['mahasiswa'] = $this->Admin_model->get_mahasiswa();
+        $data['jurusan'] = $this->db->get('jurusan')->result_array();
+        $data['dosen'] = $this->db->get('dosen')->result_array();
+
+        // $data['datata'] = $this->Admin_model->getDatataById($id);
+        $datata = $this->Admin_model->getDatataById($id);
+
+        $id = 0;
+        foreach ($datata as $key => $value) {
+            if ($value->id != $id) {
+                $data['datata'] = [
+                    'id' => $value->id,
+                    'id_user' => $value->id_user,
+                    'tanggal' => $value->tanggal,
+                    'nim' => $value->nim,
+                    'name' => $value->name,
+                    'judul' => $value->judul,
+                    'sinopsis' => $value->sinopsis,
+                    'status' => $value->status,
+                    'kode_jurusan' => $value->kode_jurusan,
+                    'id_dosen1' => $value->id_dosen,
+                    'id_detail1' => $value->id_detail,
+                ];
+                $id = $value->id;
+            } else {
+                $data['datata']['id_dosen2'] = $value->id_dosen;
+                $data['datata']['id_detail2'] = $value->id_detail;
+            }
+        }
+       
+            // ambil dahulu nilai inputnya pakai $this->input->get('name inputnya') jika pakai method get
+            // ambil dahulu nilai inputnya pakai $this->input->post('name inputnya') jika pakai method post
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('administrator/detaildata', $data);
+            $this->load->view('templates/footer');
+        
+    }
+    
     public function countdown()
     {
         $data['title'] = 'Countdown Timer';

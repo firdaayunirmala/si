@@ -210,14 +210,14 @@
         <script>
           $('.aktifpimp').on('click', function() {
             const status = $(this).data('status');
-            const nidn = $(this).data('nidn');
+            const id = $(this).data('id');
 
             $.ajax({
               url: "<?= base_url('operation/pimpinanaccess'); ?>",
               type: 'post',
               data: {
                 status: status,
-                nidn: nidn
+                id: id
               },
               success: function() {
                 document.location.href = "<?= base_url('operation/pimpinan'); ?>";
