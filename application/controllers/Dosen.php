@@ -21,7 +21,7 @@ class Dosen extends CI_Controller
         $this->session->userdata('id')])->row_array();
 
         $datata = $this->Admin_model->getAllDatata();
-
+        
         $id = $i = 0;
         foreach ($datata as $key => $value) {
             if ($value->id != $id) {
@@ -66,15 +66,40 @@ class Dosen extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function detaildata()
+    public function detaildata($id)
     {
         $data['title'] = 'Detail Bimbingan';
         $data['user'] = $this->db->get_where('dosen', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['mahasiswa'] = $this->Admin_model->get_mahasiswa();
+        $data['jurusan'] = $this->db->get('jurusan')->result_array();
+        $data['dosen'] = $this->db->get('dosen')->result_array();
 
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
-        $data['bimbingan'] = $this->Dosen_model->getAllBimbingan();
+        // $data['datata'] = $this->Admin_model->getDatataById($id);
+        $datata = $this->Admin_model->getDatataById($id);
+
+        $id = 0;
+        foreach ($datata as $key => $value) {
+            if ($value->id != $id) {
+                $data['datata'] = [
+                    'id' => $value->id,
+                    'id_user' => $value->id_user,
+                    'tanggal' => $value->tanggal,
+                    'nim' => $value->nim,
+                    'name' => $value->name,
+                    'judul' => $value->judul,
+                    'sinopsis' => $value->sinopsis,
+                    'status' => $value->status,
+                    'kode_jurusan' => $value->kode_jurusan,
+                    'id_dosen1' => $value->id_dosen,
+                    'id_detail1' => $value->id_detail,
+                ];
+                $id = $value->id;
+            } else {
+                $data['datata']['id_dosen2'] = $value->id_dosen;
+                $data['datata']['id_detail2'] = $value->id_detail;
+            }
+        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -202,4 +227,5 @@ class Dosen extends CI_Controller
             $this->session->set_flashdata('message', 'Tidak Disetujui');
         }
     }
+
 }

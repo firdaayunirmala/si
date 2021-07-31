@@ -1,17 +1,13 @@
-<!-- Begin Page Content -->
 <div class="container-fluid">
-  <!-- Page Heading -->
-  <h1 class="h3 mb-4 text-gray-800">Form Edit Data Tugas Akhir</h1>
-
-  <div class="row">
-    <div class="col-lg-8">
-      <div class="card shadow">
-        <div class="card-body">
-
-          <?= form_open_multipart(); ?>
-          <input type="hidden" name="id" value="<?= $datata['id']; ?>">
-
-          <div class="form-group row" style="margin-top: 20px;">
+<h1 class="h3 mb-2 text-gray-800"><?= $title; ?></h1>
+    <div class="row">
+        <div class="col-lg-8">
+            <?php if ($this->session->flashdata('message')) : ?>
+                <?= $this->session->flashdata('message'); ?>
+                <?php unset($_SESSION['message']); ?>
+            <?php endif; ?>
+            <?= form_open_multipart(); ?>
+            <div class="form-group row" style="margin-top: 20px;">
                 <label class="col-sm-3 col-form-label" for="tanggal">Tanggal</label>
                 <div class="col-sm-6">
                   <input name="tanggal" id="tanggal" type="date" class="form-control" value="<?= $datata['tanggal']; ?>" readonly >
@@ -30,7 +26,6 @@
             <div class="col-sm-9">
               <input type="text" class="form-control" id="nama" name="nama" value="<?= $datata['name']; ?>" readonly>
               <input type="hidden" id="id_user" name="id_user" value="<?= $datata['id_user']; ?>">
-              <?= form_error('nama', ' <small class="text-danger pl-3">', '</small>'); ?>
             </div>
           </div>
 
@@ -53,7 +48,6 @@
             <label for="judul" class="col-sm-3 col-form-label">Judul Skripsi</label>
             <div class="col-sm-9">
               <textarea class="form-control" id="judul" name="judul"><?= $datata['judul']; ?></textarea>
-              <?= form_error('judul', ' <small class="text-danger pl-3">', '</small>'); ?>
             </div>
           </div>
 
@@ -98,26 +92,21 @@
             </div>
           </div>
 
-          <div class="form-group row justify-content-end">
-            <div class="col-sm-9">
-              <small class="text-danger"> Perhatikan data yang di isi sudah benar ! </small>
-              <br>
-              <button type="submit" name="update" value="update" class="btn btn-primary">Perbarui</button>
+            <div class="form-group row">
+                <label for="date" class="col-sm-3 col-form-label">Batas Waktu</label>
+                <div class="col-sm-9">
+                    <input type="date" id="date" class="form-control" name="date">
+                    <?= form_error('date', ' <small class="text-danger pl-3">', '</small>'); ?>
+                </div>
 
-              <a href="<?= base_url('administrator/datata'); ?>" class="btn btn-danger">Kembali</a>
             </div>
-          </div>
-
-          </form>
+          
+            <div class="form-group row justify-content-end">
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <!-- <a href="<?= base_url('operation/mahasiswa'); ?>" class="btn btn-danger">Kembali</a> -->
+                </div>
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         </div>
-      </div>
-
     </div>
-
-  </div>
-
-</div>
-<!-- /.container-fluid -->
-
-</div>
-<!-- End of Main Content -->

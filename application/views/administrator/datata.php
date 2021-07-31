@@ -148,7 +148,6 @@
                   <th scope="col">Pembimbing 1</th>
                   <th scope="col">Pembimbing 2</th>
                   <th scope="col">Status</th>
-                  <th scope="col">Batasan Waktu</th>
                   <th scope="col">Opsi</th>
                 </tr>
               </thead>
@@ -176,16 +175,13 @@
                       <?php endif; ?>
                     </td>
                     <td>
-
-                    </td>
-                    <td>
                       <div class="dropdown ">
                         <button class="btn btn-primary btn-sm dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           opsi
                         </button>
                         <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
                           <a class="btn btn-warning btn-sm" href="<?= base_url('administrator/editdatata/') . $d['id']; ?>">edit</a>
-                          <a class="btn btn-success btn-sm" href="<?= base_url('administrator/detaildatata/') . $d['id']; ?>">detail</a>
+                          <a class="btn btn-success btn-sm" href="<?= base_url('administrator/detaildata/') . $d['id']; ?>">detail</a>
                           <a class="btn btn-danger btn-sm hapusskripsi" href="javascript:void();" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url('administrator/hapusdatata/') . $d['id']; ?>' : null">hapus</a>
                         </div>
                       </div>
