@@ -16,33 +16,10 @@ class Datata extends CI_Controller
         $data['title'] = 'Data Tugas Akhir';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
-        $datata = $this->Datata_model->getAllDatata();
         $data['mahasiswa'] = $this->Datata_model->get_mahasiswa();
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
         $data['dosen'] = $this->db->get('dosen')->result_array();
 
-        $id = $i = 0;
-        foreach ($datata as $key => $value) {
-            if ($value->id != $id) {
-                $data['datata'][$i] = [
-                    'id' => $value->id,
-                    'tanggal' => $value->tanggal,
-                    'nim' => $value->nim,
-                    'name' => $value->name,
-                    'judul' => $value->judul,
-                    'sinopsis' => $value->sinopsis,
-                    'status' => $value->sinopsis,
-                    'nama_jurusan' => $value->nama_jurusan,
-                    'pembimbing1' => $value->dosen,
-                ];
-                $id = $value->id;
-            } else {
-                $data['datata'][$i]['pembimbing2'] = $value->dosen;
-                $i++;
-            }
-        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -63,26 +40,36 @@ class Datata extends CI_Controller
             ];
         } else {
             $datata = [
-                'tanggal' => $this->input->post('tanggal', true),
+                'tanggal' => !empty($this->input->post('tanggal', true)) ? $this->input->post('tanggal', true) : date("Y-m-d"),
                 'id_user' => $this->input->post('id_user', true),
                 'judul' => $this->input->post('judul', true),
                 'sinopsis' => $this->input->post('sinopsis', true),
                 'status' => $this->input->post('status', true),
                 'kode_jurusan' => $this->input->post('jurusan', true),
+                'status' => 0,
+                'created_by' => $this->session->userdata('id'),
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_by' => $this->session->userdata('id'),
+                'updated_at' => date("Y-m-d H:i:s"),
             ];
             $last_id = $this->Datata_model->tambahDataTa($datata);
-            $datata_detail = [
-                [
-                    'id_datata' => $last_id,
-                    'id_dosen' => $this->input->post('pembimbing1', true),
-                    'pembimbing_ke' => 1
-                ], [
-                    'id_datata' => $last_id,
-                    'id_dosen' => $this->input->post('pembimbing2', true),
-                    'pembimbing_ke' => 2
-                ]
-            ];
-            $this->Datata_model->tambahDataTaBanyak($datata_detail);
+            if ($last_id > 0) {
+                $datata_detail = [
+                    [
+                        'id_datata' => $last_id,
+                        'id_dosen' => $this->input->post('pembimbing1', true),
+                        'pembimbing_ke' => 1,
+                        'status' => 0,
+                    ], [
+                        'id_datata' => $last_id,
+                        'id_dosen' => $this->input->post('pembimbing2', true),
+                        'status' => 0,
+                        'pembimbing_ke' => 2
+                    ]
+                ];
+                $this->Datata_model->tambahDataTaBanyak($datata_detail);
+            }
+
             if ($last_id > 0) {
                 $res = [
                     'status' => 201,
@@ -152,8 +139,59 @@ class Datata extends CI_Controller
 
     public function hapusdatata($id)
     {
-        $this->Datata_model->hapusTa($id);
-        $this->session->set_flashdata('message', 'Berhasil Dihapus!');
-        redirect('administrator/datata');
+        $res = $this->Datata_model->hapusTa($id);
+        echo $res;
+    }
+
+
+    public function get_data()
+    {
+        $datata = $this->Datata_model->getAllDatata();
+        $id = $i = 0;
+        foreach ($datata as $key => $value) {
+
+            if ($value->status_dosen == 1) {
+                $status_dosen = "<span class='badge badge-success'>Disetuju</span>";
+            } elseif ($value->status_dosen == 2) {
+                $status_dosen = "<span class='badge badge-danger'>Ditolak</span>";
+            } else {
+                $status_dosen = "<span class='badge badge-warning'>Proses</span>";
+            }
+
+            if ($value->status == 1) {
+                $status = "<span class='badge badge-success'>Disetuju</span>";
+            } elseif ($value->status == 2) {
+                $status = "<span class='badge badge-danger'>Ditolak</span>";
+            } else {
+                $status = "<span class='badge badge-warning'>Proses</span>";
+            }
+
+            if ($value->id != $id) {
+                $data[$i] = [
+                    $i + 1,
+                    "$value->name<br>($value->nim)",
+                    $value->judul,
+                    $value->nama_jurusan,
+                    "$value->dosen<br>$status_dosen",
+                ];
+                $id = $value->id;
+            } else {
+                $aksi = "<a class='btn btn-sm btn-info' href='javascript:void(0);' title='detail' onclick='preview($id)'>
+                        <i class='fa fa-eye'></i>
+                    </a>
+                    <a class='btn btn-sm btn-warning' href='javascript:void(0);' title='edit' onclick='set_val($id)'>
+                        <i class='fa fa-pencil-alt'></i>
+                    </a>
+                    <a class='btn btn-sm btn-danger' href='javascript:void(0);' title='hapus' onclick='set_del($id)'>
+                        <i class='fa fa-trash'></i>
+                    </a>";
+                $data[$i][] = "$value->dosen<br>$status_dosen";
+                $data[$i][] = $status;
+                $data[$i][] = $aksi;
+                $i++;
+            }
+        }
+
+        echo json_encode($data);
     }
 }

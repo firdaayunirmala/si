@@ -13,6 +13,7 @@ class Datata_model extends CI_Model
                 d.judul ,
                 d.sinopsis,
                 d.status,
+                dd.status as status_dosen,
                 j.nama_jurusan ,
                 d2.name dosen
             FROM
@@ -36,11 +37,22 @@ class Datata_model extends CI_Model
     // get mahasiswa
     public function get_mahasiswa()
     {
-        $this->db->select('id, nim, name');
-        $this->db->from('mahasiswa');
-        $this->db->where('is_active', 1);
-        $this->db->order_by('name', 'ASC');
-        $res = $this->db->get()->result();
+        $sql = "SELECT
+                    m.id ,
+                    m.name ,
+                    m.nim
+                FROM
+                    mahasiswa m
+                where
+                    m.is_active = 1
+                    and m.id not in (
+                    SELECT
+                        d.id_user
+                    FROM
+                        datata d)
+                order by
+                    m.name";
+        $res = $this->db->query($sql)->result();
         return $res;
     }
 
@@ -109,5 +121,10 @@ class Datata_model extends CI_Model
     {
         //$this->db->where('id', $id);
         $this->db->delete('datata', ['id' => $id]);
+        if ($this->db->affected_rows()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

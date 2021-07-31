@@ -28,9 +28,8 @@
             <label class="col-sm-3 col-form-label" for="tanggal">Tanggal </label>
             <div class="col-sm-6">
               <div class="input-group">
-                <input value="<?= set_value('tanggal'); ?>" name="tanggal" id="tanggal" type="date" class="form-control" placeholder="Periode Tanggal">
+                <input name="tanggal" id="tanggal" type="date" class="form-control" placeholder="Periode Tanggal">
               </div>
-              <?= form_error('tanggal', '<small class="text-danger">', '</small>'); ?>
             </div>
           </div>
 
@@ -64,8 +63,7 @@
             <label for="sinopsis" class="col-sm-3 col-form-label">Sinopsis</label>
             <div class="col-sm-6">
               <div class="custom-file">
-                <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input" required>
-                <?= form_error('filename', ' <small class="text-danger pl-3">', '</small>'); ?>
+                <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input">
                 <label class="custom-file-label" for="customFile">Choose File</label>
               </div>
             </div>
@@ -84,6 +82,54 @@
           </div>
 
           <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Dosen Pembimbing</label>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-9">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <td class="text-center">No</td>
+                    <td class="text-center">Nama Dosen Pembimbing</td>
+                    <td class="text-center aksi" style="display: none;">Aksi</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-center">1</td>
+                    <td>
+                      <div class="form-group">
+                        <select name="pembimbing1" id="pembimbing1" class="form-control">
+                          <option value="0">Pilih Dosen Pembimbing 1</option>
+                          <?php foreach ($dosen as $pembimbing1) : ?>
+                            <option value="<?= $pembimbing1['id'] ?>"><?= $pembimbing1['name'] ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                      </div>
+                    </td>
+                    <td class="text-center aksi" style="display: none;"></td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">2</td>
+                    <td>
+                      <div class="form-group">
+                        <select name="pembimbing2" id="pembimbing2" class="form-control">
+                          <option value="0">Pilih Dosen Pembimbing 2</option>
+                          <?php foreach ($dosen as $pembimbing2) : ?>
+                            <option value="<?= $pembimbing2['id'] ?>"><?= $pembimbing2['name'] ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                      </div>
+                    </td>
+                    <td class="text-center aksi" style="display: none;"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- <div class="form-group row">
             <label for="dosen" class="col-sm-3 col-form-label">Pembimbing 1</label>
             <div class="col-sm-6">
               <select name="pembimbing1" id="pembimbing1" class="form-control">
@@ -105,7 +151,7 @@
                 <?php endforeach; ?>
               </select>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group row justify-content-end">
             <div class="col-sm-9">
@@ -135,60 +181,20 @@
 
           <button type="button" class="btn btn-success mb-3" id="tambahData">Tambah data tugas akhir</button>
           <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="dataTable">
+            <table class="table table-bordered table-hover table-sm" id="table-container">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">No</th>
-                  <th scope="col">Tanggal</th>
-                  <th scope="col">Nim</th>
-                  <th scope="col">Nama</th>
-                  <th scope="col">Judul</th>
-                  <th scope="col">Sinopsis</th>
-                  <th scope="col">Jurusan</th>
-                  <th scope="col">Pembimbing 1</th>
-                  <th scope="col">Pembimbing 2</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Opsi</th>
+                  <th class="text-center" width="5%" scope="col">No</th>
+                  <th class="text-center" width="15%" scope="col">Nama</th>
+                  <th class="text-center" width="20%" scope="col">Judul</th>
+                  <th class="text-center" width="10%" scope="col">Jurusan</th>
+                  <th class="text-center" width="13%" scope="col">DosPem 1</th>
+                  <th class="text-center" width="13%" scope="col">DosPem 2</th>
+                  <th class="text-center" width="5%" scope="col">Status</th>
+                  <th class="text-center" width="14%" scope="col">Opsi</th>
                 </tr>
               </thead>
               <tbody>
-                <?php $i = 1; ?>
-                <?php foreach ($datata as $d) : ?>
-                  <tr>
-                    <th scope="row"><?= $i; ?></th>
-                    <td><?= $d['tanggal']; ?></td>
-                    <td><?= $d['nim']; ?></td>
-                    <td><?= $d['name']; ?></td>
-                    <td><?= $d['judul']; ?></td>
-                    <td><?= $d['sinopsis']; ?></td>
-                    <td><?= $d['nama_jurusan']; ?></td>
-                    <td><?= $d['pembimbing1']; ?></td>
-                    <td><?= $d['pembimbing2']; ?></td>
-                    <td>
-                      <?php $aktif = $d['status']; ?>
-                      <?php if ($aktif == 1) : ?>
-                        <span class="badge badge-succes "> Setuju</span>
-                      <?php elseif ($aktif == 0) : ?>
-                        <span class="badge badge-warning "> Proses</span>
-                      <?php else : ?>
-                        <span class="badge badge-danger "> Tolak</span>
-                      <?php endif; ?>
-                    </td>
-                    <td>
-                      <div class="dropdown ">
-                        <button class="btn btn-primary btn-sm dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          opsi
-                        </button>
-                        <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                          <a class="btn btn-warning btn-sm" href="<?= base_url('administrator/editdatata/') . $d['id']; ?>">edit</a>
-                          <a class="btn btn-success btn-sm" href="<?= base_url('administrator/detaildata/') . $d['id']; ?>">detail</a>
-                          <a class="btn btn-danger btn-sm hapusskripsi" href="javascript:void();" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url('administrator/hapusdatata/') . $d['id']; ?>' : null">hapus</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <?php $i++; ?>
-                <?php endforeach; ?>
               </tbody>
             </table>
           </div>
@@ -203,7 +209,8 @@
 <script>
   $("#tambahData").on('click', function() {
     resetForm()
-    $("#id_user").trigger('change')
+    // $("#id_user").trigger('change')
+    $('#nim').val($("#id_user").select2().find(":selected").data("nim"))
     $("#formData").slideDown(500)
     $("#listData").slideUp(500)
     $("#id_user").select2({
@@ -215,6 +222,7 @@
     resetForm()
     $("#listData").slideDown(500)
     $("#formData").slideUp(500)
+    loadTbl()
   })
 
 
@@ -224,12 +232,109 @@
     $('#nim').val($("#id_user").select2().find(":selected").data("nim"))
   })
 
-  function resetForm() {
 
+  // fungsi reset form
+  function resetForm() {
+    $("#formData").find("form")[0].reset()
+    $("#aksi").val("add")
+    $("#id").val("")
+  }
+
+
+  // fungsi muat ulang table-container
+  function loadTbl() {
+    $.ajax({
+      url: "<?= base_url() ?>datata/get_data",
+      dataType: "json",
+      success: function(res) {
+        const datatable = $("#table-container").DataTable()
+        datatable.clear().draw();
+        datatable.rows.add(res); // Add new data
+        datatable.columns.adjust().draw(); // Redraw the table-container
+      }
+    })
+  }
+
+
+  function set_del(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          url: '<?= base_url() ?>datata/hapusdatata/' + id,
+          success: function(res) {
+            if (res) {
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+              loadTbl()
+            }
+          }
+        })
+      }
+    })
   }
 
 
   $(document).ready(function() {
+
+    var table = $('#table-container').dataTable({
+      "aLengthMenu": [
+        [10, 25, 50, -1],
+        [10, 25, 50, 'All']
+      ],
+      columnDefs: [{
+        sClass: "text-center",
+        targets: [0, -2, -1]
+      }, {
+        width: "5%",
+        targets: [0, -2]
+      }, {
+        width: "13%",
+        targets: [-3, -4]
+      }, {
+        width: "15%",
+        targets: 1
+      }, {
+        width: "20%",
+        targets: 2
+      }, {
+        width: "10%",
+        targets: 3
+      }, {
+        width: "14%",
+        targets: -1
+      }],
+      "oLanguage": {
+        "sInfo": 'Total _TOTAL_ Data ditampilkan (_START_ sampai _END_)',
+        "sLengthMenu": 'Tampilkan _MENU_ Data',
+        "sInfoEmpty": 'Tidak ada Data.',
+        "sSearch": 'Pencarian:',
+        "sEmptyTable": 'Tidak ada Data di dalam Database',
+        "sZeroRecords": 'Tidak ada data yang cocok',
+        "sInfoFiltered": '(tersaring dari _MAX_ total data yang masuk)',
+        "oPaginate": {
+          "sNext": 'Selanjutnya',
+          "sLast": 'Terakhir',
+          "sFirst": 'Pertama',
+          "sPrevious": 'Sebelumnya'
+        }
+      },
+
+      "initComplete": function() {
+        $("#table-container").show();
+      },
+    });
+    loadTbl()
     $("#saveData").click(function() {
       let error = 0;
       let pesanError = "";
@@ -264,20 +369,29 @@
       }
 
 
+      if ($("#tanggal").val() == "") {
+        pesanError += "Isi dahulu tanggal pengisian data<br>"
+        error++;
+        elementError.push('#tanggal')
+      }
+
+
       if (error > 0) {
         Swal.fire({
           type: 'error',
           title: 'Oops...',
           html: pesanError,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Ok!'
+        }).then((result) => {
+          $(elementError[0]).focus()
         })
-
-        return false;
+        return
       }
       $("#formData").find('form').submit()
     })
     $("#formData").find('form').submit(function(e) {
       e.preventDefault()
-      console.log($(this).serialize());
       $.ajax({
         url: "<?= base_url() ?>datata/tambahdatata",
         type: 'post',
@@ -292,6 +406,14 @@
               showConfirmButton: false,
               timer: 1500
             })
+            $("#cancelData").click()
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'Oops...',
+              html: res.message,
+            })
+
           }
         }
       })
