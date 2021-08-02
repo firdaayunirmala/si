@@ -88,7 +88,8 @@ class Datata_model extends CI_Model
                 d.status,
                 d.kode_jurusan,
                 dd.id_dosen,
-                dd.id as id_detail
+                dd.id as id_detail,
+                dd.status as status_dosen
             FROM
                 datata d
             inner join datata_detail dd on

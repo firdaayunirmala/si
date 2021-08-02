@@ -43,10 +43,7 @@
           <div class="form-group row">
             <label for="namalengkap" class="col-sm-3 col-form-label">Nama Lengkap</label>
             <div class="col-sm-6">
-              <select name="id_user" id="id_user" class="form-control">
-                <?php foreach ($mahasiswa as $k => $v) : ?>
-                  <option value="<?= $v->id ?>" data-nim="<?= $v->nim ?>"><?= $v->name ?></option>
-                <?php endforeach; ?>
+              <select name="id_user" id="id_user" readonly class="form-control">
               </select>
             </div>
           </div>
@@ -100,6 +97,7 @@
                     <td class="text-center">1</td>
                     <td>
                       <div class="form-group">
+                        <input type="hidden" name="id_detail1" id="id_detail1">
                         <select name="pembimbing1" id="pembimbing1" class="form-control">
                           <option value="0">Pilih Dosen Pembimbing 1</option>
                           <?php foreach ($dosen as $pembimbing1) : ?>
@@ -108,12 +106,21 @@
                         </select>
                       </div>
                     </td>
-                    <td class="text-center aksi" style="display: none;"></td>
+                    <td class="text-center aksi" style="display: none;">
+                      <div class="form-group">
+                        <select name="status_dosen1" id="status_dosen1" class="form-control">
+                          <option value="0">Proses</option>
+                          <option value="1">Disetujui</option>
+                          <option value="2">Ditolak</option>
+                        </select>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
                     <td class="text-center">2</td>
                     <td>
                       <div class="form-group">
+                        <input type="hidden" name="id_detail2" id="id_detail2">
                         <select name="pembimbing2" id="pembimbing2" class="form-control">
                           <option value="0">Pilih Dosen Pembimbing 2</option>
                           <?php foreach ($dosen as $pembimbing2) : ?>
@@ -122,36 +129,20 @@
                         </select>
                       </div>
                     </td>
-                    <td class="text-center aksi" style="display: none;"></td>
+                    <td class="text-center aksi" style="display: none;">
+                      <div class="form-group">
+                        <select name="status_dosen2" id="status_dosen2" class="form-control">
+                          <option value="0">Proses</option>
+                          <option value="1">Disetujui</option>
+                          <option value="2">Ditolak</option>
+                        </select>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-
-          <!-- <div class="form-group row">
-            <label for="dosen" class="col-sm-3 col-form-label">Pembimbing 1</label>
-            <div class="col-sm-6">
-              <select name="pembimbing1" id="pembimbing1" class="form-control">
-                <option value="0">Pilih Dosen Pembimbing 1</option>
-                <?php foreach ($dosen as $pembimbing1) : ?>
-                  <option value="<?= $pembimbing1['id'] ?>"><?= $pembimbing1['name'] ?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="dosen" class="col-sm-3 col-form-label">Pembimbing 2</label>
-            <div class="col-sm-6">
-              <select name="pembimbing2" id="pembimbing2" class="form-control">
-                <option value="0">Pilih Dosen Pembimbing 2</option>
-                <?php foreach ($dosen as $pembimbing2) : ?>
-                  <option value="<?= $pembimbing2['id'] ?>"><?= $pembimbing2['name'] ?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-          </div> -->
 
           <div class="form-group row justify-content-end">
             <div class="col-sm-9">
@@ -209,7 +200,7 @@
 <script>
   $("#tambahData").on('click', function() {
     resetForm()
-    // $("#id_user").trigger('change')
+    getMahasiswa()
     $('#nim').val($("#id_user").select2().find(":selected").data("nim"))
     $("#formData").slideDown(500)
     $("#listData").slideUp(500)
@@ -238,6 +229,9 @@
     $("#formData").find("form")[0].reset()
     $("#aksi").val("add")
     $("#id").val("")
+    $("#id_detail1").val("")
+    $("#id_detail2").val("")
+    $(".aksi").hide()
   }
 
 
@@ -251,6 +245,36 @@
         datatable.clear().draw();
         datatable.rows.add(res); // Add new data
         datatable.columns.adjust().draw(); // Redraw the table-container
+      }
+    })
+  }
+
+
+  function set_val(id) {
+    $.ajax({
+      url: '<?= base_url() ?>datata/edit_datata/' + id,
+      dataType: 'json',
+      success: function(res) {
+        if (!$.isEmptyObject(res.datata)) {
+          const data = res.datata
+          $("#aksi").val("edit")
+          $("#id").val(data.id)
+          $("#tanggal").val(data.tanggal)
+          $("#nim").val(data.nim)
+          $("#id_user").html(`<option value="${data.id_user}" data-nim="${data.nim}">${data.name}</option>`)
+          $("#judul").val(data.judul)
+          $("#sinopsis").val(data.sinopsis)
+          $("#jurusan").val(data.kode_jurusan)
+          $("#id_detail1").val(data.id_detail1)
+          $("#id_detail2").val(data.id_detail2)
+          $("#pembimbing1").val(data.id_dosen1)
+          $("#pembimbing2").val(data.id_dosen2)
+          $("#status_dosen1").val(data.status_dosen1)
+          $("#status_dosen2").val(data.status_dosen2)
+          $(".aksi").show()
+          $("#formData").slideDown(500)
+          $("#listData").slideUp(500)
+        }
       }
     })
   }
@@ -280,6 +304,24 @@
             }
           }
         })
+      }
+    })
+  }
+
+
+  // mengambil data mahasiswa
+  const getMahasiswa = () => {
+    $.ajax({
+      url: "<?= base_url() ?>datata/get_mahasiswa",
+      dataType: 'json',
+      success: res => {
+        let opt = '';
+        if (res.length > 0) {
+          $.each(res, (index, item) => {
+            opt += `<option value="${item.id}" data-nim="${item.nim}">${item.name}</option>`
+          })
+          $("#id_user").html(opt)
+        }
       }
     })
   }
@@ -391,9 +433,15 @@
       $("#formData").find('form').submit()
     })
     $("#formData").find('form').submit(function(e) {
+      let url = ""
+      if ($("#aksi").val() == "add") {
+        url = "<?= base_url() ?>datata/tambahdatata"
+      } else {
+        url = "<?= base_url() ?>datata/update_datata"
+      }
       e.preventDefault()
       $.ajax({
-        url: "<?= base_url() ?>datata/tambahdatata",
+        url: url,
         type: 'post',
         dataType: 'json',
         data: $(this).serialize(),

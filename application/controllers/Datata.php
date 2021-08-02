@@ -86,7 +86,7 @@ class Datata extends CI_Controller
         echo json_encode($res);
     }
 
-    public function editdatata($id)
+    public function edit_datata($id)
     {
         $datata = $this->Datata_model->getDatataById($id);
 
@@ -104,14 +104,25 @@ class Datata extends CI_Controller
                     'status' => $value->status,
                     'kode_jurusan' => $value->kode_jurusan,
                     'id_dosen1' => $value->id_dosen,
+                    'status_dosen1' => $value->status_dosen,
                     'id_detail1' => $value->id_detail,
                 ];
                 $id = $value->id;
             } else {
                 $data['datata']['id_dosen2'] = $value->id_dosen;
+                $data['datata']['status_dosen2'] = $value->status_dosen;
                 $data['datata']['id_detail2'] = $value->id_detail;
             }
         }
+
+        echo json_encode($data);
+    }
+
+
+    // update data ta
+    public function update_datata()
+    {
+        $id = 0;
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
 
         if ($this->input->post('update') == 'update') {
@@ -192,6 +203,14 @@ class Datata extends CI_Controller
             }
         }
 
+        echo json_encode($data);
+    }
+
+
+    // mengambil data mahasiswa yang belum terdaftar ta
+    public function get_mahasiswa()
+    {
+        $data = $this->Datata_model->get_mahasiswa();
         echo json_encode($data);
     }
 }
