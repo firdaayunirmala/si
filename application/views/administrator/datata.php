@@ -376,7 +376,9 @@
         $("#table-container").show();
       },
     });
+
     loadTbl()
+
     $("#saveData").click(function() {
       let error = 0;
       let pesanError = "";

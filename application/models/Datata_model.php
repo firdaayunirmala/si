@@ -107,6 +107,11 @@ class Datata_model extends CI_Model
     {
         $this->db->where('id', $id);
         $this->db->update('datata', $data);
+        if ($this->db->affected_rows()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

@@ -122,30 +122,69 @@ class Datata extends CI_Controller
     // update data ta
     public function update_datata()
     {
-        $id = 0;
+        // echo "<pre>";
+        // print_r($_POST);
+        // echo "</pre>";
+        // die;
+        $id = $this->input->post('id');
+        $status_dosen1 = $this->input->post('status_dosen1');
+        $status_dosen2 = $this->input->post('status_dosen2');
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
 
-        if ($this->input->post('update') == 'update') {
+        if ($this->form_validation->run() == false) {
+            $res = [
+                'status' => 409,
+                'message' => form_error('judul')
+            ];
+        } else {
             $datata = [
                 'judul' => $this->input->post('judul', true),
                 'sinopsis' => $this->input->post('sinopsis', true),
                 'kode_jurusan' => $this->input->post('jurusan', true),
+                'updated_by' =>  $this->session->userdata('id'),
+                'updated_at' =>  date("Y-m-d H:i:s"),
             ];
-            $this->Datata_model->ubahDatata($datata, $id);
+
+
+            if ($status_dosen1 == 1 && $status_dosen2 == 1) {
+                $datata['status'] = $status_dosen1;
+            } elseif ($status_dosen1 == 2 && $status_dosen2 == 2) {
+                $datata['status'] = $status_dosen1;
+            } else {
+                $datata['status'] = 0;
+            }
+            $respond = $this->Datata_model->ubahDatata($datata, $id);
             $datata_detail = [
                 [
                     'id' => $this->input->post('id_detail1', true),
-                    'id_dosen' => $this->input->post('pembimbing1', true)
+                    'id_dosen' => $this->input->post('pembimbing1', true),
+                    'status' => $status_dosen1,
+                    'updated_by' =>  $this->session->userdata('id'),
+                    'updated_at' =>  date("Y-m-d H:i:s"),
                 ], [
                     'id' => $this->input->post('id_detail2', true),
-                    'id_dosen' => $this->input->post('pembimbing2', true)
+                    'id_dosen' => $this->input->post('pembimbing2', true),
+                    'status' => $status_dosen2,
+                    'updated_by' =>  $this->session->userdata('id'),
+                    'updated_at' =>  date("Y-m-d H:i:s"),
                 ]
             ];
             $this->Datata_model->ubahDataTaBanyak($datata_detail);
-            $this->session->set_flashdata('message', 'Data Berhasil Diubah!');
-            redirect('administrator/datata');
-        } else {
+
+
+            if ($respond) {
+                $res = [
+                    'status' => 201,
+                    'message' => 'Data berhasil diupdate'
+                ];
+            } else {
+                $res = [
+                    'status' => 409,
+                    'message' => 'request not acceptable'
+                ];
+            }
         }
+        echo json_encode($res);
     }
 
     public function hapusdatata($id)
