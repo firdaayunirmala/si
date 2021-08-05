@@ -6,7 +6,7 @@ class Datata_model extends CI_Model
     {
         return $this->db->query(
             "SELECT
-                d.id ,
+                d.mhs_id ,
                 d.tanggal,
                 m.nim ,
                 m.name ,
@@ -38,14 +38,14 @@ class Datata_model extends CI_Model
     public function get_mahasiswa()
     {
         $sql = "SELECT
-                    m.id ,
+                    m.mhs_id ,
                     m.name ,
                     m.nim
                 FROM
                     mahasiswa m
                 where
                     m.is_active = 1
-                    and m.id not in (
+                    and m.mhs_id not in (
                     SELECT
                         d.id_user
                     FROM
@@ -78,7 +78,7 @@ class Datata_model extends CI_Model
         // return $this->db->get_where('datata', ['id' => $id])->row_array();
         return $this->db->query(
             "SELECT
-                d.id ,
+                d.mhs_id ,
                 d.id_user ,
                 d.tanggal,
                 m.nim ,

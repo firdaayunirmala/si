@@ -40,26 +40,23 @@
                                 <td><?= $pimp['name']; ?></td>
                                 <td><?= $pimp['email']; ?></td>
                                 <td><?= $pimp['hp']; ?></td>
-                                <td>
-                                    <?php $aktif = $pimp['is_active']; ?>
-                                    <div class=" form-check">
-                                        <input type="checkbox" class="form-check-input aktifpimp" <?= ($aktif == 1 ? 'checked data-status="0" ' : 'data-status="1"'); ?> data-id="<?= $pimp['id']; ?>" />
-                                        <?php if ($aktif == 1) {
-                                            echo "Aktif";
-                                        } else {
-                                            echo "Pasif";
-                                        } ?>
-                                    </div>
-                                </td>
+                                <td class="text-center">
+                      <?php $aktif = $pimp['is_active'];
+                      if ($aktif == 1) { ?>
+                        <span class="badge badge-success">Aktif</span>
+                      <?php } else { ?>
+                        <span class="badge badge-danger">Tidak Aktif</span>
+                      <?php } ?>
+                    </td>
                                 <td>
                                     <div class="dropdown ">
                                         <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             opsi
                                         </button>
                                         <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                            <a class="btn btn-success btn-sm" href="<?= base_url() ?>operation/detailpimpinan/<?= $pimp['id']; ?>">detail</a>
-                                            <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editpimpinan/<?= $pimp['id']; ?>" class="badge badge-warning">edit</a>
-                                            <a class=" btn btn-danger btn-sm tombol-hapuspimpinan" href="<?= base_url() ?>operation/hapuspimpinan/<?= $pimp['id']; ?>">hapus</a>
+                                            <a class="btn btn-success btn-sm" href="<?= base_url() ?>operation/detailpimpinan/<?= $pimp['pimp_id']; ?>">detail</a>
+                                            <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editpimpinan/<?= $pimp['pimp_id']; ?>" class="badge badge-warning">edit</a>
+                                            <a class=" btn btn-danger btn-sm tombol-hapuspimpinan" href="<?= base_url() ?>operation/hapuspimpinan/<?= $pimp['pimp_id']; ?>">hapus</a>
                                         </div>
                                     </div>
                                 </td>

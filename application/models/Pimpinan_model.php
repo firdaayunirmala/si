@@ -7,9 +7,9 @@ class Pimpinan_model extends CI_Model
         return $this->db->get('pimpinan')->result_array();
     }
 
-    public function getPimpinanById($id)
+    public function getPimpinanById($pimp_id)
     {
-        return $this->db->get_where('pimpinan', ['id' => $id])->row_array();
+        return $this->db->get_where('pimpinan', ['pimp_id' => $pimp_id])->row_array();
     }
 
     public function upload()
@@ -32,9 +32,9 @@ class Pimpinan_model extends CI_Model
 
     public function tambahDataPimpinan()
     {
-        $id = $this->input->post('id', true);
+        $pimp_id = $this->input->post('id', true);
         $data = [
-            'id' => $id,
+            'pimp_id' => $pimp_id,
             'nidn' => $this->input->post('nidn', true),
             'name' => $this->input->post('namalengkap', true),
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
@@ -47,7 +47,7 @@ class Pimpinan_model extends CI_Model
         $this->db->insert('pimpinan', $data);
     }
 
-    public function ubahDataPimpinan($pimpinan, $id)
+    public function ubahDataPimpinan($pimpinan, $pimp_id)
     {
         // cek jika ada gambar yang akan diupload
         $upload_image = $_FILES['imagepimpinan']['name'];
@@ -87,17 +87,17 @@ class Pimpinan_model extends CI_Model
         if ($this->input->post('password') != null) {
             $this->db->set('password', $password);
         }
-        $this->db->where('id', $id);
+        $this->db->where('id', $pimp_id);
         $this->db->update('pimpinan');
     }
 
-    public function hapusDataPimpinan($id, $pimpinan)
+    public function hapusDataPimpinan($pimp_id, $pimpinan)
     {
         $old_image = $pimpinan['image'];
         if ($old_image != 'default.jpg') {
             unlink(FCPATH . 'assets/img/profile/pimpinan/' . $old_image);
         }
         //$this->db->where('id', $id);
-        $this->db->delete('pimpinan', ['id' => $id]);
+        $this->db->delete('pimpinan', ['pimp_id' => $pimp_id]);
     }
 }

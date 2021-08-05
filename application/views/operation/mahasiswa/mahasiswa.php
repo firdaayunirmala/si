@@ -31,6 +31,8 @@
                   <th class="text-center" width="25%">Nama</th>
                   <th class="text-center" width="20%">Jurusan</th>
                   <th class="text-center" width="15%">Email</th>
+                  <th class="text-center" width="20%">Foto</th>
+                  <th class="text-center" width="20%">Hp</th>
                   <th class="text-center" width="10%">Status</th>
                   <th class="text-center" width="15%">Aksi</th>
                 </tr>
@@ -38,13 +40,14 @@
 
               <?php
               $query = "SELECT
-                      m.id ,
+                      m.mhs_id ,
                       m.nim ,
                       m.name ,
                       m.semester ,
                       m.totalsks ,
                       j.nama_jurusan ,
                       m.email ,
+                      m.image,
                       m.hp ,
                       m.is_active 
                     FROM
@@ -52,7 +55,7 @@
                     INNER JOIN jurusan j ON
                       m.kode_jurusan = j.id
                     ORDER BY
-                      m.id ASC
+                      m.mhs_id ASC
                     ";
               $datamhs = $this->db->query($query)->result_array();
               ?>
@@ -66,6 +69,8 @@
                     <td><?= $mhs['name']; ?></td>
                     <td><?= $mhs['nama_jurusan']; ?></td>
                     <td><?= $mhs['email']; ?></td>
+                    <td><?= $mhs['image']; ?></td>
+                    <td><?= $mhs['hp']; ?></td>
                     <td class="text-center">
                       <?php $aktif = $mhs['is_active'];
                       if ($aktif == 1) { ?>
@@ -75,9 +80,9 @@
                       <?php } ?>
                     </td>
                     <td class="text-center">
-                      <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['id']; ?>" title="detail"><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['id']; ?>" title="edit"><i class="fa fa-pencil-alt"></i></a>
-                      <a class=" btn btn-danger btn-sm" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['id']; ?>' : return" href="javascript:void(0);" title="hapus"><i class="fa fa-trash"></i></a>
+                      <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['mhs_id']; ?>" title="detail"><i class="fa fa-eye"></i></a>
+                      <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['mhs_id']; ?>" title="edit"><i class="fa fa-pencil-alt"></i></a>
+                      <a class=" btn btn-danger btn-sm" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['mhs_id']; ?>' : return" href="javascript:void(0);" title="hapus"><i class="fa fa-trash"></i></a>
                     </td>
                   </tr>
                   <?php $i++; ?>

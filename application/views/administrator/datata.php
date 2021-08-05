@@ -258,7 +258,7 @@
         if (!$.isEmptyObject(res.datata)) {
           const data = res.datata
           $("#aksi").val("edit")
-          $("#id").val(data.id)
+          $("#mhs_id").val(data.id)
           $("#tanggal").val(data.tanggal)
           $("#nim").val(data.nim)
           $("#id_user").html(`<option value="${data.id_user}" data-nim="${data.nim}">${data.name}</option>`)

@@ -144,7 +144,7 @@ class Operation extends CI_Controller
         }
     }
 
-    public function detailmahasiswa($id)
+    public function detailmahasiswa($mhs_id)
     {
         $data['title'] = 'Mahasiswa';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -152,7 +152,7 @@ class Operation extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($id);
+        $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($mhs_id);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -161,7 +161,7 @@ class Operation extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function editmahasiswa($id)
+    public function editmahasiswa($mhs_id)
     {
         $data['title'] = 'Mahasiswa';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -169,8 +169,8 @@ class Operation extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($id);
-        $mhs = $this->Mahasiswa_model->getMahasiswaById($id);
+        $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($mhs_id);
+        $mhs = $this->Mahasiswa_model->getMahasiswaById($mhs_id);
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
 
         $this->form_validation->set_rules('namalengkap', 'NamaLengkap', 'required|trim');
@@ -189,15 +189,15 @@ class Operation extends CI_Controller
             $this->load->view('operation/mahasiswa/editmahasiswa', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->Mahasiswa_model->ubahDataMahasiswa($mhs, $id);
+            $this->Mahasiswa_model->ubahDataMahasiswa($mhs, $mhs_id);
             $this->session->set_flashdata('message', 'Diubah!');
             redirect('operation/mahasiswa');
         }
     }
-    public function hapusmahasiswa($id)
+    public function hapusmahasiswa($mhs_id)
     {
-        $mhs = $this->Mahasiswa_model->getMahasiswaById($id);
-        $this->Mahasiswa_model->hapusDataMahasiswa($id, $mhs);
+        $mhs = $this->Mahasiswa_model->getMahasiswaById($mhs_id);
+        $this->Mahasiswa_model->hapusDataMahasiswa($mhs_id, $mhs);
         $this->session->set_flashdata('message', 'Dihapus!');
         redirect('operation/mahasiswa');
     }
@@ -205,11 +205,7 @@ class Operation extends CI_Controller
     public function dosen()
     {
         $data['title'] = 'Dosen Pembimbing';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
-        $data['dosen'] = $this->Dosen_model->getAllDosen();
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -221,12 +217,12 @@ class Operation extends CI_Controller
     public function dosenAccess()
     {
         $status = $this->input->post('status');
-        $id = $this->input->post('id');
+        $dosen_id = $this->input->post('id');
         $data = [
             'is_active' => $status
         ];
         $this->db->set($data);
-        $this->db->where('id', $id);
+        $this->db->where('dosen_id', $dosen_id);
         $this->db->update('dosen');
         if ($status == 1) {
             $this->session->set_flashdata('message', 'Aktif!');
@@ -351,14 +347,14 @@ class Operation extends CI_Controller
     public function pimpinanAccess()
     {
         $status = $this->input->post('status');
-        $id = $this->input->post('id');
+        $pimp_id = $this->input->post('pimp_id');
 
         $data = [
             'is_active' => $status
         ];
 
         $this->db->set($data);
-        $this->db->where('id', $id);
+        $this->db->where('pimp_id', $pimp_id);
         $this->db->update('pimpinan');
 
         if ($status == 1) {
@@ -404,7 +400,7 @@ class Operation extends CI_Controller
             redirect('operation/pimpinan');
         }
     }
-    public function detailpimpinan($id)
+    public function detailpimpinan($pimp_id)
     {
         $data['title'] = 'Pimpinan';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -412,7 +408,7 @@ class Operation extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['pimpinan'] = $this->Pimpinan_model->getPimpinanById($id);
+        $data['pimpinan'] = $this->Pimpinan_model->getPimpinanById($pimp_id);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -420,7 +416,7 @@ class Operation extends CI_Controller
         $this->load->view('operation/pimpinan/detailpimpinan', $data);
         $this->load->view('templates/footer');
     }
-    public function editpimpinan($id)
+    public function editpimpinan($pimp_id)
     {
         $data['title'] = 'Pimpinan';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -440,8 +436,8 @@ class Operation extends CI_Controller
 
         $this->form_validation->set_rules('hp', 'Hp', 'required|trim');
 
-        $data['pimpinan'] = $this->Pimpinan_model->getPimpinanById($id);
-        $pimpinan = $this->Pimpinan_model->getPimpinanById($id);
+        $data['pimpinan'] = $this->Pimpinan_model->getPimpinanById($pimp_id);
+        $pimpinan = $this->Pimpinan_model->getPimpinanById($pimp_id);
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -450,17 +446,17 @@ class Operation extends CI_Controller
             $this->load->view('operation/pimpinan/editpimpinan', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->Pimpinan_model->ubahDataPimpinan($pimpinan, $id);
+            $this->Pimpinan_model->ubahDataPimpinan($pimpinan, $pimp_id);
 
             $this->session->set_flashdata('message', 'Diubah!');
             redirect('operation/pimpinan');
         }
     }
-    public function hapuspimpinan($id)
+    public function hapuspimpinan($pimp_id)
     {
-        $pimpinan = $this->Pimpinan_model->getPimpinanById($id);
+        $pimpinan = $this->Pimpinan_model->getPimpinanById($pimp_id);
 
-        $this->Pimpinan_model->hapusDataPimpinan($id, $pimpinan);
+        $this->Pimpinan_model->hapusDataPimpinan($pimp_id, $pimpinan);
         $this->session->set_flashdata('message', 'Dihapus!');
         redirect('operation/pimpinan');
     }

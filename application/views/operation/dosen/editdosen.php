@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-8">
             <?= form_open_multipart(); ?>
-            <input type="hidden" name="id" value="<?= $dosen['id']; ?>">
+            <input type="hidden" name="id" value="<?= $dosen['dosen_id']; ?>">
             <div class="form-group row">
                 <label for="nik" class="col-sm-3 col-form-label">NIDN</label>
                 <div class="col-sm-9">
@@ -52,7 +52,7 @@
             </div>
             <div class="form-group row">
                 <?php
-                $aktif = $dosen['is_active']; ?>
+                $aktif = $user['is_active']; ?>
                 <label for="aktif" class="col-sm-3 col-form-label">Aktif</label>
                 <div class="form-check form-check-inline pl-3">
                     <input type="radio" name="aktifdosen" <?php if ($aktif == '1') {

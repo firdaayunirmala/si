@@ -32,6 +32,22 @@
               <th scope="col">Opsi</th>
             </tr>
           </thead>
+          <?php
+              $query = "SELECT
+              d.dosen_id ,
+              d.nik ,
+              d.name ,
+              d.email ,
+              d.image,
+              d.hp ,
+              d.is_active 
+            FROM
+              dosen d
+            ORDER BY
+              d.dosen_id ASC
+                    ";
+              $dosen = $this->db->query($query)->result_array();
+              ?>
           <tbody>
             <?php $i = 1; ?>
             <?php foreach ($dosen as $dsn) : ?>
@@ -42,18 +58,14 @@
                 <td><?= $dsn['email']; ?></td>
                 <td><?= $dsn['hp']; ?></td>
                 <td><?= $dsn['image']; ?></td>
-                <td>         
-                  <?php $aktif = $dsn['user_id'];?>
-                  <div class=" form-check">
-                  <input type="checkbox" class="form-check-input aktifdsn" <?= ($aktif==1 ? 'checked data-status="0" ' : 'data-status="1"' );?> data-id="<?= $dsn['id']; ?>"   />    
-                  <?php if ($aktif == 1){
-                  echo "Aktif";
-                  }
-                  else{
-                  echo "Pasif";
-                  }?>
-                  </div>
-                  </td>
+                <td class="text-center">
+                      <?php $aktif = $dsn['is_active'];
+                      if ($aktif == 1) { ?>
+                        <span class="badge badge-success">Aktif</span>
+                      <?php } else { ?>
+                        <span class="badge badge-danger">Tidak Aktif</span>
+                      <?php } ?>
+                    </td>
 
                 <td>
                   <div class="dropdown ">
@@ -61,9 +73,9 @@
                       opsi
                     </button>
                     <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                      <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detaildosen/<?= $dsn['id']; ?>">detail</a>
-                      <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editdosen/<?= $dsn['id']; ?>" class="badge badge-warning">edit</a>
-                      <a class=" btn btn-danger btn-sm tombol-hapusdosen" href="<?= base_url() ?>operation/hapusdosen/<?= $dsn['id']; ?>">hapus</a>
+                      <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detaildosen/<?= $dsn['dosen_id']; ?>">detail</a>
+                      <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editdosen/<?= $dsn['dosen_id']; ?>" class="badge badge-warning">edit</a>
+                      <a class=" btn btn-danger btn-sm tombol-hapusdosen" href="<?= base_url() ?>operation/hapusdosen/<?= $dsn['dosen_id']; ?>">hapus</a>
                     </div>
                   </div>
                 </td>

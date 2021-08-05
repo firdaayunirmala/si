@@ -8,9 +8,9 @@ class Mahasiswa_model extends CI_Model
         return $this->db->get('mahasiswa')->result_array(); //semua baris
     }
 
-    public function getMahasiswaById($id)
+    public function getMahasiswaById($mhs_id)
     {
-        return $this->db->get_where('mahasiswa', ['id' => $id])->row_array();
+        return $this->db->get_where('mahasiswa', ['mhs_id' => $mhs_id])->row_array();
     }
 
     public function getAllBimbingan()
@@ -41,9 +41,10 @@ class Mahasiswa_model extends CI_Model
 
     public function tambahDataMahasiswa()
     {
-        $nim = $this->input->post('nim', true);
+        $mhs_id = $this->input->post('mhs_id', true);
         $data = [
-            'nim' => $nim,
+            'mhs_id' => $mhs_id,
+            'nim' => $this->input->post('nim', true),
             'name' => $this->input->post('nama', true),
             'semester' => $this->input->post('semester', true),
             'totalsks' => $this->input->post('totalsks', true),
@@ -59,7 +60,7 @@ class Mahasiswa_model extends CI_Model
         $this->db->insert('mahasiswa', $data);
     }
 
-    public function ubahDataMahasiswa($mhs, $id)
+    public function ubahDataMahasiswa($mhs, $mhs_id)
     {
         $upload_image = $_FILES['imagemhs']['name'];
         if ($upload_image) {
@@ -103,17 +104,17 @@ class Mahasiswa_model extends CI_Model
         if ($this->input->post('passwordmhs1') != null) {
             $this->db->set('password', $password);
         }
-        $this->db->where('id', $id);
+        $this->db->where('mhs_id', $mhs_id);
         $this->db->update('mahasiswa');
     }
 
-    public function hapusDataMahasiswa($nim, $mhs)
+    public function hapusDataMahasiswa($mhs_id, $mhs)
     {
         $old_image = $mhs['image'];
         if ($old_image != 'default.jpg') {
             unlink(FCPATH . 'assets/img/profile/mahasiswa/' . $old_image);
         }
         //$this->db->where('id', $id);
-        $this->db->delete('mahasiswa', ['nim' => $nim]);
+        $this->db->delete('mahasiswa', ['mhs_id' => $mhs_id]);
     }
 }
