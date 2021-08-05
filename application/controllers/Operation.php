@@ -16,8 +16,8 @@ class Operation extends CI_Controller
     public function index()
     {
         $data['title'] = 'Jurusan';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $this->form_validation->set_rules('jurusan', 'Jurusan', 'required');
 
@@ -49,8 +49,8 @@ class Operation extends CI_Controller
     public function detailjurusan($id)
     {
         $data['title'] = 'Jurusan';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
@@ -65,8 +65,8 @@ class Operation extends CI_Controller
     public function editjurusan()
     {
         $data['title'] = 'Jurusan';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -98,7 +98,7 @@ class Operation extends CI_Controller
     public function mahasiswa()
     {
         $data['title'] = 'Mahasiswa';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' => $this->session->userdata('user_name')])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -110,8 +110,8 @@ class Operation extends CI_Controller
     public function tambahmahasiswa()
     {
         $data['title'] = 'Mahasiswa';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $this->form_validation->set_rules('nim', 'NIM', 'required|trim|is_unique[mahasiswa.nim]', [
             'is_unique' => 'This nim has already registered!'
@@ -147,8 +147,8 @@ class Operation extends CI_Controller
     public function detailmahasiswa($mhs_id)
     {
         $data['title'] = 'Mahasiswa';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
@@ -164,8 +164,8 @@ class Operation extends CI_Controller
     public function editmahasiswa($mhs_id)
     {
         $data['title'] = 'Mahasiswa';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
@@ -205,7 +205,7 @@ class Operation extends CI_Controller
     public function dosen()
     {
         $data['title'] = 'Dosen Pembimbing';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' => $this->session->userdata('user_name')])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -234,8 +234,8 @@ class Operation extends CI_Controller
     public function tambahdosen()
     {
         $data['title'] = 'Dosen';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $this->form_validation->set_rules('nik', 'NIK', 'required|trim|is_unique[dosen.nik]', [
             'is_unique' => 'This nik has already registered!'
@@ -271,8 +271,8 @@ class Operation extends CI_Controller
     public function detaildosen($id)
     {
         $data['title'] = 'Dosen';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -288,8 +288,8 @@ class Operation extends CI_Controller
     public function editdosen($id)
     {
         $data['title'] = 'Dosen';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
@@ -331,8 +331,8 @@ class Operation extends CI_Controller
     public function pimpinan()
     {
         $data['title'] = 'Pimpinan';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $data['pimpinan'] = $this->Pimpinan_model->getAllPimpinan();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -367,8 +367,8 @@ class Operation extends CI_Controller
     public function tambahpimpinan()
     {
         $data['title'] = 'Pimpinan';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $this->form_validation->set_rules('nidn', 'NIDN', 'required|trim|is_unique[pimpinan.nidn]', [
             'is_unique' => 'This nidn has already registered!'
@@ -403,8 +403,8 @@ class Operation extends CI_Controller
     public function detailpimpinan($pimp_id)
     {
         $data['title'] = 'Pimpinan';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
@@ -419,8 +419,8 @@ class Operation extends CI_Controller
     public function editpimpinan($pimp_id)
     {
         $data['title'] = 'Pimpinan';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();

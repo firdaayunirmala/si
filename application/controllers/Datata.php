@@ -14,8 +14,8 @@ class Datata extends CI_Controller
     public function index()
     {
         $data['title'] = 'Data Tugas Akhir';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $data['mahasiswa'] = $this->Datata_model->get_mahasiswa();
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
         $data['dosen'] = $this->db->get('dosen')->result_array();
@@ -29,7 +29,6 @@ class Datata extends CI_Controller
 
     public function tambahdatata()
     {
-        // $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
 
         if ($this->form_validation->run() == false) {

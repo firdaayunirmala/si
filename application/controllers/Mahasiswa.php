@@ -14,8 +14,8 @@ class Mahasiswa extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-        $this->session->userdata('nim')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -30,8 +30,8 @@ class Mahasiswa extends CI_Controller
     public function judul()
     {
         $data['title'] = 'Judul';
-        $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-        $this->session->userdata('nim')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -40,28 +40,28 @@ class Mahasiswa extends CI_Controller
 
         $this->form_validation->set_rules('judul', 'judul', 'required|trim');
         if ($this->form_validation->run() == false) {
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('mahasiswa/ajukanjudul', $data);
-        $this->load->view('templates/footer');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('mahasiswa/ajukanjudul', $data);
+            $this->load->view('templates/footer');
         } else {
-        $this->Mahasiswa_model->tambahjudul();
-        $this->session->set_flashdata('message', 'Ditambahkan!');
-        redirect('mahasiswa');
+            $this->Mahasiswa_model->tambahjudul();
+            $this->session->set_flashdata('message', 'Ditambahkan!');
+            redirect('mahasiswa');
         }
     }
 
     public function bimbingan()
     {
         $data['title'] = 'Bimbingan';
-        $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-        $this->session->userdata('nim')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
         $data['bimbingan_mhs'] = $this->db->get('bimbingan_mhs')->result_array();
-        
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -72,8 +72,8 @@ class Mahasiswa extends CI_Controller
     public function detail()
     {
         $data['title'] = 'Detail Bimbingan';
-        $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-        $this->session->userdata('nim')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -121,8 +121,8 @@ class Mahasiswa extends CI_Controller
     public function laporan()
     {
         $data['title'] = 'Laporan';
-        $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-        $this->session->userdata('nim')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -137,8 +137,8 @@ class Mahasiswa extends CI_Controller
     public function pesan()
     {
         $data['title'] = 'Pesan';
-        $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-        $this->session->userdata('nim')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole'] = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();

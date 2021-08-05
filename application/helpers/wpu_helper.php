@@ -3,7 +3,7 @@
 function is_logged_in()
 {
     $ci =  get_instance();
-    if (!$ci->session->userdata('email')) {
+    if (!$ci->session->userdata('user_name')) {
         redirect('auth');
     } else {
         $role_id = $ci->session->userdata('role_id');
@@ -30,7 +30,7 @@ function is_logged_in()
 function is_logged_inmhs()
 {
     $ci =  get_instance();
-    if (!$ci->session->userdata('nim')) {
+    if (!$ci->session->userdata('user_name')) {
         redirect('auth/mahasiswa');
     } else {
         $role_id = $ci->session->userdata('role_id');
@@ -47,8 +47,7 @@ function is_logged_inmhs()
             'menu_id' => $menu_id
         ]);
 
-        if ($userAccess->result() < 1)
-        {
+        if ($userAccess->result() < 1) {
             redirect('auth/blocked');
         }
     }
@@ -57,7 +56,7 @@ function is_logged_inmhs()
 function is_logged_indsn()
 {
     $ci =  get_instance();
-    if (!$ci->session->userdata('nik')) {
+    if (!$ci->session->userdata('user_name')) {
         redirect('auth/dosen');
     } else {
         $role_id = $ci->session->userdata('role_id');
@@ -80,7 +79,7 @@ function is_logged_indsn()
 function is_logged_inpimp()
 {
     $ci =  get_instance();
-    if (!$ci->session->userdata('nidn')) {
+    if (!$ci->session->userdata('user_name')) {
         redirect('auth/pimpinan');
     } else {
         $role_id = $ci->session->userdata('role_id');

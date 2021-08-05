@@ -18,11 +18,11 @@
                     <?php unset($_SESSION['message']); ?>
                   <?php endif; ?>
 
-                  <form class="user" method="post" action="?>= base_url('auth'); ?>">
+                  <form class="user" method="post" action="<?= base_url('auth'); ?>">
 
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Email" value="<?= set_value('email'); ?>">
-                      <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                      <input type="text" class="form-control form-control-user" id="user_name" name="user_name" placeholder="Masukan Username" value="<?= set_value('user_name'); ?>">
+                      <?= form_error('user_name', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
 
                     <div class="form-group">

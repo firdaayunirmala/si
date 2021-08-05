@@ -23,8 +23,8 @@ class User extends CI_Controller
 
         if ($role_id == 1) {
             is_logged_in();
-            $data['user'] = $this->db->get_where('user', ['email' =>
-            $this->session->userdata('email')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -32,8 +32,8 @@ class User extends CI_Controller
             $this->load->view('templates/footer');
         } elseif ($role_id == 2) {
             is_logged_in();
-            $data['user'] = $this->db->get_where('user', ['email' =>
-            $this->session->userdata('email')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -41,8 +41,8 @@ class User extends CI_Controller
             $this->load->view('templates/footer');
         } elseif ($role_id == 6) {
             is_logged_inpimp();
-            $data['user'] = $this->db->get_where('pimpinan', ['nidn' =>
-            $this->session->userdata('nidn')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -50,8 +50,8 @@ class User extends CI_Controller
             $this->load->view('templates/footer');
         } elseif ($role_id == 4) {
             is_logged_indsn();
-            $data['user'] = $this->db->get_where('dosen', ['nik' =>
-            $this->session->userdata('nik')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -59,16 +59,15 @@ class User extends CI_Controller
             $this->load->view('templates/footer');
         } elseif ($role_id == 5) {
             is_logged_inmhs();
-            $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-            $this->session->userdata('nim')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('mahasiswa/index', $data);
             $this->load->view('templates/footer');
-        }
-        else {
+        } else {
             redirect('home');
         }
     }
@@ -85,8 +84,8 @@ class User extends CI_Controller
 
         if ($role_id == 1) {
             is_logged_in();
-            $data['user'] = $this->db->get_where('user', ['email' =>
-            $this->session->userdata('email')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -131,8 +130,8 @@ class User extends CI_Controller
             }
         } elseif ($role_id == 2) {
             is_logged_in();
-            $data['user'] = $this->db->get_where('user', ['email' =>
-            $this->session->userdata('email')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -175,10 +174,10 @@ class User extends CI_Controller
             }
         } elseif ($role_id == 6) {
             is_logged_inpimp();
-            $data['user'] = $this->db->get_where('pimpinan', ['nidn' =>
-            $this->session->userdata('nidn')])->row_array();
-            $user = $this->db->get_where('pimpinan', ['nidn' =>
-            $this->session->userdata('nidn')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+            $user = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
 
             $data['jurusan'] = $this->db->get('jurusan')->result_array();
 
@@ -197,10 +196,10 @@ class User extends CI_Controller
             }
         } elseif ($role_id == 4) {
             is_logged_indsn();
-            $data['user'] = $this->db->get_where('dosen', ['nik' =>
-            $this->session->userdata('nik')])->row_array();
-            $user = $this->db->get_where('dosen', ['nik' =>
-            $this->session->userdata('nik')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+            $user = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -217,7 +216,7 @@ class User extends CI_Controller
         } elseif ($role_id == 5) {
             is_logged_inmhs();
 
-            $nim =  $this->session->userdata('nim');
+            $nim =  $this->session->userdata('user_name');
             $query = "SELECT * 
                     FROM mahasiswa INNER JOIN jurusan
                       ON mahasiswa.kode_jurusan = jurusan.id
@@ -228,10 +227,10 @@ class User extends CI_Controller
 
             $data['jurusan'] = $this->db->get('jurusan')->result_array();
 
-            $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-            $this->session->userdata('nim')])->row_array();
-            $user = $this->db->get_where('mahasiswa', ['nim' =>
-            $this->session->userdata('nim')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+            $user = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
 
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
@@ -266,8 +265,8 @@ class User extends CI_Controller
 
         if ($role_id == 1) {
             is_logged_in();
-            $data['user'] = $this->db->get_where('user', ['email' =>
-            $this->session->userdata('email')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -302,8 +301,8 @@ class User extends CI_Controller
             }
         } elseif ($role_id == 2) {
             is_logged_in();
-            $data['user'] = $this->db->get_where('user', ['email' =>
-            $this->session->userdata('email')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -338,8 +337,8 @@ class User extends CI_Controller
             }
         } elseif ($role_id == 6) {
             is_logged_inpimp();
-            $data['user'] = $this->db->get_where('pimpinan', ['nidn' =>
-            $this->session->userdata('nidn')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
 
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
@@ -375,8 +374,8 @@ class User extends CI_Controller
             }
         } elseif ($role_id == 4) {
             is_logged_indsn();
-            $data['user'] = $this->db->get_where('dosen', ['nik' =>
-            $this->session->userdata('nik')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -411,8 +410,8 @@ class User extends CI_Controller
             }
         } elseif ($role_id == 5) {
             is_logged_inmhs();
-            $data['user'] = $this->db->get_where('mahasiswa', ['nim' =>
-            $this->session->userdata('nim')])->row_array();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);

@@ -15,13 +15,13 @@ class Dosen extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db->get_where('dosen', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
         $datata = $this->Admin_model->getAllDatata();
-        
+
         $id = $i = 0;
         foreach ($datata as $key => $value) {
             if ($value->id != $id) {
@@ -51,8 +51,8 @@ class Dosen extends CI_Controller
     public function bimbingan()
     {
         $data['title'] = 'Bimbingan';
-        $data['user'] = $this->db->get_where('dosen', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -69,8 +69,8 @@ class Dosen extends CI_Controller
     public function detaildata($id)
     {
         $data['title'] = 'Detail Bimbingan';
-        $data['user'] = $this->db->get_where('dosen', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $data['mahasiswa'] = $this->Admin_model->get_mahasiswa();
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
         $data['dosen'] = $this->db->get('dosen')->result_array();
@@ -111,8 +111,8 @@ class Dosen extends CI_Controller
     public function kirimfile()
     {
         $data['title'] = 'Bimbingan';
-        $data['user'] = $this->db->get_where('dosen', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -129,8 +129,8 @@ class Dosen extends CI_Controller
     public function pesan()
     {
         $data['title'] = 'Pesan';
-        $data['user'] = $this->db->get_where('dosen', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole'] = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -227,5 +227,4 @@ class Dosen extends CI_Controller
             $this->session->set_flashdata('message', 'Tidak Disetujui');
         }
     }
-
 }

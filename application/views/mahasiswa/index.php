@@ -14,11 +14,11 @@
     </div>
 
     <?php
-    $nim =  $this->session->userdata('nim');
+    $user_name =  $this->session->userdata('user_name');
     $query = "SELECT * 
     FROM mahasiswa INNER JOIN jurusan
     ON mahasiswa.kode_jurusan = jurusan.id
-    WHERE mahasiswa.nim = $nim  
+    WHERE mahasiswa.nim = $user_name  
     ORDER BY mahasiswa.nim ASC
     ";
     $datamhs = $this->db->query($query)->row_array();

@@ -7,7 +7,7 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-          is_logged_in();
+        is_logged_in();
         $this->load->model('Role_model');
         $this->load->model('Admin_model');
     }
@@ -16,8 +16,8 @@ class Admin extends CI_Controller
     public function role()
     {
         $data['title'] = 'Role';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['role'] = $this->db->get('user_role')->result_array();
 
@@ -43,8 +43,8 @@ class Admin extends CI_Controller
     public function editrole()
     {
         $data['title'] = 'Role';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
         $this->form_validation->set_rules('roleedit', 'Role', 'required|trim');
 
         if ($this->form_validation->run() == false) {
@@ -73,13 +73,13 @@ class Admin extends CI_Controller
     public function roleAccess($role_id)
     {
         $data['title'] = 'Role Access';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['role'] = $this->db->get_where('user_role', ['id' => $role_id])->row_array();
 
         $this->db->where('id !=', 1);
-    
+
         $data['menu'] = $this->db->get('user_menu')->result_array();
 
         $this->load->view('templates/header', $data);
@@ -114,8 +114,8 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['title'] = 'Admin';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['admin'] = $this->Admin_model->getAllAdmin();
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
@@ -127,12 +127,12 @@ class Admin extends CI_Controller
         $this->load->view('admin/admin', $data);
         $this->load->view('templates/footer');
     }
-    
+
     public function detailadmin($id)
     {
         $data['title'] = 'Admin';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['admin'] = $this->Admin_model->getAdminById($id);
 
@@ -149,8 +149,8 @@ class Admin extends CI_Controller
     public function tambahadmin()
     {
         $data['title'] = 'Tambah Admin';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
@@ -191,8 +191,8 @@ class Admin extends CI_Controller
     public function editadmin($id)
     {
         $data['title'] = 'Admin';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
