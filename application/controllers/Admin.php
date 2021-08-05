@@ -155,7 +155,6 @@ class Admin extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email has already registered!'
@@ -176,7 +175,7 @@ class Admin extends CI_Controller
         } else {
             $this->Admin_model->tambahDataAdmin();
             $this->session->set_flashdata('message', 'Ditambahkan!');
-            redirect('admin/admin');
+            redirect('admin');
         }
     }
 
@@ -221,7 +220,7 @@ class Admin extends CI_Controller
             $this->Admin_model->ubahDataAdmin($admin, $id);
 
             $this->session->set_flashdata('message', 'Diubah!');
-            redirect('admin/admin');
+            redirect('admin');
         }
     }
 }

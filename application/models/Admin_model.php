@@ -123,15 +123,17 @@ class Admin_model extends CI_Model
     public function tambahDataAdmin()
     {
         $data = [
-            'name' => $this->input->post('nama', true),
-            'jk' => $this->input->post('jk', true),
+            'user_name' => $this->input->post('nama', true),
             'email' => $this->input->post('email', true),
             'hp' => $this->input->post('hp', true),
             'image' => $this->upload(),
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'role_id' => 2,
             'is_active' => $this->input->post('aktif', true),
-            'date_created' => time()
+            'created_at' => time(),
+            'created_by' => time(),
+            'updated_at' => time(),
+            'updated_by' => time()
         ];
 
         $this->db->insert('user', $data);
@@ -161,16 +163,14 @@ class Admin_model extends CI_Model
             }
         }
 
-        $name = $this->input->post('nama', true);
-        $jk = $this->input->post('jk', true);
+        $user_name = $this->input->post('nama', true);
         $email = $this->input->post('email', true);
         $hp = $this->input->post('hp', true);
         $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
         $is_active =  $this->input->post('aktif', true);
 
         $data = [
-            'name' => $name,
-            'jk' => $jk,
+            'user_name' => $user_name,
             'email' => $email,
             'hp' => $hp,
             'is_active' => $is_active

@@ -12,20 +12,8 @@
             <div class="form-group row">
                 <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="masukan nama lengkap" value="<?= set_value('nama'); ?>">
+                    <input type="text" class="form-control" id="nama" name="nama" placeholder="masukan nama lengkap" value="<?= set_value('user_nama'); ?>">
                     <?= form_error('nama', ' <small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="jk" class="col-sm-3 col-form-label">Jenis Kelamin</label>
-                <div class="form-check form-check-inline pl-3">
-                    <input type="radio" name="jk" value="L" <?php echo  set_radio('jk', 'L', TRUE); ?> />
-                    <label class="form-check-label" for="jk">&nbsp;Laki-laki</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input type="radio" name="jk" value="P" <?php echo  set_radio('jk', 'P'); ?> />
-                    <label class="form-check-label" for="jk">&nbsp;Perempuan</label>
                 </div>
             </div>
 
@@ -88,7 +76,7 @@
             <div class="form-group row justify-content-end">
                 <div class="col-sm-9">
                     <button type="submit" class="btn btn-primary">Tambah</button>
-                    <a href="<?= base_url('admin/admin'); ?>" class="btn btn-danger">Batal</a>
+                    <a href="<?= base_url('admin'); ?>" class="btn btn-danger">Batal</a>
                 </div>
             </div>
 

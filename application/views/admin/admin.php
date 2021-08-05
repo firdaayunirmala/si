@@ -27,7 +27,6 @@
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>
-                            <th scope="col">Jenis Kelamin</th>
                             <th scope="col">Email</th>
                             <th scope="col">HP</th>
                             <th scope="col">Aktif</th>
@@ -41,11 +40,17 @@
 
                             <tr>
                                 <th scope="row"><?= $i; ?></th>
-                                <td><?= $adm['name']; ?></td>
-                                <td><?= $adm['jk']; ?></td>
+                                <td><?= $adm['user_name']; ?></td>
                                 <td><?= $adm['email']; ?></td>
                                 <td><?= $adm['hp']; ?></td>
-                                <td><?= $adm['is_active']; ?></td>
+                                <td class="text-center">
+                      <?php $aktif = $adm['is_active'];
+                      if ($aktif == 1) { ?>
+                        <span class="badge badge-success">Aktif</span>
+                      <?php } else { ?>
+                        <span class="badge badge-danger">Tidak Aktif</span>
+                      <?php } ?>
+                    </td>
                                 <td>
 
                                     <div class="dropdown ">
