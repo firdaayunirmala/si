@@ -29,15 +29,15 @@ class Administrator extends CI_Controller
         $data['d'] = $this->db->count_all('datata');
 
         $this->db->like('is_active', 1);
-        $this->db->from('dosen');
+        $this->db->from('user');
         $data['dosen'] = $this->db->count_all_results();
 
         $this->db->like('is_active', 1);
-        $this->db->from('mahasiswa');
+        $this->db->from('user');
         $data['mahasiswa'] = $this->db->count_all_results();
 
         $this->db->like('is_active', 1);
-        $this->db->from('pimpinan');
+        $this->db->from('user');
         $data['pimpinan'] = $this->db->count_all_results();
 
         $this->db->like('role_id', 2);

@@ -36,7 +36,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Mahasiswa Aktif</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $mahasiswa ?>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $mhs ?>
                             </div>
 
                         </div>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class=" pl-4 text-xs font-weight-bold text-gray-600 text-uppercase mb-1">Dari <?= $mhs ?> Mahasiswa Tugas Akhir Terdaftar</div>
+             
                 <a href="<?= base_url('operation/mahasiswa'); ?>" class="btn btn-warning btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-right"></i>
@@ -62,14 +62,14 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Dosen Aktif</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $dosen ?></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $dsn ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-male fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
-                <div class=" pl-4 text-xs font-weight-bold text-gray-600 text-uppercase mb-1">Dari <?= $dsn ?> Dosen Pembimbing Terdaftar</div>
+             
                 <a href="<?= base_url('operation/dosen'); ?>" class="btn btn-info btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-right"></i>
@@ -111,14 +111,14 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pimpinan Aktif</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pimpinan ?></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pimp ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-secret fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
-                <div class=" pl-4 text-xs font-weight-bold text-gray-600 text-uppercase mb-1">Dari <?= $pimp ?> Pimpinan Terdaftar</div>
+              
                 <a href="<?= base_url('operation/pimpinan'); ?>" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-right"></i>

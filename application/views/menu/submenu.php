@@ -40,7 +40,14 @@
                                 <td><?= $sm['menu']; ?></td>
                                 <td><?= $sm['url']; ?></td>
                                 <td><?= $sm['icon']; ?></td>
-                                <td><?= $sm['is_active']; ?></td>
+                                <td class="text-center">
+                      <?php $aktif = $sm['is_active'];
+                      if ($aktif == 1) { ?>
+                        <span class="badge badge-success">Aktif</span>
+                      <?php } else { ?>
+                        <span class="badge badge-danger">Tidak Aktif</span>
+                      <?php } ?>
+                    </td>
                                 <td>
                                     <a href="" class="btn btn-success sm" data-toggle="modal" data-target="#editSubMenuModal<?= $sm['id']; ?>">edit</a>
 

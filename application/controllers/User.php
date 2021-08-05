@@ -94,7 +94,7 @@ class User extends CI_Controller
                 $this->load->view('user/edit', $data);
                 $this->load->view('templates/footer');
             } else {
-                $name = $this->input->post('name');
+                $user_name = $this->input->post('name');
                 $email = $this->input->post('email');
 
                 // cek jika ada gambar yang akan diupload
@@ -121,7 +121,7 @@ class User extends CI_Controller
                 }
 
 
-                $this->db->set('name', $name);
+                $this->db->set('user_name', $user_name);
                 $this->db->where('email', $email);
                 $this->db->update('user');
 
@@ -140,7 +140,7 @@ class User extends CI_Controller
                 $this->load->view('user/edit', $data);
                 $this->load->view('templates/footer');
             } else {
-                $name = $this->input->post('name');
+                $user_name = $this->input->post('name');
                 $email = $this->input->post('email');
 
                 // cek jika ada gambar yang akan diupload
@@ -165,7 +165,7 @@ class User extends CI_Controller
                         echo $this->upload->display_errors();
                     }
                 }
-                $this->db->set('name', $name);
+                $this->db->set('user_name', $user_name);
                 $this->db->where('email', $email);
                 $this->db->update('user');
 
