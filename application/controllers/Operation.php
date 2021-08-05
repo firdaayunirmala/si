@@ -24,13 +24,11 @@ class Operation extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['jurusan'] = $this->db->get('jurusan')->result_array();
-
-        $query = "SELECT nama_jurusan,id,kode_jurusan,count(kode_jurusan) as total
+        $query = "SELECT nama_jurusan,kode_jurusan,count(kode_jurusan) as total
         FROM mahasiswa  RIGHT JOIN  jurusan
-        ON mahasiswa.kode_jurusan = jurusan.id 
-        GROUP BY id";
-        $data['jurusan'] = $this->db->query($query)->result_array();
+        ON mahasiswa.kode_jurusan = jurusan.id";
+
+        $data['jur_mhs'] = $this->db->query($query)->result_array();
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);

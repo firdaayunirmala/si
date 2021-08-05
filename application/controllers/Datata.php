@@ -20,7 +20,6 @@ class Datata extends CI_Controller
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
         $data['dosen'] = $this->db->get('dosen')->result_array();
 
-
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

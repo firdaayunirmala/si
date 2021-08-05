@@ -43,7 +43,7 @@
                 <td><?= $dsn['hp']; ?></td>
                 <td><?= $dsn['image']; ?></td>
                 <td>         
-                  <?php $aktif = $dsn['is_active'];?>
+                  <?php $aktif = $dsn['user_id'];?>
                   <div class=" form-check">
                   <input type="checkbox" class="form-check-input aktifdsn" <?= ($aktif==1 ? 'checked data-status="0" ' : 'data-status="1"' );?> data-id="<?= $dsn['id']; ?>"   />    
                   <?php if ($aktif == 1){

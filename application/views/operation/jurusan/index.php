@@ -31,7 +31,7 @@
 
                         <?php $i = 1; ?>
 
-                        <?php foreach ($jurusan as $j) : ?>
+                        <?php foreach ($jur_mhs as $j) : ?>
                             <tr>
                                 <th scope="row"><?= $i ?></th>
                                 <td><?= $j['nama_jurusan']; ?></td>
