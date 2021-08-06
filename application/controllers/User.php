@@ -222,194 +222,54 @@ class User extends CI_Controller
         $data['title'] = 'Ubah Password';
 
         $role_id = $this->session->userdata('user_data')['role_id'];
+        $user = $this->db->get_where('user', ['id' => $this->session->userdata('user_data')['user_id']])->row_array();
 
         $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
         $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[3]|matches[new_password2]');
         $this->form_validation->set_rules('new_password2', ' Confirm New Password', 'required|trim|min_length[3]|matches[new_password1]');
 
-        if ($role_id == 1) {
-            is_logged_in();
-            $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_data')['user_name']])->row_array();
-            if ($this->form_validation->run() == false) {
-                $this->load->view('templates/header', $data);
-                $this->load->view('templates/sidebar', $data);
-                $this->load->view('templates/topbar', $data);
-                $this->load->view('user/changepassword', $data);
-                $this->load->view('templates/footer');
+        if ($this->form_validation->run() == false) {
+            if ($role_id == 1 || $role_id == 2) {
+                is_logged_in();
+            } elseif ($role_id == 6 || $role_id == 9) {
+                is_logged_inpimp();
+            } elseif ($role_id == 4 || $role_id == 8) {
+                is_logged_indsn();
+            } elseif ($role_id == 5) {
+                is_logged_inmhs();
             } else {
-                $current_password = $this->input->post('current_password');
-                $new_password = $this->input->post('new_password1');
-                if (!password_verify($current_password, $data['user']['password'])) {
-                    $this->session->set_flashdata('message', '<div class="alert
-                alert-danger" role="alert">Wrong current password!</div>');
-                    redirect('user/changepassword');
-                } else {
-                    if ($current_password == $new_password) {
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-danger" role="alert">New password cannot be the same as current password!</div>');
-                        redirect('user/changepassword');
-                    } else {
-                        // password sudah oke 
-                        $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-
-                        $this->db->set('password', $password_hash);
-                        $this->db->where('email', $this->session->userdata('user_data')['email']);
-                        $this->db->update('user');
-
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-success" role="alert">Password changed!</div>');
-                        redirect('user/changepassword');
-                    }
-                }
+                redirect('home');
             }
-        } elseif ($role_id == 2) {
-            is_logged_in();
-            $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_data')['user_name']])->row_array();
-            if ($this->form_validation->run() == false) {
-                $this->load->view('templates/header', $data);
-                $this->load->view('templates/sidebar', $data);
-                $this->load->view('templates/topbar', $data);
-                $this->load->view('user/changepassword', $data);
-                $this->load->view('templates/footer');
-            } else {
-                $current_password = $this->input->post('current_password');
-                $new_password = $this->input->post('new_password1');
-                if (!password_verify($current_password, $data['user']['password'])) {
-                    $this->session->set_flashdata('message', '<div class="alert
-                alert-danger" role="alert">Wrong current password!</div>');
-                    redirect('user/changepassword');
-                } else {
-                    if ($current_password == $new_password) {
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-danger" role="alert">New password cannot be the same as current password!</div>');
-                        redirect('user/changepassword');
-                    } else {
-                        // password sudah oke 
-                        $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-
-                        $this->db->set('password', $password_hash);
-                        $this->db->where('email', $this->session->userdata('user_data')['email']);
-                        $this->db->update('user');
-
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-success" role="alert">Password changed!</div>');
-                        redirect('user/changepassword');
-                    }
-                }
-            }
-        } elseif ($role_id == 6) {
-            is_logged_inpimp();
-            $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_data')['user_name']])->row_array();
-
-            if ($this->form_validation->run() == false) {
-                $this->load->view('templates/header', $data);
-                $this->load->view('templates/sidebar', $data);
-                $this->load->view('templates/topbar', $data);
-                $this->load->view('user/changepassword', $data);
-                $this->load->view('templates/footer');
-            } else {
-                $current_password = $this->input->post('current_password');
-                $new_password = $this->input->post('new_password1');
-                if (!password_verify($current_password, $data['user']['password'])) {
-                    $this->session->set_flashdata('message', '<div class="alert
-                alert-danger" role="alert">Wrong current password!</div>');
-                    redirect('user/changepassword');
-                } else {
-                    if ($current_password == $new_password) {
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-danger" role="alert">New password cannot be the same as current password!</div>');
-                        redirect('user/changepassword');
-                    } else {
-                        // password sudah oke 
-                        $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-
-                        $this->db->set('password', $password_hash);
-                        $this->db->where('nidn', $this->session->userdata('user_data')['nidn']);
-                        $this->db->update('pimpinan');
-
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-success" role="alert">Password changed!</div>');
-                        redirect('user/changepassword');
-                    }
-                }
-            }
-        } elseif ($role_id == 4) {
-            is_logged_indsn();
-            $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_data')['user_name']])->row_array();
-            if ($this->form_validation->run() == false) {
-                $this->load->view('templates/header', $data);
-                $this->load->view('templates/sidebar', $data);
-                $this->load->view('templates/topbar', $data);
-                $this->load->view('user/changepassword', $data);
-                $this->load->view('templates/footer');
-            } else {
-                $current_password = $this->input->post('current_password');
-                $new_password = $this->input->post('new_password1');
-                if (!password_verify($current_password, $data['user']['password'])) {
-                    $this->session->set_flashdata('message', '<div class="alert
-                alert-danger" role="alert">Wrong current password!</div>');
-                    redirect('user/changepassword');
-                } else {
-                    if ($current_password == $new_password) {
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-danger" role="alert">New password cannot be the same as current password!</div>');
-                        redirect('user/changepassword');
-                    } else {
-                        // password sudah oke 
-                        $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-
-                        $this->db->set('password', $password_hash);
-                        $this->db->where('nik', $this->session->userdata('user_data')['nik']);
-                        $this->db->update('dosen');
-
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-success" role="alert">Password changed!</div>');
-                        redirect('user/changepassword');
-                    }
-                }
-            }
-        } elseif ($role_id == 5) {
-            is_logged_inmhs();
-            $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_data')['user_name']])->row_array();
-            if ($this->form_validation->run() == false) {
-                $this->load->view('templates/header', $data);
-                $this->load->view('templates/sidebar', $data);
-                $this->load->view('templates/topbar', $data);
-                $this->load->view('user/changepassword', $data);
-                $this->load->view('templates/footer');
-            } else {
-                $current_password = $this->input->post('current_password');
-                $new_password = $this->input->post('new_password1');
-                if (!password_verify($current_password, $data['user']['password'])) {
-                    $this->session->set_flashdata('message', '<div class="alert
-                alert-danger" role="alert">Wrong current password!</div>');
-                    redirect('user/changepassword');
-                } else {
-                    if ($current_password == $new_password) {
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-danger" role="alert">New password cannot be the same as current password!</div>');
-                        redirect('user/changepassword');
-                    } else {
-                        // password sudah oke 
-                        $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-
-                        $this->db->set('password', $password_hash);
-                        $this->db->where('nim', $this->session->userdata('user_data')['nim']);
-                        $this->db->update('mahasiswa');
-
-                        $this->session->set_flashdata('message', '<div class="alert
-                    alert-success" role="alert">Password Berubah!</div>');
-                        redirect('user/changepassword');
-                    }
-                }
-            }
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/changepassword', $data);
+            $this->load->view('templates/footer');
         } else {
-            redirect('home');
+            $current_password = $this->input->post('current_password');
+            $new_password = $this->input->post('new_password1');
+            if (!password_verify($current_password, $user['password'])) {
+                $this->session->set_flashdata('message', '<div class="alert
+                alert-danger" role="alert">Password Lama Salah!</div>');
+                redirect('user/changepassword');
+            } else {
+                if ($current_password == $new_password) {
+                    $this->session->set_flashdata('message', '<div class="alert
+                    alert-danger" role="alert">Password baru tidak boleh sama dengan password lama!</div>');
+                    redirect('user/changepassword');
+                } else {
+                    // password sudah oke 
+                    $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+
+                    $this->db->set('password', $password_hash);
+                    $this->db->where('id', $this->session->userdata('user_data')['user_id']);
+                    $this->db->update('user');
+
+                    $this->session->set_flashdata('message', '<div class="alert
+                    alert-success" role="alert">Password changed!</div>');
+                    redirect('user/changepassword');
+                }
+            }
         }
     }
 }
