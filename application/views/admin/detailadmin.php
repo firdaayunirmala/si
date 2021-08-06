@@ -5,15 +5,6 @@
     <h1 class="h3 mb-4 text-gray-800">Detail Admin</h1>
     <a href="<?= base_url('admin'); ?>" class="btn btn-danger mb-2">Kembali</a>
 
-    <div class="row">
-        <div class="col-lg-8">
-            <?php if ($this->session->flashdata('message')) : ?>
-                <?= $this->session->flashdata('message'); ?>
-                <?php unset($_SESSION['message']); ?>
-            <?php endif; ?>
-        </div>
-    </div>
-
     <div class="card mb-3 col-lg-8">
         <div class="row no-gutters">
             <div class="col-md-4">
@@ -21,10 +12,10 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title"><?= $admin['user_name']; ?></h5>
+                    <h5 class="card-title"><?= $admin['name']; ?></h5>
                     <p class="card-text"><?= $admin['email']; ?></p>
                     <p class="card-text"><?= $admin['hp']; ?></p>
-                    <p class="card-text"><small class="text-muted">Member since <?= date('d F Y', $admin['created_at']); ?> </small></p>
+                    <p class="card-text"><small class="text-muted">Member since <?= date('d F Y', strtotime($admin['created_at'])); ?> </small></p>
                 </div>
             </div>
         </div>

@@ -51,168 +51,128 @@ class User extends CI_Controller
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
         $role_id = $this->session->userdata('user_data')['role_id'];
 
-
-        if ($this->form_validation->run() == false) {
-            $url = "";
-            if ($role_id == 1 || $role_id == 2) {
-                is_logged_in();
-                $data['user'] = $this->db->get_where('user', ['user_name' =>
-                $this->session->userdata('user_name')])->row_array();
-                $url = "user/edit";
-            } elseif ($role_id == 6) {
-                is_logged_inpimp();
-                $url = "pimpinan/edit";
-            } elseif ($role_id == 4) {
-                is_logged_indsn();
-                $url = "dosen/edit";
-            } elseif ($role_id == 5) {
-                is_logged_inmhs();
-                $url = "mahasiswa/edit";
+        if ($role_id == 1 || $role_id == 2) {
+            is_logged_in();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+            if ($this->form_validation->run() == false) {
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/topbar', $data);
+                $this->load->view('user/edit', $data);
+                $this->load->view('templates/footer');
             } else {
-                redirect('home');
+                $user_name = $this->input->post('name');
+                $email = $this->input->post('email');
+
+                // cek jika ada gambar yang akan diupload
+                $upload_image = $_FILES['image']['name'];
+
+                if ($upload_image) {
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size']     = '2048';
+                    $config['upload_path'] = './assets/img/profile/';
+
+                    $this->load->library('upload', $config);
+
+                    if ($this->upload->do_upload('image')) {
+                        $old_image = $data['user']['image'];
+                        if ($old_image != 'default.jpg') {
+                            unlink(FCPATH . 'assets/img/profile/' . $old_image);
+                        }
+
+                        $new_image = $this->upload->data('file_name');
+                        $this->db->set('image', $new_image);
+                    } else {
+                        echo $this->upload->display_errors();
+                    }
+                }
+
+                $this->db->set('user_name', $user_name);
+                $this->db->where('email', $email);
+                $this->db->update('user');
+
+                $this->session->set_flashdata('message', '<div class="alert
+                alert-success" role="alert">Profil berhasil di perbaharui!</div>');
+                redirect('user');
             }
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view($url, $data);
-            $this->load->view('templates/footer');
+        } elseif ($role_id == 6) {
+            is_logged_inpimp();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+            $user = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+
+            $data['jurusan'] = $this->db->get('jurusan')->result_array();
+
+            if ($this->form_validation->run() == false) {
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/topbar', $data);
+                $this->load->view('pimpinan/edit', $data);
+                $this->load->view('templates/footer');
+            } else {
+                $this->pimp->ubahpimpinan($user);
+
+                $this->session->set_flashdata('message', '<div class="alert
+                alert-success" role="alert">Profil berhasil di perbarui !</div>');
+                redirect('user');
+            }
+        } elseif ($role_id == 4) {
+            is_logged_indsn();
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+            $user = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+            if ($this->form_validation->run() == false) {
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/topbar', $data);
+                $this->load->view('dosen/edit', $data);
+                $this->load->view('templates/footer');
+            } else {
+                $this->dsn->ubahdosen($user);
+
+                $this->session->set_flashdata('message', '<div class="alert
+                alert-success" role="alert">Profil berhasil di perbarui !</div>');
+                redirect('user');
+            }
+        } elseif ($role_id == 5) {
+            is_logged_inmhs();
+
+            $nim =  $this->session->userdata('user_name');
+            $query = "SELECT * 
+                    FROM mahasiswa INNER JOIN jurusan
+                      ON mahasiswa.kode_jurusan = jurusan.id
+                      WHERE mahasiswa.nim = $nim  
+                      ORDER BY mahasiswa.nim ASC
+                 ";
+            $data['datamhs'] = $this->db->query($query)->row_array();
+
+            $data['jurusan'] = $this->db->get('jurusan')->result_array();
+
+            $data['user'] = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+            $user = $this->db->get_where('user', ['user_name' =>
+            $this->session->userdata('user_name')])->row_array();
+
+            if ($this->form_validation->run() == false) {
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/topbar', $data);
+                $this->load->view('mahasiswa/edit', $data);
+                $this->load->view('templates/footer');
+            } else {
+
+                $this->mhs->ubahmahasiswa($user);
+
+                $this->session->set_flashdata('message', '<div class="alert
+                alert-success" role="alert">Profil berhasil di perbarui !</div>');
+                redirect('user');
+            }
         } else {
-            if ($role_id == 1 || $role_id == 2) {
-                $url = "user/edit";
-            } elseif ($role_id == 6) {
-                $url = "pimpinan/edit";
-            } elseif ($role_id == 4) {
-                $url = "dosen/edit";
-            } elseif ($role_id == 5) {
-                $url = "mahasiswa/edit";
-            } else {
-                redirect('home');
-            }
-            redirect('user');
+            redirect('home');
         }
-
-        // if ($role_id == 1 || $role_id == 2) {
-        //     is_logged_in();
-        //     $data['user'] = $this->db->get_where('user', ['user_name' =>
-        //     $this->session->userdata('user_name')])->row_array();
-        //     if ($this->form_validation->run() == false) {
-        //         $this->load->view('templates/header', $data);
-        //         $this->load->view('templates/sidebar', $data);
-        //         $this->load->view('templates/topbar', $data);
-        //         $this->load->view('user/edit', $data);
-        //         $this->load->view('templates/footer');
-        //     } else {
-        //         $user_name = $this->input->post('name');
-        //         $email = $this->input->post('email');
-
-        //         // cek jika ada gambar yang akan diupload
-        //         $upload_image = $_FILES['image']['name'];
-
-        //         if ($upload_image) {
-        //             $config['allowed_types'] = 'gif|jpg|png';
-        //             $config['max_size']     = '2048';
-        //             $config['upload_path'] = './assets/img/profile/';
-
-        //             $this->load->library('upload', $config);
-
-        //             if ($this->upload->do_upload('image')) {
-        //                 $old_image = $data['user']['image'];
-        //                 if ($old_image != 'default.jpg') {
-        //                     unlink(FCPATH . 'assets/img/profile/' . $old_image);
-        //                 }
-
-        //                 $new_image = $this->upload->data('file_name');
-        //                 $this->db->set('image', $new_image);
-        //             } else {
-        //                 echo $this->upload->display_errors();
-        //             }
-        //         }
-
-        //         $this->db->set('user_name', $user_name);
-        //         $this->db->where('email', $email);
-        //         $this->db->update('user');
-
-        //         $this->session->set_flashdata('message', '<div class="alert
-        //         alert-success" role="alert">Profil berhasil di perbaharui!</div>');
-        //         redirect('user');
-        //     }
-        // } elseif ($role_id == 6) {
-        // is_logged_inpimp();
-        // $data['user'] = $this->db->get_where('user', ['user_name' =>
-        // $this->session->userdata('user_name')])->row_array();
-        // $user = $this->db->get_where('user', ['user_name' =>
-        // $this->session->userdata('user_name')])->row_array();
-
-        // $data['jurusan'] = $this->db->get('jurusan')->result_array();
-
-        // if ($this->form_validation->run() == false) {
-        //     $this->load->view('templates/header', $data);
-        //     $this->load->view('templates/sidebar', $data);
-        //     $this->load->view('templates/topbar', $data);
-        //     $this->load->view('pimpinan/edit', $data);
-        //     $this->load->view('templates/footer');
-        // } else {
-        //     $this->pimp->ubahpimpinan($user);
-
-        //     $this->session->set_flashdata('message', '<div class="alert
-        //     alert-success" role="alert">Profil berhasil di perbarui !</div>');
-        //     redirect('user');
-        // }
-        // } elseif ($role_id == 4) {
-        //     is_logged_indsn();
-        //     $data['user'] = $this->db->get_where('user', ['user_name' =>
-        //     $this->session->userdata('user_name')])->row_array();
-        //     $user = $this->db->get_where('user', ['user_name' =>
-        //     $this->session->userdata('user_name')])->row_array();
-        //     if ($this->form_validation->run() == false) {
-        //         $this->load->view('templates/header', $data);
-        //         $this->load->view('templates/sidebar', $data);
-        //         $this->load->view('templates/topbar', $data);
-        //         $this->load->view('dosen/edit', $data);
-        //         $this->load->view('templates/footer');
-        //     } else {
-        //         $this->dsn->ubahdosen($user);
-
-        //         $this->session->set_flashdata('message', '<div class="alert
-        //         alert-success" role="alert">Profil berhasil di perbarui !</div>');
-        //         redirect('user');
-        //     }
-        // } elseif ($role_id == 5) {
-        //     is_logged_inmhs();
-
-        //     $nim =  $this->session->userdata('user_name');
-        //     $query = "SELECT * 
-        //             FROM mahasiswa INNER JOIN jurusan
-        //               ON mahasiswa.kode_jurusan = jurusan.id
-        //               WHERE mahasiswa.nim = $nim  
-        //               ORDER BY mahasiswa.nim ASC
-        //          ";
-        //     $data['datamhs'] = $this->db->query($query)->row_array();
-
-        //     $data['jurusan'] = $this->db->get('jurusan')->result_array();
-
-        //     $data['user'] = $this->db->get_where('user', ['user_name' =>
-        //     $this->session->userdata('user_name')])->row_array();
-        //     $user = $this->db->get_where('user', ['user_name' =>
-        //     $this->session->userdata('user_name')])->row_array();
-
-        //     if ($this->form_validation->run() == false) {
-        //         $this->load->view('templates/header', $data);
-        //         $this->load->view('templates/sidebar', $data);
-        //         $this->load->view('templates/topbar', $data);
-        //         $this->load->view('mahasiswa/edit', $data);
-        //         $this->load->view('templates/footer');
-        //     } else {
-
-        //         $this->mhs->ubahmahasiswa($user);
-
-        //         $this->session->set_flashdata('message', '<div class="alert
-        //         alert-success" role="alert">Profil berhasil di perbarui !</div>');
-        //         redirect('user');
-        //     }
-        // } else {
-        //     redirect('home');
-        // }
     }
 
     public function changePassword()

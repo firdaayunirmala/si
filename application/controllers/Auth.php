@@ -38,10 +38,20 @@ class Auth extends CI_Controller
             if ($user['is_active'] == 1) {
                 //cek password
                 if (password_verify($password, $user['password'])) {
+                    if ($user['role_id'] == 5) {
+                        $table = 'mahasiswa';
+                    } else {
+                        $table = 'dosen';
+                    }
+                    $profil = $this->db->get_where($table, ['user_id' => $user['id']])->row_array();
                     $data = [
-                        'user_name' => $user['user_name'],
-                        'role_id' => $user['role_id'],
-                        'user_id' => $user['id']
+                        "user_data" => [
+                            'user_name' => $profil['name'],
+                            'user_fullname' => ($user['role_id'] == 5) ? $profil['user_fullname'] : $profil['name'],
+                            'role_id' => $user['role_id'],
+                            'user_id' => $user['id'],
+                            'image' => $profil['image'],
+                        ]
                     ];
                     $this->session->set_userdata($data);
                     if ($user['role_id'] == 1 || $user['role_id'] == 2) {
@@ -135,11 +145,7 @@ class Auth extends CI_Controller
 
     public function logout()
     {
-        $this->session->unset_userdata('user_name');
-        $this->session->unset_userdata('role_id');
-        $this->session->unset_userdata('nim');
-        $this->session->unset_userdata('nidn');
-        $this->session->unset_userdata('nik');
+        $this->session->unset_userdata('user_data');
 
         $this->session->set_flashdata('message', '<div class=\'alert alert-success\' role=\'alert\'>Berhasil Keluar</div>');
         redirect('home');

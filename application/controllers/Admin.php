@@ -16,13 +16,7 @@ class Admin extends CI_Controller
     public function role()
     {
         $data['title'] = 'Role';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
-
         $data['role'] = $this->db->get('user_role')->result_array();
-
-        $data['namarole']   = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
 
         $this->form_validation->set_rules('role', 'Role', 'required|trim');
 
@@ -114,30 +108,32 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['title'] = 'Admin';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
 
         $data['admin'] = $this->Admin_model->getAllAdmin();
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
+        $data['dosen'] = $this->Admin_model->getAllDosen();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/admin', $data);
-        $this->load->view('templates/footer');
+        if ($this->input->post('tambah') == 'tambah') {
+            list($user_id, $role_id) = explode('|', $this->input->post('user_id'));
+            $data = [
+                'id' => $user_id,
+                'role_id' => ($role_id == 4) ? 8 : 9,
+            ];
+            $this->Admin_model->ubahDataAdmin($data);
+            redirect('admin');
+        } else {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/admin', $data);
+            $this->load->view('templates/footer');
+        }
     }
 
     public function detailadmin($id)
     {
         $data['title'] = 'Admin';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
 
         $data['admin'] = $this->Admin_model->getAdminById($id);
-
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -146,81 +142,16 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function tambahadmin()
+
+    public function hapusadmin()
     {
-        $data['title'] = 'Tambah Admin';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
 
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
-
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
-            'is_unique' => 'This email has already registered!'
-        ]);
-        $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-            'matches' => 'password dont match!',
-            'min_length' => 'password too short!'
-        ]);
-        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
-        $this->form_validation->set_rules('hp', 'Hp', 'required|trim');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('admin/tambahadmin', $data);
-            $this->load->view('templates/footer');
-        } else {
-            $this->Admin_model->tambahDataAdmin();
-            $this->session->set_flashdata('message', 'Ditambahkan!');
-            redirect('admin');
-        }
-    }
-
-    public function hapusadmin($id)
-    {
-        $admin = $this->Admin_model->getAdminById($id);
-
-        $this->Admin_model->hapusDataAdmin($id, $admin);
-        $this->session->set_flashdata('message', 'Dihapus!');
+        list($user_id, $role_id) = explode('|', $this->input->get('data'));
+        $data = [
+            'id' => $user_id,
+            'role_id' => ($role_id == 8) ? 4 : 6,
+        ];
+        $this->Admin_model->ubahDataAdmin($data);
         redirect('admin');
-    }
-
-    public function editadmin($id)
-    {
-        $data['title'] = 'Admin';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
-
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
-
-
-        $data['admin'] = $this->Admin_model->getAdminById($id);
-        $admin = $this->Admin_model->getAdminById($id);
-
-
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('password', 'Password', 'trim|min_length[3]|matches[password2]', [
-            'matches' => 'password dont match!',
-            'min_length' => 'password too short!'
-        ]);
-        $this->form_validation->set_rules('password2', 'Password', 'trim|matches[password]');
-        $this->form_validation->set_rules('hp', 'Hp', 'required|trim');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('admin/editadmin', $data);
-            $this->load->view('templates/footer');
-        } else {
-            $this->Admin_model->ubahDataAdmin($admin, $id);
-
-            $this->session->set_flashdata('message', 'Diubah!');
-            redirect('admin');
-        }
     }
 }

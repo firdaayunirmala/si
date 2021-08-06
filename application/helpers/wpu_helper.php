@@ -3,10 +3,10 @@
 function is_logged_in()
 {
     $ci =  get_instance();
-    if (!$ci->session->userdata('user_name')) {
+    if (!$ci->session->userdata('user_data')['user_name']) {
         redirect('auth');
     } else {
-        $role_id = $ci->session->userdata('role_id');
+        $role_id = $ci->session->userdata('user_data')['role_id'];
         // print_r($role_id);
         // die;
         $menu = $ci->uri->segment(1);
@@ -30,10 +30,10 @@ function is_logged_in()
 function is_logged_inmhs()
 {
     $ci =  get_instance();
-    if (!$ci->session->userdata('user_name')) {
+    if (!$ci->session->userdata('user_data')['user_name']) {
         redirect('auth/mahasiswa');
     } else {
-        $role_id = $ci->session->userdata('role_id');
+        $role_id = $ci->session->userdata('user_data')['role_id'];
         //  print_r($role_id);
         // die;
         $menu = $ci->uri->segment(1);
@@ -56,10 +56,10 @@ function is_logged_inmhs()
 function is_logged_indsn()
 {
     $ci =  get_instance();
-    if (!$ci->session->userdata('user_name')) {
+    if (!$ci->session->userdata('user_data')['user_name']) {
         redirect('auth/dosen');
     } else {
-        $role_id = $ci->session->userdata('role_id');
+        $role_id = $ci->session->userdata('user_data')['role_id'];
         $menu = $ci->uri->segment(1);
 
         $queryMenu = $ci->db->get_where('user_sub_menu', ['url' => $menu])->row_array();
@@ -79,10 +79,10 @@ function is_logged_indsn()
 function is_logged_inpimp()
 {
     $ci =  get_instance();
-    if (!$ci->session->userdata('user_name')) {
+    if (!$ci->session->userdata('user_data')['user_name']) {
         redirect('auth/pimpinan');
     } else {
-        $role_id = $ci->session->userdata('role_id');
+        $role_id = $ci->session->userdata('user_data')['role_id'];
         $menu = $ci->uri->segment(1);
 
         $queryMenu = $ci->db->get_where('user_sub_menu', ['url' => $menu])->row_array();

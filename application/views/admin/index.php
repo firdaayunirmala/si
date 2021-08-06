@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-             
+
                 <a href="<?= base_url('operation/mahasiswa'); ?>" class="btn btn-warning btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-right"></i>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-             
+
                 <a href="<?= base_url('operation/dosen'); ?>" class="btn btn-info btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-right"></i>
@@ -80,7 +80,7 @@
         </div>
 
         <!-- Earnings (Monthly) Card Example -->
-        <?php if ($user['role_id'] == 1) : ?>
+        <?php if ($this->session->userdata('user_data')['role_id'] == 1) : ?>
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-dark shadow h-100">
                     <div class="card-body">
@@ -118,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-              
+
                 <a href="<?= base_url('operation/pimpinan'); ?>" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-right"></i>
@@ -129,28 +129,28 @@
         </div>
 
         <!-- Earnings (Monthly) Card Example -->
-     
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-danger shadow h-100">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Data Tugas Akhir</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $d ?></div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-user fa-2x text-gray-300"></i>
-                            </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Data Tugas Akhir</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $d ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user fa-2x text-gray-300"></i>
                         </div>
                     </div>
-                    <a href="<?= base_url('administrator/datata'); ?>" class="btn btn-danger btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-arrow-right"></i>
-                        </span>
-                        <span class="text">Lihat Detail Skripsi</span>
-                    </a>
                 </div>
+                <a href="<?= base_url('administrator/datata'); ?>" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="text">Lihat Detail Skripsi</span>
+                </a>
             </div>
+        </div>
     </div>
 </div>
 <!-- /.container-fluid -->
