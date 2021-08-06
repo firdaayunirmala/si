@@ -18,17 +18,16 @@ class User extends CI_Controller
 
         $role_id = $this->session->userdata('user_data')['role_id'];
 
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_data')['user_name']])->row_array();
+        $data['user'] = $this->db->get_where('dosen', ['user_id' => $this->session->userdata('user_data')['user_id']])->row_array();
 
         $url = "";
         if ($role_id == 1 || $role_id == 2) {
             is_logged_in();
             $url = 'user/index';
-        } elseif ($role_id == 6) {
+        } elseif ($role_id == 6 || $role_id == 9) {
             is_logged_inpimp();
             $url = 'pimpinan/index';
-        } elseif ($role_id == 4) {
+        } elseif ($role_id == 4 || $role_id == 8) {
             is_logged_indsn();
             $url = 'dosen/index';
         } elseif ($role_id == 5) {
