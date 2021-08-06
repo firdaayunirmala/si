@@ -16,7 +16,7 @@
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Nama Lengkap</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" name="name" value="<?= $user['user_name']; ?>">
+                    <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>">
                     <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
@@ -26,8 +26,7 @@
                 <div class="col-sm-10">
                     <div class="row">
                         <div class="col-sm-6">
-                            <img src="<?= base_url('assets/img/profile/') . $user['image'];
-                                        ?>" class="img-thumbnail">
+                            <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail">
                         </div>
                         <div class="col-sm-9">
                             <input type="file" class="custom-file-input" id="image" name="image">

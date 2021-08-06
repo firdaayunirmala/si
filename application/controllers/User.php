@@ -53,15 +53,18 @@ class User extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $url = "";
+            if ($role_id != 5) {
+                $data['user'] = $this->db->get_where('dosen', ['user_id' => $this->session->userdata('user_data')['user_id']])->row_array();
+            } else {
+                $data['user'] = $this->db->get_where('mahasiswa', ['user_id' => $this->session->userdata('user_data')['user_id']])->row_array();
+            }
             if ($role_id == 1 || $role_id == 2) {
                 is_logged_in();
-                $data['user'] = $this->db->get_where('user', ['user_name' =>
-                $this->session->userdata('user_name')])->row_array();
                 $url = "user/edit";
-            } elseif ($role_id == 6) {
+            } elseif ($role_id == 6 || $role_id == 9) {
                 is_logged_inpimp();
                 $url = "pimpinan/edit";
-            } elseif ($role_id == 4) {
+            } elseif ($role_id == 4 || $role_id == 8) {
                 is_logged_indsn();
                 $url = "dosen/edit";
             } elseif ($role_id == 5) {
@@ -78,9 +81,9 @@ class User extends CI_Controller
         } else {
             if ($role_id == 1 || $role_id == 2) {
                 $url = "user/edit";
-            } elseif ($role_id == 6) {
+            } elseif ($role_id == 6 || $role_id == 9) {
                 $url = "pimpinan/edit";
-            } elseif ($role_id == 4) {
+            } elseif ($role_id == 4 || $role_id == 8) {
                 $url = "dosen/edit";
             } elseif ($role_id == 5) {
                 $url = "mahasiswa/edit";
@@ -217,10 +220,8 @@ class User extends CI_Controller
     public function changePassword()
     {
         $data['title'] = 'Ubah Password';
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
 
-        $role_id = $this->session->userdata('role_id');
+        $role_id = $this->session->userdata('user_data')['role_id'];
 
         $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
         $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[3]|matches[new_password2]');
@@ -229,7 +230,7 @@ class User extends CI_Controller
         if ($role_id == 1) {
             is_logged_in();
             $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_name')])->row_array();
+            $this->session->userdata('user_data')['user_name']])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -253,7 +254,7 @@ class User extends CI_Controller
                         $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 
                         $this->db->set('password', $password_hash);
-                        $this->db->where('email', $this->session->userdata('email'));
+                        $this->db->where('email', $this->session->userdata('user_data')['email']);
                         $this->db->update('user');
 
                         $this->session->set_flashdata('message', '<div class="alert
@@ -265,7 +266,7 @@ class User extends CI_Controller
         } elseif ($role_id == 2) {
             is_logged_in();
             $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_name')])->row_array();
+            $this->session->userdata('user_data')['user_name']])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -289,7 +290,7 @@ class User extends CI_Controller
                         $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 
                         $this->db->set('password', $password_hash);
-                        $this->db->where('email', $this->session->userdata('email'));
+                        $this->db->where('email', $this->session->userdata('user_data')['email']);
                         $this->db->update('user');
 
                         $this->session->set_flashdata('message', '<div class="alert
@@ -301,7 +302,7 @@ class User extends CI_Controller
         } elseif ($role_id == 6) {
             is_logged_inpimp();
             $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_name')])->row_array();
+            $this->session->userdata('user_data')['user_name']])->row_array();
 
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
@@ -326,7 +327,7 @@ class User extends CI_Controller
                         $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 
                         $this->db->set('password', $password_hash);
-                        $this->db->where('nidn', $this->session->userdata('nidn'));
+                        $this->db->where('nidn', $this->session->userdata('user_data')['nidn']);
                         $this->db->update('pimpinan');
 
                         $this->session->set_flashdata('message', '<div class="alert
@@ -338,7 +339,7 @@ class User extends CI_Controller
         } elseif ($role_id == 4) {
             is_logged_indsn();
             $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_name')])->row_array();
+            $this->session->userdata('user_data')['user_name']])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -362,7 +363,7 @@ class User extends CI_Controller
                         $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 
                         $this->db->set('password', $password_hash);
-                        $this->db->where('nik', $this->session->userdata('nik'));
+                        $this->db->where('nik', $this->session->userdata('user_data')['nik']);
                         $this->db->update('dosen');
 
                         $this->session->set_flashdata('message', '<div class="alert
@@ -374,7 +375,7 @@ class User extends CI_Controller
         } elseif ($role_id == 5) {
             is_logged_inmhs();
             $data['user'] = $this->db->get_where('user', ['user_name' =>
-            $this->session->userdata('user_name')])->row_array();
+            $this->session->userdata('user_data')['user_name']])->row_array();
             if ($this->form_validation->run() == false) {
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
@@ -398,7 +399,7 @@ class User extends CI_Controller
                         $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 
                         $this->db->set('password', $password_hash);
-                        $this->db->where('nim', $this->session->userdata('nim'));
+                        $this->db->where('nim', $this->session->userdata('user_data')['nim']);
                         $this->db->update('mahasiswa');
 
                         $this->session->set_flashdata('message', '<div class="alert
