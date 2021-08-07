@@ -3,9 +3,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-    <?php $nik = $_SESSION['nik'];?>
-
-    <input type="hidden" id="nikDosen" value="<?php echo $nik ?>" ;>
+ 
 
     <div class="row">
         <div class="col-lg">
@@ -26,24 +24,20 @@
 
                         </tr>
                     </thead>
-                    <tbody>
-
-                        <?php $i = 1; ?>
-                        <?php foreach ($bimbingan_dsn as $bim) : ?>
-                            <tr>
-                                <th scope="row"><?= $i ?></th>
-                                <td><?= $bim['tanggal']; ?></td>
-                                <td><?= $bim['nim']; ?></td>
-                                <td><?= $bim['name']; ?></td>
-                                <td><?= $bim['catatan']; ?></td>
-
-            </div>
-            </td>
-            <td> <a class=" btn btn-warning btn-sm " href="<?= base_url() ?>dosen/detailbimbingan/<?= $bim['id']; ?>">Detail</a>
-            </td>
-            </tr>
-            <?php $i++; ?>
-        <?php endforeach; ?>
+                    <tbody>                 
+                    <?php $i = 1; ?>
+                    <?php foreach ($bimbingan_dsn as $bim) : ?>
+                        <tr>
+                            <th scope="row"><?= $i ?></th>
+                            <td><?= $bim['tanggal']; ?></td>
+                            <td><?= $bim['nim']; ?></td>
+                            <td><?= $bim['name']; ?></td>
+                            <td><?= $bim['catatan']; ?></td>
+                            <td> <a class=" btn btn-warning btn-sm " href="<?= base_url() ?>dosen/detailbimbingan/<?= $bim['id']; ?>">Detail</a>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
 
         </tbody>
         </table>

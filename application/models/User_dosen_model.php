@@ -6,8 +6,9 @@ class User_dosen_model extends CI_Model
 
     public function ubahdosen($user)
     {
-        $nik = $this->input->post('nik');
-        $name = $this->input->post('name');
+        $dosen_id = $this->input->post('dosen_id');
+        $user_name = $this->input->post('nik');
+        $user_fullname = $this->input->post('name');
         $email = $this->input->post('email');
         $hp = $this->input->post('hp');
 
@@ -34,13 +35,15 @@ class User_dosen_model extends CI_Model
         }
 
         $data = [
-            'name' => $name,
+            'dosen_id' => $dosen_id,
+            'nik' => $user_name,
+            'name' => $user_fullname,
             'email' => $email,
             'hp' => $hp,
         ];
 
         $this->db->set($data);
-        $this->db->where('nik', $nik);
+        $this->db->where('dosen_id', $dosen_id);
         $this->db->update('dosen');
     }
 }

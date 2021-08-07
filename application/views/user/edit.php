@@ -16,7 +16,7 @@
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Nama Lengkap</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" name="name" value="<?= $user['user_name']; ?>">
+                    <input type="text" class="form-control" id="name" name="name" value="<?= $user['user_namefull']; ?>">
                     <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
