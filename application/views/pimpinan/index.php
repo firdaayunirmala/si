@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title"><?= $user['nidn']; ?></h5>
+                    <h5 class="card-title"><?= $user['nik']; ?></h5>
                     <p class="card-text"><?= $user['name']; ?></p>
                     <p class="card-text"><?= $user['email']; ?></p>
                     <p class="card-text"><?= $user['hp']; ?></p>

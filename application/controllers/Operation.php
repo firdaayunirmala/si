@@ -16,17 +16,24 @@ class Operation extends CI_Controller
     public function index()
     {
         $data['title'] = 'Jurusan';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
 
         $this->form_validation->set_rules('jurusan', 'Jurusan', 'required');
 
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
-
-        $query = "SELECT nama_jurusan,kode_jurusan,count(kode_jurusan) as total
-        FROM mahasiswa  RIGHT JOIN  jurusan
-        ON mahasiswa.kode_jurusan = jurusan.id";
+        $query = "SELECT
+                    j.id ,
+                    j.nama_jurusan ,
+                    COALESCE(total_mahasiswa.total, 0) as total
+                FROM
+                    jurusan j
+                left join (
+                    select
+                        count(*) as total,
+                        m.kode_jurusan
+                    from
+                        mahasiswa m
+                    group by
+                        m.kode_jurusan) as total_mahasiswa on
+                    total_mahasiswa.kode_jurusan = j.id";
 
         $data['jur_mhs'] = $this->db->query($query)->result_array();
 
@@ -49,10 +56,6 @@ class Operation extends CI_Controller
     public function detailjurusan($id)
     {
         $data['title'] = 'Jurusan';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
 
         $data['jurusan'] = $this->Jurusan_model->detailJurusanById($id);
         $this->load->view('templates/header', $data);
@@ -65,11 +68,6 @@ class Operation extends CI_Controller
     public function editjurusan()
     {
         $data['title'] = 'Jurusan';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
-
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
 
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
 

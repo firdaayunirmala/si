@@ -14,12 +14,12 @@
     </div>
 
     <?php
-    $user_name =  $this->session->userdata('user_name');
-    $query = "SELECT * 
-    FROM mahasiswa INNER JOIN jurusan
-    ON mahasiswa.kode_jurusan = jurusan.id
-    WHERE mahasiswa.nim = $user_name  
-    ORDER BY mahasiswa.nim ASC
+    $user_id =  $this->session->userdata('user_data')['user_id'];
+    $query = "SELECT 
+                * 
+            FROM mahasiswa m 
+            INNER JOIN jurusan j ON m.kode_jurusan = j.jurusan.id
+            WHERE m.user_id = $user_id
     ";
     $datamhs = $this->db->query($query)->row_array();
     ?>
