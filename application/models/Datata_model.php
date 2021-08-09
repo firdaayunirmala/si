@@ -7,25 +7,24 @@ class Datata_model extends CI_Model
         return $this->db->query(
             "SELECT
                 d.mhs_id ,
-                d.tanggal,
                 m.nim ,
                 m.name ,
                 d.judul ,
                 d.sinopsis,
                 d.status,
                 dd.status as status_dosen,
-                j.nama_jurusan ,
+                j.jurusan_nama ,
                 d2.name dosen
             FROM
                 datata d
             inner join datata_detail dd on
-                dd.id_datata = d.id
+                dd.datata_id = d.datata_id 
             inner join mahasiswa m on
-                m.id = d.id_user
+                m.mhs_id = d.mhs_id 
             inner join dosen d2 on
-                d2.id = dd.id_dosen
+                d2.dosen_id = dd.dosen_id 
             inner join jurusan j on
-                j.id = d.kode_jurusan
+                j.jurusan_id = d.jurusan_id 
             ORDER BY
                 m.nim"
         )->result();
@@ -47,7 +46,7 @@ class Datata_model extends CI_Model
                     m.is_active = 1
                     and m.mhs_id not in (
                     SELECT
-                        d.id_user
+                        d.mhs_id
                     FROM
                         datata d)
                 order by

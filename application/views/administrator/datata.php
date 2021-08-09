@@ -72,7 +72,7 @@
               <select name="jurusan" id="jurusan" class="form-control">
                 <option value="0" selected>Pilih Jurusan</option>
                 <?php foreach ($jurusan as $j) : ?>
-                  <option value="<?= $j['id'] ?>"><?= $j['nama_jurusan'] ?></option>
+                  <option value="<?= $j['jurusan_id'] ?>"><?= $j['jurusan_nama'] ?></option>
                 <?php endforeach; ?>
               </select>
             </div>
@@ -101,7 +101,7 @@
                         <select name="pembimbing1" id="pembimbing1" class="form-control">
                           <option value="0">Pilih Dosen Pembimbing 1</option>
                           <?php foreach ($dosen as $pembimbing1) : ?>
-                            <option value="<?= $pembimbing1['id'] ?>"><?= $pembimbing1['name'] ?></option>
+                            <option value="<?= $pembimbing1['dosen_id'] ?>"><?= $pembimbing1['name'] ?></option>
                           <?php endforeach; ?>
                         </select>
                       </div>
@@ -124,7 +124,7 @@
                         <select name="pembimbing2" id="pembimbing2" class="form-control">
                           <option value="0">Pilih Dosen Pembimbing 2</option>
                           <?php foreach ($dosen as $pembimbing2) : ?>
-                            <option value="<?= $pembimbing2['id'] ?>"><?= $pembimbing2['name'] ?></option>
+                            <option value="<?= $pembimbing2['dosen_id'] ?>"><?= $pembimbing2['name'] ?></option>
                           <?php endforeach; ?>
                         </select>
                       </div>
@@ -318,7 +318,7 @@
         let opt = '';
         if (res.length > 0) {
           $.each(res, (index, item) => {
-            opt += `<option value="${item.id}" data-nim="${item.nim}">${item.name}</option>`
+            opt += `<option value="${item.mhs_id}" data-nim="${item.nim}">${item.name}</option>`
           })
           $("#id_user").html(opt)
         }

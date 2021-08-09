@@ -14,8 +14,6 @@ class Datata extends CI_Controller
     public function index()
     {
         $data['title'] = 'Data Tugas Akhir';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
         $data['mahasiswa'] = $this->Datata_model->get_mahasiswa();
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
         $data['dosen'] = $this->db->get('dosen')->result_array();
@@ -196,7 +194,7 @@ class Datata extends CI_Controller
     {
         $datata = $this->Datata_model->getAllDatata();
         $id = $i = 0;
-        foreach ($datata as $key => $value) {
+        foreach ($datata as $value) {
 
             if ($value->status_dosen == 1) {
                 $status_dosen = "<span class='badge badge-success'>Disetuju</span>";
@@ -219,7 +217,7 @@ class Datata extends CI_Controller
                     $i + 1,
                     "$value->name<br>($value->nim)",
                     $value->judul,
-                    $value->nama_jurusan,
+                    $value->jurusan_nama,
                     "$value->dosen<br>$status_dosen",
                 ];
                 $id = $value->id;
