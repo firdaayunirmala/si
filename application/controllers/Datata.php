@@ -37,11 +37,11 @@ class Datata extends CI_Controller
         } else {
             $datata = [
                 'tanggal' => !empty($this->input->post('tanggal', true)) ? $this->input->post('tanggal', true) : date("Y-m-d"),
-                'id_user' => $this->input->post('id_user', true),
+                'mhs_id' => $this->input->post('mhs_id', true),
                 'judul' => $this->input->post('judul', true),
                 'sinopsis' => $this->input->post('sinopsis', true),
                 'status' => $this->input->post('status', true),
-                'kode_jurusan' => $this->input->post('jurusan', true),
+                'jurusan_id' => $this->input->post('jurusan_id', true),
                 'status' => 0,
                 'created_by' => $this->session->userdata('id'),
                 'created_at' => date("Y-m-d H:i:s"),
@@ -52,13 +52,13 @@ class Datata extends CI_Controller
             if ($last_id > 0) {
                 $datata_detail = [
                     [
-                        'id_datata' => $last_id,
-                        'id_dosen' => $this->input->post('pembimbing1', true),
+                        'datata_id' => $last_id,
+                        'dosen_id' => $this->input->post('pembimbing1', true),
                         'pembimbing_ke' => 1,
                         'status' => 0,
                     ], [
-                        'id_datata' => $last_id,
-                        'id_dosen' => $this->input->post('pembimbing2', true),
+                        'datata_id' => $last_id,
+                        'dosen_id' => $this->input->post('pembimbing2', true),
                         'status' => 0,
                         'pembimbing_ke' => 2
                     ]
@@ -88,24 +88,24 @@ class Datata extends CI_Controller
 
         $id = 0;
         foreach ($datata as $key => $value) {
-            if ($value->id != $id) {
+            if ($value->datata_id != $id) {
                 $data['datata'] = [
-                    'id' => $value->id,
-                    'id_user' => $value->id_user,
+                    'datata_id' => $value->datata_id,
+                    'mhs_id' => $value->mhs_id,
                     'tanggal' => $value->tanggal,
                     'nim' => $value->nim,
                     'name' => $value->name,
                     'judul' => $value->judul,
                     'sinopsis' => $value->sinopsis,
                     'status' => $value->status,
-                    'kode_jurusan' => $value->kode_jurusan,
-                    'id_dosen1' => $value->id_dosen,
+                    'jurusan_id' => $value->jurusan_id,
+                    'id_dosen1' => $value->dosen_id,
                     'status_dosen1' => $value->status_dosen,
                     'id_detail1' => $value->id_detail,
                 ];
-                $id = $value->id;
+                $id = $value->datata_id;
             } else {
-                $data['datata']['id_dosen2'] = $value->id_dosen;
+                $data['datata']['id_dosen2'] = $value->dosen_id;
                 $data['datata']['status_dosen2'] = $value->status_dosen;
                 $data['datata']['id_detail2'] = $value->id_detail;
             }
@@ -122,7 +122,7 @@ class Datata extends CI_Controller
         // print_r($_POST);
         // echo "</pre>";
         // die;
-        $id = $this->input->post('id');
+        $id = $this->input->post('datata_id');
         $status_dosen1 = $this->input->post('status_dosen1');
         $status_dosen2 = $this->input->post('status_dosen2');
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
@@ -136,7 +136,7 @@ class Datata extends CI_Controller
             $datata = [
                 'judul' => $this->input->post('judul', true),
                 'sinopsis' => $this->input->post('sinopsis', true),
-                'kode_jurusan' => $this->input->post('jurusan', true),
+                'jurusan_id' => $this->input->post('jurusan_id', true),
                 'updated_by' =>  $this->session->userdata('id'),
                 'updated_at' =>  date("Y-m-d H:i:s"),
             ];
@@ -153,13 +153,13 @@ class Datata extends CI_Controller
             $datata_detail = [
                 [
                     'id' => $this->input->post('id_detail1', true),
-                    'id_dosen' => $this->input->post('pembimbing1', true),
+                    'dosen_id' => $this->input->post('pembimbing1', true),
                     'status' => $status_dosen1,
                     'updated_by' =>  $this->session->userdata('id'),
                     'updated_at' =>  date("Y-m-d H:i:s"),
                 ], [
                     'id' => $this->input->post('id_detail2', true),
-                    'id_dosen' => $this->input->post('pembimbing2', true),
+                    'dosen_id' => $this->input->post('pembimbing2', true),
                     'status' => $status_dosen2,
                     'updated_by' =>  $this->session->userdata('id'),
                     'updated_at' =>  date("Y-m-d H:i:s"),
@@ -194,47 +194,50 @@ class Datata extends CI_Controller
     {
         $datata = $this->Datata_model->getAllDatata();
         $id = $i = 0;
-        foreach ($datata as $value) {
+        $data = [];
+        if (count($datata) > 0) {
+            foreach ($datata as $value) {
 
-            if ($value->status_dosen == 1) {
-                $status_dosen = "<span class='badge badge-success'>Disetuju</span>";
-            } elseif ($value->status_dosen == 2) {
-                $status_dosen = "<span class='badge badge-danger'>Ditolak</span>";
-            } else {
-                $status_dosen = "<span class='badge badge-warning'>Proses</span>";
-            }
+                if ($value->status_dosen == 1) {
+                    $status_dosen = "<span class='badge badge-success'>Disetuju</span>";
+                } elseif ($value->status_dosen == 2) {
+                    $status_dosen = "<span class='badge badge-danger'>Ditolak</span>";
+                } else {
+                    $status_dosen = "<span class='badge badge-warning'>Proses</span>";
+                }
 
-            if ($value->status == 1) {
-                $status = "<span class='badge badge-success'>Disetuju</span>";
-            } elseif ($value->status == 2) {
-                $status = "<span class='badge badge-danger'>Ditolak</span>";
-            } else {
-                $status = "<span class='badge badge-warning'>Proses</span>";
-            }
+                if ($value->status == 1) {
+                    $status = "<span class='badge badge-success'>Disetuju</span>";
+                } elseif ($value->status == 2) {
+                    $status = "<span class='badge badge-danger'>Ditolak</span>";
+                } else {
+                    $status = "<span class='badge badge-warning'>Proses</span>";
+                }
 
-            if ($value->id != $id) {
-                $data[$i] = [
-                    $i + 1,
-                    "$value->name<br>($value->nim)",
-                    $value->judul,
-                    $value->jurusan_nama,
-                    "$value->dosen<br>$status_dosen",
-                ];
-                $id = $value->id;
-            } else {
-                $aksi = "<a class='btn btn-sm btn-info' href='javascript:void(0);' title='detail' onclick='preview($id)'>
-                        <i class='fa fa-eye'></i>
-                    </a>
-                    <a class='btn btn-sm btn-warning' href='javascript:void(0);' title='edit' onclick='set_val($id)'>
-                        <i class='fa fa-pencil-alt'></i>
-                    </a>
-                    <a class='btn btn-sm btn-danger' href='javascript:void(0);' title='hapus' onclick='set_del($id)'>
-                        <i class='fa fa-trash'></i>
-                    </a>";
-                $data[$i][] = "$value->dosen<br>$status_dosen";
-                $data[$i][] = $status;
-                $data[$i][] = $aksi;
-                $i++;
+                if ($value->datata_id != $id) {
+                    $data[$i] = [
+                        $i + 1,
+                        "$value->name<br>($value->nim)",
+                        $value->judul,
+                        $value->jurusan_nama,
+                        "$value->dosen<br>$status_dosen",
+                    ];
+                    $id = $value->datata_id;
+                } else {
+                    $aksi = "<a class='btn btn-sm btn-info' href='javascript:void(0);' title='detail' onclick='preview($id)'>
+                            <i class='fa fa-eye'></i>
+                        </a>
+                        <a class='btn btn-sm btn-warning' href='javascript:void(0);' title='edit' onclick='set_val($id)'>
+                            <i class='fa fa-pencil-alt'></i>
+                        </a>
+                        <a class='btn btn-sm btn-danger' href='javascript:void(0);' title='hapus' onclick='set_del($id)'>
+                            <i class='fa fa-trash'></i>
+                        </a>";
+                    $data[$i][] = "$value->dosen<br>$status_dosen";
+                    $data[$i][] = $status;
+                    $data[$i][] = $aksi;
+                    $i++;
+                }
             }
         }
 

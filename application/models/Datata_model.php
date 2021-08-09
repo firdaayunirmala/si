@@ -6,6 +6,7 @@ class Datata_model extends CI_Model
     {
         return $this->db->query(
             "SELECT
+                d.datata_id ,
                 d.mhs_id ,
                 m.nim ,
                 m.name ,
@@ -50,7 +51,7 @@ class Datata_model extends CI_Model
                     FROM
                         datata d)
                 order by
-                    m.name";
+                    m.nim";
         $res = $this->db->query($sql)->result();
         return $res;
     }
@@ -77,26 +78,26 @@ class Datata_model extends CI_Model
         // return $this->db->get_where('datata', ['id' => $id])->row_array();
         return $this->db->query(
             "SELECT
+                d.datata_id ,
                 d.mhs_id ,
-                d.id_user ,
                 d.tanggal,
                 m.nim ,
                 m.name ,
                 d.judul ,
                 d.sinopsis,
                 d.status,
-                d.kode_jurusan,
-                dd.id_dosen,
+                d.jurusan_id,
+                dd.dosen_id,
                 dd.id as id_detail,
                 dd.status as status_dosen
             FROM
                 datata d
             inner join datata_detail dd on
-                dd.id_datata = d.id
+                dd.datata_id = d.datata_id
             inner join mahasiswa m on
-                m.id = d.id_user
+                m.mhs_id = d.mhs_id
             where
-                d.id = $id"
+                d.datata_id = $id"
         )->result();
     }
 
@@ -104,7 +105,7 @@ class Datata_model extends CI_Model
     // update data tugas akhir berdasarkan id
     public function ubahdatata($data, $id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('datata_id', $id);
         $this->db->update('datata', $data);
         if ($this->db->affected_rows()) {
             return true;
@@ -125,7 +126,7 @@ class Datata_model extends CI_Model
     public function hapusTa($id)
     {
         //$this->db->where('id', $id);
-        $this->db->delete('datata', ['id' => $id]);
+        $this->db->delete('datata', ['datata_id' => $id]);
         if ($this->db->affected_rows()) {
             return true;
         } else {

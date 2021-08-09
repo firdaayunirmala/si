@@ -34,6 +34,10 @@
             height: 35px !important;
         }
 
+        .select2-container {
+            width: 100% !important;
+        }
+
         .select2-selection__arrow {
             height: 34px !important;
         }

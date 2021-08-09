@@ -22,7 +22,7 @@
         <div class="card-body">
 
           <?= form_open_multipart(); ?>
-          <input type="hidden" name="id" id="id">
+          <input type="hidden" name="datata_id" id="datata_id">
           <input type="hidden" name="aksi" id="aksi" value="tambah">
           <div class="form-group row" style="margin-top: 20px;">
             <label class="col-sm-3 col-form-label" for="tanggal">Tanggal </label>
@@ -43,7 +43,7 @@
           <div class="form-group row">
             <label for="namalengkap" class="col-sm-3 col-form-label">Nama Lengkap</label>
             <div class="col-sm-6">
-              <select name="id_user" id="id_user" readonly class="form-control">
+              <select name="mhs_id" id="mhs_id" readonly class="form-control">
               </select>
             </div>
           </div>
@@ -67,9 +67,9 @@
           </div>
 
           <div class="form-group row">
-            <label for="jurusan" class="col-sm-3 col-form-label">Jurusan</label>
+            <label for="jurusan_id" class="col-sm-3 col-form-label">Jurusan</label>
             <div class="col-sm-6">
-              <select name="jurusan" id="jurusan" class="form-control">
+              <select name="jurusan_id" id="jurusan_id" class="form-control">
                 <option value="0" selected>Pilih Jurusan</option>
                 <?php foreach ($jurusan as $j) : ?>
                   <option value="<?= $j['jurusan_id'] ?>"><?= $j['jurusan_nama'] ?></option>
@@ -98,7 +98,7 @@
                     <td>
                       <div class="form-group">
                         <input type="hidden" name="id_detail1" id="id_detail1">
-                        <select name="pembimbing1" id="pembimbing1" class="form-control">
+                        <select name="pembimbing1" id="pembimbing1" class="form-control pembimbing">
                           <option value="0">Pilih Dosen Pembimbing 1</option>
                           <?php foreach ($dosen as $pembimbing1) : ?>
                             <option value="<?= $pembimbing1['dosen_id'] ?>"><?= $pembimbing1['name'] ?></option>
@@ -121,7 +121,7 @@
                     <td>
                       <div class="form-group">
                         <input type="hidden" name="id_detail2" id="id_detail2">
-                        <select name="pembimbing2" id="pembimbing2" class="form-control">
+                        <select name="pembimbing2" id="pembimbing2" class="form-control pembimbing">
                           <option value="0">Pilih Dosen Pembimbing 2</option>
                           <?php foreach ($dosen as $pembimbing2) : ?>
                             <option value="<?= $pembimbing2['dosen_id'] ?>"><?= $pembimbing2['name'] ?></option>
@@ -148,7 +148,7 @@
             <div class="col-sm-9">
               <small class="text-danger"> Harap semua data yang di isi dengan benar ! </small>
               <br>
-              <button type="button" class="btn btn-primary" id="saveData">Tambah</button>
+              <button type="button" class="btn btn-primary" id="saveData">Simpan</button>
               <button type="button" id="cancelData" class="btn btn-danger">Kembali</button>
             </div>
           </div>
@@ -201,12 +201,9 @@
   $("#tambahData").on('click', function() {
     resetForm()
     getMahasiswa()
-    $('#nim').val($("#id_user").select2().find(":selected").data("nim"))
+    $('#nim').val($("#mhs_id").select2().find(":selected").data("nim"))
     $("#formData").slideDown(500)
     $("#listData").slideUp(500)
-    $("#id_user").select2({
-      width: 'element'
-    })
   })
 
   $("#cancelData").on('click', function() {
@@ -217,10 +214,11 @@
   })
 
 
-  $("#id_user").select2()
+  $("#mhs_id").select2()
+  $(".pembimbing").select2()
 
-  $("#id_user").change(function() {
-    $('#nim').val($("#id_user").select2().find(":selected").data("nim"))
+  $("#mhs_id").on('select2:select', function(e) {
+    $('#nim').val($("#mhs_id").select2().find(":selected").data("nim"))
   })
 
 
@@ -228,7 +226,7 @@
   function resetForm() {
     $("#formData").find("form")[0].reset()
     $("#aksi").val("add")
-    $("#id").val("")
+    $("#datata_id").val("")
     $("#id_detail1").val("")
     $("#id_detail2").val("")
     $(".aksi").hide()
@@ -258,17 +256,20 @@
         if (!$.isEmptyObject(res.datata)) {
           const data = res.datata
           $("#aksi").val("edit")
-          $("#mhs_id").val(data.id)
+          $("#datata_id").val(data.datata_id)
+          $("#mhs_id").val(data.mhs_id)
           $("#tanggal").val(data.tanggal)
           $("#nim").val(data.nim)
-          $("#id_user").html(`<option value="${data.id_user}" data-nim="${data.nim}">${data.name}</option>`)
+          $("#mhs_id").html(`<option value="${data.mhs_id}" data-nim="${data.nim}">${data.nim} - ${data.name}</option>`)
           $("#judul").val(data.judul)
           $("#sinopsis").val(data.sinopsis)
-          $("#jurusan").val(data.kode_jurusan)
+          $("#jurusan_id").val(data.jurusan_id)
           $("#id_detail1").val(data.id_detail1)
           $("#id_detail2").val(data.id_detail2)
-          $("#pembimbing1").val(data.id_dosen1)
-          $("#pembimbing2").val(data.id_dosen2)
+          // $("#pembimbing1").val(data.id_dosen1)
+          $("#pembimbing1").select2('val', data.id_dosen1)
+          // $("#pembimbing2").val(data.id_dosen2)
+          $("#pembimbing2").select2('val', data.id_dosen2)
           $("#status_dosen1").val(data.status_dosen1)
           $("#status_dosen2").val(data.status_dosen2)
           $(".aksi").show()
@@ -318,9 +319,9 @@
         let opt = '';
         if (res.length > 0) {
           $.each(res, (index, item) => {
-            opt += `<option value="${item.mhs_id}" data-nim="${item.nim}">${item.name}</option>`
+            opt += `<option value="${item.mhs_id}" data-nim="${item.nim}">${item.nim} - ${item.name}</option>`
           })
-          $("#id_user").html(opt)
+          $("#mhs_id").html(opt)
         }
       }
     })
@@ -406,10 +407,10 @@
       }
 
 
-      if ($("#jurusan").val() == "0") {
+      if ($("#jurusan_id").val() == "0") {
         pesanError += "Pilih Jurusan Dahulu<br>"
         error++;
-        elementError.push('#jurusan')
+        elementError.push('#jurusan_id')
       }
 
 
