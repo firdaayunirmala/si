@@ -20,20 +20,20 @@ class Operation extends CI_Controller
         $this->form_validation->set_rules('jurusan', 'Jurusan', 'required');
 
         $query = "SELECT
-                    j.id ,
-                    j.nama_jurusan ,
+                    j.jurusan_id ,
+                    j.jurusan_nama ,
                     COALESCE(total_mahasiswa.total, 0) as total
                 FROM
                     jurusan j
                 left join (
                     select
                         count(*) as total,
-                        m.kode_jurusan
+                        m.jurusan_id
                     from
                         mahasiswa m
                     group by
-                        m.kode_jurusan) as total_mahasiswa on
-                    total_mahasiswa.kode_jurusan = j.id";
+                        m.jurusan_id) as total_mahasiswa on
+                    total_mahasiswa.jurusan_id = j.jurusan_id ";
 
         $data['jur_mhs'] = $this->db->query($query)->result_array();
 
@@ -45,7 +45,7 @@ class Operation extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $data = [
-                'nama_jurusan' => $this->input->post('jurusan')
+                'jurusan_nama' => $this->input->post('jurusan')
             ];
             $this->db->insert('jurusan', $data);
             $this->session->set_flashdata('message', 'Ditambahkan!');
