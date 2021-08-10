@@ -96,7 +96,6 @@ class Operation extends CI_Controller
     public function mahasiswa()
     {
         $data['title'] = 'Mahasiswa';
-        $data['user'] = $this->db->get_where('user', ['user_name' => $this->session->userdata('user_name')])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -108,24 +107,14 @@ class Operation extends CI_Controller
     public function tambahmahasiswa()
     {
         $data['title'] = 'Mahasiswa';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
-
-        $this->form_validation->set_rules('nim', 'NIM', 'required|trim|is_unique[mahasiswa.nim]', [
-            'is_unique' => 'This nim has already registered!'
-        ]);
+        $this->form_validation->set_rules('nim', 'NIM', 'required|trim|is_unique[mahasiswa.nim]', ['is_unique' => 'This nim has already registered!']);
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('passwordmhs1', 'Password', 'required|trim|min_length[3]|matches[passwordmhs2]', [
-            'matches' => 'password dont match!',
-            'min_length' => 'password too short!'
-        ]);
+        $this->form_validation->set_rules('passwordmhs1', 'Password', 'required|trim|min_length[3]|matches[passwordmhs2]', ['matches' => 'password dont match!', 'min_length' => 'password too short!']);
         $this->form_validation->set_rules('passwordmhs2', 'Password', 'required|trim|matches[passwordmhs1]');
         $this->form_validation->set_rules('hpmhs', 'Hp', 'required|trim');
         $this->form_validation->set_rules('semester', 'Semester', 'required|trim');
         $this->form_validation->set_rules('totalsks', 'TotalSks', 'required|trim');
-        $this->form_validation->set_rules('emailmhs', 'Email', 'required|trim|valid_email|is_unique[mahasiswa.email]', [
-            'is_unique' => 'This email has already registered!'
-        ]);
+        $this->form_validation->set_rules('emailmhs', 'Email', 'required|trim|valid_email|is_unique[mahasiswa.email]', ['is_unique' => 'This email has already registered!']);
 
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
 
@@ -458,4 +447,86 @@ class Operation extends CI_Controller
         $this->session->set_flashdata('message', 'Dihapus!');
         redirect('operation/pimpinan');
     }
+
+
+    // begin : MASTER USER DATA
+    public function user()
+    {
+        $data['title'] = 'User';
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('operation/user/index', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function tambahuser()
+    {
+        $data['title'] = 'User';
+        $this->form_validation->set_rules('nim', 'NIM', 'required|trim|is_unique[mahasiswa.nim]', ['is_unique' => 'This nim has already registered!']);
+        $this->form_validation->set_rules('passwordmhs1', 'Password', 'required|trim|min_length[3]|matches[passwordmhs2]', ['matches' => 'password dont match!', 'min_length' => 'password too short!']);
+        $this->form_validation->set_rules('passwordmhs2', 'Password', 'required|trim|matches[passwordmhs1]');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('operation/user/tambahuser', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->User_model->tambahDataUser();
+            $this->session->set_flashdata('message', 'Ditambahkan!');
+            redirect('operation/user', 'refresh');
+        }
+    }
+
+    public function detailuser($user_id)
+    {
+        $data['title'] = 'User';
+
+        $data['user'] = $this->User_model->getUserById($user_id);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('operation/user/detailuser', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function edituser($user_id)
+    {
+        $data['title'] = 'User';
+
+        $data['user'] = $this->User_model->getUserById($user_id);
+        $user = $this->User_model->getUserById($user_id);
+
+        $this->form_validation->set_rules('namalengkap', 'NamaLengkap', 'required|trim');
+        $this->form_validation->set_rules('passworduser1', 'Password', 'trim|min_length[3]|matches[passworduser2]', [
+            'matches' => 'password dont match!',
+            'min_length' => 'password too short!'
+        ]);
+        $this->form_validation->set_rules('passworduser2', 'Password', 'trim|matches[passworduser1]');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('operation/user/edituser', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->User_model->ubahDataUser($user, $user_id);
+            $this->session->set_flashdata('message', 'Diubah!');
+            redirect('operation/user');
+        }
+    }
+    public function hapususer($user_id)
+    {
+        $user = $this->User_model->getUserById($user_id);
+        $this->User_model->hapusDataUser($user_id, $user);
+        $this->session->set_flashdata('message', 'Dihapus!');
+        redirect('operation/user');
+    }
+
+    // end : MASTER USER DATA
 }

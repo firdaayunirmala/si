@@ -45,15 +45,15 @@
                       m.name ,
                       m.semester ,
                       m.totalsks ,
-                      j.nama_jurusan ,
+                      j.jurusan_nama ,
                       m.email ,
                       m.image,
                       m.hp ,
                       m.is_active 
                     FROM
                       mahasiswa m
-                    INNER JOIN jurusan j ON
-                      m.kode_jurusan = j.id
+                    Left JOIN jurusan j ON
+                      m.jurusan_id = j.jurusan_id
                     ORDER BY
                       m.mhs_id ASC
                     ";
@@ -67,7 +67,7 @@
                     <th scope="row" class="text-center"><?= $i; ?></th>
                     <td class="text-center"><?= $mhs['nim']; ?></td>
                     <td><?= $mhs['name']; ?></td>
-                    <td><?= $mhs['nama_jurusan']; ?></td>
+                    <td><?= $mhs['jurusan_nama']; ?></td>
                     <td><?= $mhs['email']; ?></td>
                     <td><?= $mhs['image']; ?></td>
                     <td><?= $mhs['hp']; ?></td>

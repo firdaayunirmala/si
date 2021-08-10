@@ -72,11 +72,6 @@ class Menu extends CI_Controller
     public function submenu()
     {
         $data['title'] = 'Submenu Management';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
-
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
 
         $this->load->model('Menu_model', 'menu');
 
