@@ -82,7 +82,7 @@
                     <td class="text-center">
                       <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['mhs_id']; ?>" title="detail"><i class="fa fa-eye"></i></a>
                       <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['mhs_id']; ?>" title="edit"><i class="fa fa-pencil-alt"></i></a>
-                      <a class=" btn btn-danger btn-sm" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['mhs_id']; ?>' : return" href="javascript:void(0);" title="hapus"><i class="fa fa-trash"></i></a>
+                      <a class=" btn btn-danger btn-sm" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['mhs_id']; ?>' : ''" href="javascript:void(0);" title="hapus"><i class="fa fa-trash"></i></a>
                     </td>
                   </tr>
                   <?php $i++; ?>

@@ -18,7 +18,7 @@
     $query = "SELECT 
                 * 
             FROM mahasiswa m 
-            INNER JOIN jurusan j ON m.kode_jurusan = j.jurusan.id
+            LEFT JOIN jurusan j ON m.jurusan_id = j.jurusan_id
             WHERE m.user_id = $user_id
     ";
     $datamhs = $this->db->query($query)->row_array();
@@ -35,7 +35,7 @@
                     <p class="card-text">Nama Lengkap Mahasiswa =<?= $datamhs['name']; ?></p>
                     <p class="card-text">Semester = <?= $datamhs['semester']; ?></p>
                     <p class="card-text">Total Sks =<?= $datamhs['totalsks']; ?> sks</p>
-                    <p class="card-text">Jurusan =<?= $datamhs['nama_jurusan']; ?></p>
+                    <p class="card-text">Jurusan =<?= $datamhs['jurusan_nama']; ?></p>
                     <p class="card-text">Email = <?= $datamhs['email']; ?></p>
                     <p class="card-text">Whatsapp = <?= $datamhs['hp']; ?></p>
                 </div>

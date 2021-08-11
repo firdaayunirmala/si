@@ -12,7 +12,7 @@
             <div class="form-group row">
                 <label for="nim" class="col-sm-3 col-form-label">NIM</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nim" name="nim" value="<?= $mahasiswa['nim'];?>">
+                    <input type="text" class="form-control" id="nim" name="nim" value="<?= $mahasiswa['nim']; ?>">
                     <?= form_error('nim', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
@@ -25,29 +25,14 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Password</label>
-                <div class="col-sm-9">
-                    <input type="password" class="form-control" id="passwordmhs1" name="passwordmhs1">
-                    <?= form_error('passwordmhs1', ' <small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Repeat Password</label>
-                <div class="col-sm-9">
-                    <input type="password" class="form-control" id="passwordmhs2" name="passwordmhs2">
-                </div>
-            </div>
-
-            <div class="form-group row">
-
                 <label for="namalengkap" class="col-sm-3 col-form-label">Jurusan</label>
                 <div class="col-sm-7">
                     <select name="jurusan" id="jurusan" class="form-control col-sm-9">
                         <?php foreach ($jurusan as $j) : ?>
-                            <?php if ($j['id'] == $mahasiswa['kode_jurusan']) : ?>
-                                <option value="<?= $j['id'] ?>" selected><?= $j['nama_jurusan'] ?></option>
+                            <?php if ($j['jurusan_id'] == $mahasiswa['jurusan_id']) : ?>
+                                <option value="<?= $j['jurusan_id'] ?>" selected><?= $j['jurusan_nama'] ?></option>
                             <?php else : ?>
-                                <option value="<?= $j['id'] ?>"><?= $j['nama_jurusan'] ?></option>
+                                <option value="<?= $j['jurusan_id'] ?>"><?= $j['jurusan_nama'] ?></option>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </select>
