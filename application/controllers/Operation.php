@@ -212,11 +212,6 @@ class Operation extends CI_Controller
             'is_unique' => 'This nik has already registered!'
         ]);
         $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
-        $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-            'matches' => 'password dont match!',
-            'min_length' => 'password too short!'
-        ]);
-        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[dosen.email]', [
             'is_unique' => 'This email has already registered!'
         ]);
@@ -256,11 +251,6 @@ class Operation extends CI_Controller
         $dosen = $this->Dosen_model->getDosenById($id);
 
         $this->form_validation->set_rules('namalengkap', 'NamaLengkap', 'required|trim');
-        $this->form_validation->set_rules('passworddosen1', 'Password', 'trim|min_length[3]|matches[passworddosen2]', [
-            'matches' => 'password dont match!',
-            'min_length' => 'password too short!'
-        ]);
-        $this->form_validation->set_rules('passworddosen2', 'Password', 'trim|matches[passworddosen1]');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('hp', 'Hp', 'required');
 
