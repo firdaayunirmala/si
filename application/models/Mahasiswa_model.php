@@ -41,19 +41,16 @@ class Mahasiswa_model extends CI_Model
 
     public function tambahDataMahasiswa()
     {
-        $mhs_id = $this->input->post('mhs_id', true);
         $data = [
-            'mhs_id' => $mhs_id,
             'nim' => $this->input->post('nim', true),
             'name' => $this->input->post('nama', true),
             'semester' => $this->input->post('semester', true),
             'totalsks' => $this->input->post('totalsks', true),
-            'kode_jurusan' => $this->input->post('jurusan', true),
+            'jurusan_id' => $this->input->post('jurusan', true),
             'email' => $this->input->post('emailmhs', true),
             'hp' => $this->input->post('hpmhs', true),
             'image' => $this->upload(),
-            'password' => password_hash($this->input->post('passwordmhs1'), PASSWORD_DEFAULT),
-            'role_id' => 5,
+            // 'password' => password_hash($this->input->post('passwordmhs1'), PASSWORD_DEFAULT),
             'is_active' => $this->input->post('aktif', true),
         ];
 
@@ -87,7 +84,6 @@ class Mahasiswa_model extends CI_Model
         $jurusan = $this->input->post('jurusan', true);
         $email = $this->input->post('email', true);
         $hp = $this->input->post('hp', true);
-        $password = password_hash($this->input->post('passwordmhs1'), PASSWORD_DEFAULT);
         $is_active = $this->input->post('aktifmhs', true);
 
         $data = [
@@ -95,15 +91,12 @@ class Mahasiswa_model extends CI_Model
             'name' => $name,
             'semester' => $semester,
             'totalsks' => $totalsks,
-            'kode_jurusan' => $jurusan,
+            'jurusan_id' => $jurusan,
             'email' => $email,
             'hp' => $hp,
             'is_active' => $is_active
         ];
         $this->db->set($data);
-        if ($this->input->post('passwordmhs1') != null) {
-            $this->db->set('password', $password);
-        }
         $this->db->where('mhs_id', $mhs_id);
         $this->db->update('mahasiswa');
     }

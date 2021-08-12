@@ -13,11 +13,10 @@
         </div>
     </div>
     <?php
-    $mhs = $mahasiswa['nim'];
-    $query = "SELECT *
-    FROM mahasiswa INNER JOIN jurusan
-    ON mahasiswa.kode_jurusan = jurusan.id
-    WHERE mahasiswa.nim = $mhs
+    $id = $mahasiswa['jurusan_id'];
+    $query = "SELECT jurusan_nama
+    FROM jurusan j 
+    WHERE j.jurusan_id = $id
     ";
     $datamhs = $this->db->query($query)->row_array();
     ?>
@@ -33,7 +32,7 @@
                     <p class="card-text"><?= $mahasiswa['name']; ?></p>
                     <p class="card-text">semester <?= $mahasiswa['semester']; ?></p>
                     <p class="card-text"><?= $mahasiswa['totalsks']; ?> sks</p>
-                    <p class="card-text"><?= $datamhs['nama_jurusan']; ?></p>
+                    <p class="card-text"><?= $datamhs['jurusan_nama']; ?></p>
                     <p class="card-text"><?= $mahasiswa['email']; ?></p>
                     <p class="card-text"><?= $mahasiswa['hp']; ?></p>
                 </div>

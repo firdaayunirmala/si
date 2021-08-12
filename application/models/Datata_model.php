@@ -6,26 +6,26 @@ class Datata_model extends CI_Model
     {
         return $this->db->query(
             "SELECT
+                d.datata_id ,
                 d.mhs_id ,
-                d.tanggal,
                 m.nim ,
                 m.name ,
                 d.judul ,
                 d.sinopsis,
                 d.status,
                 dd.status as status_dosen,
-                j.nama_jurusan ,
+                j.jurusan_nama ,
                 d2.name dosen
             FROM
                 datata d
             inner join datata_detail dd on
-                dd.id_datata = d.id
+                dd.datata_id = d.datata_id 
             inner join mahasiswa m on
-                m.id = d.id_user
+                m.mhs_id = d.mhs_id 
             inner join dosen d2 on
-                d2.id = dd.id_dosen
+                d2.dosen_id = dd.dosen_id 
             inner join jurusan j on
-                j.id = d.kode_jurusan
+                j.jurusan_id = d.jurusan_id 
             ORDER BY
                 m.nim"
         )->result();
@@ -47,11 +47,11 @@ class Datata_model extends CI_Model
                     m.is_active = 1
                     and m.mhs_id not in (
                     SELECT
-                        d.id_user
+                        d.mhs_id
                     FROM
                         datata d)
                 order by
-                    m.name";
+                    m.nim";
         $res = $this->db->query($sql)->result();
         return $res;
     }
@@ -78,26 +78,26 @@ class Datata_model extends CI_Model
         // return $this->db->get_where('datata', ['id' => $id])->row_array();
         return $this->db->query(
             "SELECT
+                d.datata_id ,
                 d.mhs_id ,
-                d.id_user ,
                 d.tanggal,
                 m.nim ,
                 m.name ,
                 d.judul ,
                 d.sinopsis,
                 d.status,
-                d.kode_jurusan,
-                dd.id_dosen,
+                d.jurusan_id,
+                dd.dosen_id,
                 dd.id as id_detail,
                 dd.status as status_dosen
             FROM
                 datata d
             inner join datata_detail dd on
-                dd.id_datata = d.id
+                dd.datata_id = d.datata_id
             inner join mahasiswa m on
-                m.id = d.id_user
+                m.mhs_id = d.mhs_id
             where
-                d.id = $id"
+                d.datata_id = $id"
         )->result();
     }
 
@@ -105,7 +105,7 @@ class Datata_model extends CI_Model
     // update data tugas akhir berdasarkan id
     public function ubahdatata($data, $id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('datata_id', $id);
         $this->db->update('datata', $data);
         if ($this->db->affected_rows()) {
             return true;
@@ -126,7 +126,7 @@ class Datata_model extends CI_Model
     public function hapusTa($id)
     {
         //$this->db->where('id', $id);
-        $this->db->delete('datata', ['id' => $id]);
+        $this->db->delete('datata', ['datata_id' => $id]);
         if ($this->db->affected_rows()) {
             return true;
         } else {

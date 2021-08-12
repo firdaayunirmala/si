@@ -1,6 +1,5 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Tambah Mahasiswa</h1>
 
@@ -24,19 +23,6 @@
                     <?= form_error('nama', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Password</label>
-                <div class="col-sm-9">
-                    <input type="password" class="form-control" id="passwordmhs1" name="passwordmhs1" placeholder="Masukan password">
-                    <?= form_error('passwordmhs1', ' <small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Ulangi Password</label>
-                <div class="col-sm-9">
-                    <input type="password" class="form-control" id="passwordmhs2" name="passwordmhs2" placeholder="Ulangi password">
-                </div>
-            </div>
 
             <div class="form-group row">
                 <label for="jurusan" class="col-sm-3 col-form-label">Jurusan</label>
@@ -44,7 +30,7 @@
                     <select name="jurusan" id="jurusan" class="form-control col-sm-9">
                         <option selected>Pilih Jurusan</option>
                         <?php foreach ($jurusan as $j) : ?>
-                            <option value="<?= $j['id'] ?>"><?= $j['nama_jurusan'] ?></option>
+                            <option value="<?= $j['jurusan_id'] ?>"><?= $j['jurusan_nama'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -118,14 +104,9 @@
 
                 </div>
             </div>
-
             </form>
-
-
         </div>
-
     </div>
-
 </div>
 <!-- /.container-fluid -->
 

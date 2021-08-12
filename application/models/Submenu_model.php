@@ -11,7 +11,7 @@ class Submenu_model extends CI_Model
         $menu_id =  $this->input->post('menu_id', true);
         $url =  $this->input->post('url', true);
         $icon =  $this->input->post('icon', true);
-        $aktif =  $this->input->post('cek', true);
+        $aktif =  !empty($this->input->post('is_active', true)) ? $this->input->post('is_active', true) : 0;
 
 
         $data = [

@@ -11,7 +11,7 @@ class Dosen_model extends CI_Model
     {
         return $this->db->get('bimbingan_dsn')->result_array(); //semua baris
     }
-    
+
     public function getDosenById($dosen_id)
     {
         return $this->db->get_where('dosen', ['dosen_id' => $dosen_id])->row_array();
@@ -42,11 +42,9 @@ class Dosen_model extends CI_Model
             'dosen_id' => $dosen_id,
             'nik' => $this->input->post('nik', true),
             'name' => $this->input->post('name', true),
-            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'email' => $this->input->post('email', true),
             'hp' => $this->input->post('hp', true),
             'image' => $this->upload(),
-            'role_id' => 4,
             'is_active' => $this->input->post('aktif', true),
         ];
 
@@ -82,7 +80,6 @@ class Dosen_model extends CI_Model
         $name = $this->input->post('namalengkap', true);
         $email = $this->input->post('email', true);
         $hp = $this->input->post('hp', true);
-        $password = password_hash($this->input->post('passworddosen1'), PASSWORD_DEFAULT);
 
         $data = [
             'nik' => $nik,
@@ -91,9 +88,6 @@ class Dosen_model extends CI_Model
             'hp' => $hp,
         ];
         $this->db->set($data);
-        if ($this->input->post('passworddosen1') != null) {
-            $this->db->set('password', $password);
-        }
         $this->db->where('dosen_id', $dosen_id);
         $this->db->update('dosen');
     }

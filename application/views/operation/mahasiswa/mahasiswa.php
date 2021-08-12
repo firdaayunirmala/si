@@ -45,15 +45,15 @@
                       m.name ,
                       m.semester ,
                       m.totalsks ,
-                      j.nama_jurusan ,
+                      j.jurusan_nama ,
                       m.email ,
                       m.image,
                       m.hp ,
                       m.is_active 
                     FROM
                       mahasiswa m
-                    INNER JOIN jurusan j ON
-                      m.kode_jurusan = j.id
+                    Left JOIN jurusan j ON
+                      m.jurusan_id = j.jurusan_id
                     ORDER BY
                       m.mhs_id ASC
                     ";
@@ -67,7 +67,7 @@
                     <th scope="row" class="text-center"><?= $i; ?></th>
                     <td class="text-center"><?= $mhs['nim']; ?></td>
                     <td><?= $mhs['name']; ?></td>
-                    <td><?= $mhs['nama_jurusan']; ?></td>
+                    <td><?= $mhs['jurusan_nama']; ?></td>
                     <td><?= $mhs['email']; ?></td>
                     <td><?= $mhs['image']; ?></td>
                     <td><?= $mhs['hp']; ?></td>
@@ -82,7 +82,7 @@
                     <td class="text-center">
                       <a class=" btn btn-success btn-sm" href="<?= base_url() ?>operation/detailmahasiswa/<?= $mhs['mhs_id']; ?>" title="detail"><i class="fa fa-eye"></i></a>
                       <a class="btn btn-warning btn-sm" href="<?= base_url() ?>operation/editmahasiswa/<?= $mhs['mhs_id']; ?>" title="edit"><i class="fa fa-pencil-alt"></i></a>
-                      <a class=" btn btn-danger btn-sm" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['mhs_id']; ?>' : return" href="javascript:void(0);" title="hapus"><i class="fa fa-trash"></i></a>
+                      <a class=" btn btn-danger btn-sm" onclick="confirm('Apakah Anda yakin ingin menghapus data ini?') ? window.location = '<?= base_url() ?>operation/hapusmahasiswa/<?= $mhs['mhs_id']; ?>' : ''" href="javascript:void(0);" title="hapus"><i class="fa fa-trash"></i></a>
                     </td>
                   </tr>
                   <?php $i++; ?>
