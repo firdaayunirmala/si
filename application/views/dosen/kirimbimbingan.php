@@ -70,8 +70,8 @@
                 <div class="col-sm-9">
                     <small class="text-danger"> Harap semua data yang di isi dengan benar ! </small>
                     <br>
-                    <a a href="<?= base_url('mahasiswa/bimbingan'); ?>" type="button" id="sendKegiatan" class="btn btn-primary">Kirim</a>
-                    <a href="<?= base_url('mahasiswa/bimbingan'); ?>" class="btn btn-danger">Kembali</a>
+                    <a a href="<?= base_url('dosen/bimbingan'); ?>" type="button" id="sendKegiatan" class="btn btn-primary">Kirim</a>
+                    <a href="<?= base_url('dosen/bimbingan'); ?>" class="btn btn-danger">Kembali</a>
                 </div>
             </div>
 

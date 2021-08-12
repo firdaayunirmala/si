@@ -12,12 +12,12 @@
             <div class="form-group row">
                 <label for="nik" class="col-sm-3 col-form-label">NIK</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nik" name="nik" value="<?= $user['user_name']; ?>" readonly> </div>
+                    <input type="text" class="form-control" id="nik" name="nik" value="<?= $user['nik']; ?>" readonly> </div>
             </div>
             <div class="form-group row">
                 <label for="name" class="col-sm-3 col-form-label">Nama Lengkap</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="name" name="name" value="<?= $user['user_fullname']; ?>">
+                    <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>">
                     <?= form_error('name', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
