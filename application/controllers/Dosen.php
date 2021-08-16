@@ -135,7 +135,7 @@ class Dosen extends CI_Controller
         $data['namarole'] = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $data['target'] = $this->Pesan_model->ambil_target('mahasiswa', $this->session->userdata('id'));
+        $data['target'] = $this->Pesan_model->ambil_target('mahasiswa', $this->session->userdata('dosen_id'));
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

@@ -12,10 +12,6 @@
                 </div>
             <?php endif; ?>
 
-            <?php $id = $_SESSION['id'];
-            ?>
-
-            <input type="hidden" id="nimCall" value="<?php echo $id ?>" ;>
             <a href="<?= base_url('mahasiswa/kirimfile') ?>" class="btn btn-success mb-3">Kirim Bimbingan</a>
             <a href="<?= base_url('mahasiswa/pesan') ?>" class="btn btn-success mb-3">Kirim Pesan</a>
             <div class="table-responsive">
@@ -60,7 +56,7 @@
                                     
                                 </td>
                                 <td>
-                                <a class=" btn btn-success btn-sm" href="<?= base_url() ?>mahasiswa/detail/<?= $b['id']; ?>">detail</a>
+                                <a class=" btn btn-success btn-sm" href="<?= base_url() ?>mahasiswa/detail/<?= $b['id_bm']; ?>">detail</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

@@ -176,6 +176,7 @@
               <thead class="thead-dark">
                 <tr>
                   <th class="text-center" width="5%" scope="col">No</th>
+                  <th class="text-center" width="10%" scope="col">Tanggal</th>
                   <th class="text-center" width="15%" scope="col">Nama</th>
                   <th class="text-center" width="20%" scope="col">Judul</th>
                   <th class="text-center" width="10%" scope="col">Jurusan</th>
@@ -342,6 +343,9 @@
         width: "5%",
         targets: [0, -2]
       }, {
+        width: "10%",
+        targets: [-3, -4]
+      },{
         width: "13%",
         targets: [-3, -4]
       }, {

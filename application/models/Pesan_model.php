@@ -111,14 +111,14 @@ class Pesan_model extends CI_Model
                     dd.pembimbing_ke";
         } elseif ($jenis == 'mahasiswa') {
             $sql = "SELECT
-                    d.id_user as value,
+                    d.user_id as value,
                     m.name
                 from
                     datata d
                 inner join datata_detail dd on
                     dd.id_datata = d.id
                 inner join mahasiswa m on
-                    m.id = d.id_user
+                    m.mhs_id = d.user_id
                 where 
                     dd.id_dosen = $id
                 order BY
