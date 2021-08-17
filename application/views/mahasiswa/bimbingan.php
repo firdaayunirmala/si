@@ -12,20 +12,18 @@
                 </div>
             <?php endif; ?>
 
-            <a href="<?= base_url('mahasiswa/kirimfile') ?>" class="btn btn-success mb-3">Kirim Bimbingan</a>
             <a href="<?= base_url('mahasiswa/pesan') ?>" class="btn btn-success mb-3">Kirim Pesan</a>
             <div class="table-responsive">
-                <h3>Riwayat Bimbingan Tugas Akhir</h3>
                 <table class="table table-bordered table-hover" id="dataTable">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Tanggal</th>
+                            <th scope="col">Tanggal Bimbingan</th>
                             <th scope="col">Catatan Bimbingan</th>
-                            <th scope="col">Status Dospem 1</th>
-                            <th scope="col">Status Dospem 2</th>
+                            <th scope="col">Pengesahan Pembimbing</th>
+                            <th scope="col">Layak Ujian Proposal</th>
                             <th scope="col">Batasan Waktu</th>
-                            <th scope="col">Opsi</th>
+                            <th scope="col">Kirim Oleh</th>
 
                         </tr>
                     </thead>
@@ -53,10 +51,10 @@
                                      <?php endif; ?>
                                 </td>
                                 <td>
-                                    
-                                </td>
-                                <td>
-                                <a class=" btn btn-success btn-sm" href="<?= base_url() ?>mahasiswa/detail/<?= $b['id_bm']; ?>">detail</a>
+                                    </td>
+                                    <td>
+                                    Firda Ayu Nirmala     
+                               
                                 </td>
                             </tr>
                             <?php $i++; ?>
@@ -66,6 +64,23 @@
             </div>
         </div>
     </div>
-
+</div>
 </div>
 <!-- /.container-fluid -->
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Kirim Riwayat Bimbingan</h1>
+    <div class="form-group row">
+                <label for="konsultasi" class="col-sm-3 col-form-label">Catatan Bimbingan</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" id="konsultasi" name="konsultasi" placeholder="Masukan konsultasi Bimbingan Skripsi" value="<?= set_value('konsultasi'); ?>"></textarea>
+                    <?= form_error('konsultasi', ' <small class="text-danger pl-3">', '</small>'); ?>
+                    <small class="text-danger"> Harap data yang di isi dengan benar ! </small>
+                </div>
+            </div>
+    <div>
+    <a href="<?= base_url('mahasiswa/bimbingan'); ?>" class="btn btn-success">Upload</a>
+    </div>
+           
+</div>

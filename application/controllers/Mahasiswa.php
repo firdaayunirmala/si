@@ -20,6 +20,8 @@ class Mahasiswa extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
+        $data['beranda'] = $this->db->get('datata')->result_array();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -54,7 +56,7 @@ class Mahasiswa extends CI_Controller
 
     public function bimbingan()
     {
-        $data['title'] = 'Bimbingan';
+        $data['title'] = 'Bimbingan Proposal';
         $data['user'] = $this->db->get_where('user', ['user_name' =>
         $this->session->userdata('user_name')])->row_array();
 
