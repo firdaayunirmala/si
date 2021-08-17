@@ -1,1 +1,51 @@
 menambahkan kolom tanggal di data tugas akhir
+
+      <?php
+              $query = "SELECT
+              d.id ,
+              d.id_user ,
+              m.nim ,
+              m.name ,
+              d.judul ,
+              d.status,
+              j.nama_jurusan,
+              dd.id_dosen,
+              dd.id as id_detail
+          FROM
+              datata d
+          inner join datata_detail dd on
+              dd.id_datata = d.id
+          inner join mahasiswa m on
+              m.id = d.id_user
+          inner join jurusan j on
+          m.kode_jurusan = j.id
+          where
+              d.id = id_dosen";
+            $datata = $this->db->query($query)->result_array();
+              ?>
+
+              
+dosen
+     <?php
+              $query = "SELECT
+              d.id ,
+              d.id_user ,
+              m.nim ,
+              m.name ,
+              d.judul ,
+              d.status,
+              j.nama_jurusan,
+              dd.id_dosen,
+              dd.id as id_detail
+          FROM
+              datata d
+          inner join datata_detail dd on
+              dd.id_datata = d.id
+          inner join mahasiswa m on
+              m.id = d.id_user
+          inner join jurusan j on
+          m.kode_jurusan = j.id
+          where
+              d.id = id_dosen";
+            $datata = $this->db->query($query)->result_array();
+              ?>

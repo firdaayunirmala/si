@@ -4,32 +4,7 @@ class Admin_model extends CI_Model
 {
     public function getAllDatata()
     {
-        return $this->db->query(
-            "SELECT
-                d.id ,
-                d.tanggal,
-                m.nim ,
-                m.name ,
-                d.judul ,
-                d.sinopsis,
-                d.status,
-                j.nama_jurusan ,
-                d2.name dosen
-            FROM
-                datata d
-            inner join datata_detail dd on
-                dd.id_datata = d.id
-            inner join mahasiswa m on
-                m.id = d.id_user
-            inner join dosen d2 on
-                d2.id = dd.id_dosen
-            inner join jurusan j on
-                j.id = d.kode_jurusan
-            ORDER BY
-                m.nim"
-        )->result();
-
-        // return $this->db->get('datata')->result_array();
+    return $this->db->get('datata')->result_array();
     }
 
     public function getDatataById($id)

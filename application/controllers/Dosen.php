@@ -20,26 +20,7 @@ class Dosen extends CI_Controller
         $data['namarole']  = $this->db->get_where('user_role', ['id' =>
         $this->session->userdata('id')])->row_array();
 
-        $datata = $this->Admin_model->getAllDatata();
-
-        $id = $i = 0;
-        foreach ($datata as $key => $value) {
-            if ($value->id != $id) {
-                $data['datata'][$i] = [
-                    'id' => $value->id,
-                    'nim' => $value->nim,
-                    'name' => $value->name,
-                    'judul' => $value->judul,
-                    'status' => $value->sinopsis,
-                    'nama_jurusan' => $value->nama_jurusan,
-                    'pembimbing1' => $value->dosen,
-                ];
-                $id = $value->id;
-            } else {
-                $data['datata'][$i]['pembimbing2'] = $value->dosen;
-                $i++;
-            }
-        }
+        $data['beranda'] = $this->db->get('datata')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
