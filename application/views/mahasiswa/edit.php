@@ -27,7 +27,7 @@
       <div class="form-group row">
         <label for="jurusan" class="col-sm-3 col-form-label">Jurusan</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control" id="jurusan" name="jurusan" value="<?= $datamhs['nama_jurusan']; ?>" readonly>
+          <input type="text" class="form-control" id="jurusan" name="jurusan" value="<?= $user['jurusan_id']; ?>" readonly>
         </div>
       </div>
 
@@ -42,7 +42,7 @@
       <div class="form-group row">
         <label for="sms" class="col-sm-3 col-form-label">Semester</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="semester" name="semester" value="<?= $datamhs['semester']; ?>">
+          <input type="text" class="form-control" id="semester" name="semester" value="<?= $user['semester']; ?>">
           <?= form_error('semester', ' <small class="text-danger pl-3">', '</small>'); ?>
         </div>
       </div>
@@ -50,7 +50,7 @@
       <div class="form-group row">
         <label for="totalsks" class="col-sm-3 col-form-label">Total Sks</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control" id="totalsks" name="totalsks" value="<?= $datamhs['totalsks']; ?>">
+          <input type="text" class="form-control" id="totalsks" name="totalsks" value="<?= $user['totalsks']; ?>">
           <?= form_error('totalsks', ' <small class="text-danger pl-3">', '</small>'); ?>
         </div>
       </div>

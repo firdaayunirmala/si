@@ -6,7 +6,7 @@ class User_mahasiswa_model extends CI_Model
 
     public function ubahmahasiswa($user)
     {
-
+        $mhs_id = $this->input->post('mhs_id');
         $nim = $this->input->post('nim');
         $name = $this->input->post('name');
         $email = $this->input->post('email');
@@ -35,6 +35,8 @@ class User_mahasiswa_model extends CI_Model
         }
 
         $data = [
+            'mhs_id' => $mhs_id,
+            'nim' => $nim,
             'name' => $name,
             'email' => $email,
             'hp' => $hp,
@@ -42,7 +44,7 @@ class User_mahasiswa_model extends CI_Model
         ];
 
         $this->db->set($data);
-        $this->db->where('nim', $nim);
+        $this->db->where('mhs_id', $mhs_id);
         $this->db->update('mahasiswa');
     }
 }

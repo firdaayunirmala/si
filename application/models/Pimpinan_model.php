@@ -87,7 +87,7 @@ class Pimpinan_model extends CI_Model
         if ($this->input->post('password') != null) {
             $this->db->set('password', $password);
         }
-        $this->db->where('id', $pimp_id);
+        $this->db->where('pimp_id', $pimp_id);
         $this->db->update('pimpinan');
     }
 

@@ -6,7 +6,7 @@ class User_pimpinan_model extends CI_Model
 
     public function ubahpimpinan($user)
     {
-
+        $pimp_id = $this->input->post('pimp_id');
         $nidn = $this->input->post('nidn');
         $name = $this->input->post('name');
         $email = $this->input->post('email');
@@ -35,6 +35,8 @@ class User_pimpinan_model extends CI_Model
         }
 
         $data = [
+            'pimp_id' => $pimp_id,
+            'nidn' => $nidn,
             'name' => $name,
             'email' => $email,
             'hp' => $hp,
@@ -42,7 +44,7 @@ class User_pimpinan_model extends CI_Model
         ];
 
         $this->db->set($data);
-        $this->db->where('nidn', $nidn);
+        $this->db->where('pimp_id', $pimp_id);
         $this->db->update('pimpinan');
     }
 }

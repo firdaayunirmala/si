@@ -8,7 +8,7 @@
         <div class="col-lg-8">
 
             <?= form_open_multipart(); ?>
-            <input type="hidden" name="id" value="<?= $pimpinan['id'] ?>">
+            <input type="hidden" name="pimp_id" value="<?= $pimpinan['pimp_id'] ?>">
             <div class="form-group row">
                 <label for="nidn" class="col-sm-3 col-form-label">NIDN</label>
                 <div class="col-sm-9">
