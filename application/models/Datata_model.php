@@ -7,6 +7,7 @@ class Datata_model extends CI_Model
         return $this->db->query(
             "SELECT
                 d.datata_id ,
+                d.tanggal ,
                 d.mhs_id ,
                 d.tanggal,
                 m.nim ,

@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class User_mahasiswa_model extends CI_Model
 {
 
-    public function ubahmahasiswa($user)
+    public function ubahmahasiswa($mahasiswa)
     {
         $mhs_id = $this->input->post('mhs_id');
         $nim = $this->input->post('nim');
@@ -23,7 +23,7 @@ class User_mahasiswa_model extends CI_Model
 
             if ($this->upload->do_upload('image')) {
 
-                $old_image = $user['image'];
+                $old_image = $mahasiswa['image'];
                 if ($old_image != 'default.jpg') {
                     unlink(FCPATH . 'assets/img/profile/mahasiswa/' . $old_image);
                 }
