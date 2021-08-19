@@ -56,7 +56,12 @@ class User extends CI_Controller
             if ($role_id != 5) {
                 $data['user'] = $this->db->get_where('dosen', ['user_id' => $this->session->userdata('user_data')['user_id']])->row_array();
             } else {
-                $data['user'] = $this->db->get_where('mahasiswa', ['user_id' => $this->session->userdata('user_data')['user_id']])->row_array();
+                $data['mahasiswa'] = $this->db
+                    ->select('mahasiswa.*,jurusan.jurusan_nama')
+                    ->from('mahasiswa')
+                    ->join('jurusan', 'jurusan.jurusan_id = mahasiswa.jurusan_id')
+                    ->where('user_id', $this->session->userdata('user_data')['user_id'])
+                    ->get()->row_array();
             }
             if ($role_id == 1 || $role_id == 2) {
                 is_logged_in();
@@ -86,6 +91,9 @@ class User extends CI_Controller
             } elseif ($role_id == 4 || $role_id == 8) {
                 $url = "dosen/edit";
             } elseif ($role_id == 5) {
+                $this->mhs->ubahmahasiswa($this->session->userdata('user_data'));
+                $this->session->set_flashdata('message', '<div class="alert
+                alert-success" role="alert">Profil berhasil di perbarui !</div>');
                 $url = "mahasiswa/edit";
             } else {
                 redirect('home');

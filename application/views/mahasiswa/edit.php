@@ -8,17 +8,17 @@
     <div class="col-lg-8">
 
       <?= form_open_multipart(); ?>
-
+      <input type="hidden" id="mhs_id" name="mhs_id" value="<?= $mahasiswa['mhs_id']; ?>">
       <div class="form-group row">
         <label for="nim" class="col-sm-3 col-form-label">NIM</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="nim" name="nim" value="<?= $user['nim']; ?>" readonly>
+          <input type="text" class="form-control" id="nim" name="nim" value="<?= $mahasiswa['nim']; ?>" readonly>
         </div>
       </div>
       <div class="form-group row">
         <label for="name" class="col-sm-3 col-form-label">Nama Lengkap</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>">
+          <input type="text" class="form-control" id="name" name="name" value="<?= $mahasiswa['name']; ?>">
           <?= form_error('name', ' <small class="text-danger pl-3">', '</small>'); ?>
         </div>
       </div>
@@ -27,14 +27,14 @@
       <div class="form-group row">
         <label for="jurusan" class="col-sm-3 col-form-label">Jurusan</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control" id="jurusan" name="jurusan" value="<?= $user['jurusan_id']; ?>" readonly>
+          <input type="text" class="form-control" id="jurusan" name="jurusan" value="<?= $mahasiswa['jurusan_nama']; ?>" readonly>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="email" class="col-sm-3 col-form-label">Email</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>">
+          <input type="text" class="form-control" id="email" name="email" value="<?= $mahasiswa['email']; ?>">
           <?= form_error('name', ' <small class="text-danger pl-3">', '</small>'); ?>
         </div>
       </div>
@@ -42,7 +42,7 @@
       <div class="form-group row">
         <label for="sms" class="col-sm-3 col-form-label">Semester</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="semester" name="semester" value="<?= $user['semester']; ?>">
+          <input type="text" class="form-control" id="semester" name="semester" value="<?= $mahasiswa['semester']; ?>">
           <?= form_error('semester', ' <small class="text-danger pl-3">', '</small>'); ?>
         </div>
       </div>
@@ -50,7 +50,7 @@
       <div class="form-group row">
         <label for="totalsks" class="col-sm-3 col-form-label">Total Sks</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control" id="totalsks" name="totalsks" value="<?= $user['totalsks']; ?>">
+          <input type="text" class="form-control" id="totalsks" name="totalsks" value="<?= $mahasiswa['totalsks']; ?>">
           <?= form_error('totalsks', ' <small class="text-danger pl-3">', '</small>'); ?>
         </div>
       </div>
@@ -58,7 +58,7 @@
       <div class="form-group row">
         <label for="hp" class="col-sm-3 col-form-label">Handphone</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="hp" name="hp" value="<?= $user['hp']; ?>">
+          <input type="text" class="form-control" id="hp" name="hp" value="<?= $mahasiswa['hp']; ?>">
           <?= form_error('name', ' <small class="text-danger pl-3">', '</small>'); ?>
         </div>
       </div>
@@ -68,7 +68,7 @@
         <div class="col-sm-9">
           <div class="row">
             <div class="col-sm-3">
-              <img src="<?= base_url('assets/img/profile/mahasiswa/') . $user['image']; ?>" class="img-thumbnail">
+              <img src="<?= base_url('assets/img/profile/mahasiswa/') . $mahasiswa['image']; ?>" class="img-thumbnail">
             </div>
 
           </div>
