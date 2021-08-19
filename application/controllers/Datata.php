@@ -217,6 +217,7 @@ class Datata extends CI_Controller
                 if ($value->datata_id != $id) {
                     $data[$i] = [
                         $i + 1,
+                        date("d-m-Y", strtotime($value->tanggal)),
                         "$value->name<br>($value->nim)",
                         $value->judul,
                         $value->jurusan_nama,

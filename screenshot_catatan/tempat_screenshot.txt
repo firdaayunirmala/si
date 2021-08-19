@@ -8,6 +8,8 @@
         </div>
       </div>
 
+      SELESAI - 20-08-2021 00:05
+
 3. hanya copy karena yang di file model datata di ubah menyesuaikan nama id yg baru,
       <?php
               $query = "SELECT
