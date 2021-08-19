@@ -107,7 +107,7 @@ class Pesan_model extends CI_Model
                     d2.id = dd.id_dosen
                 where 
                     d.id_user = $id
-                order BY
+                order BY 
                     dd.pembimbing_ke";
         } elseif ($jenis == 'mahasiswa') {
             $sql = "SELECT

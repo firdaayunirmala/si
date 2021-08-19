@@ -8,6 +8,7 @@ class Datata_model extends CI_Model
             "SELECT
                 d.datata_id ,
                 d.mhs_id ,
+                d.tanggal,
                 m.nim ,
                 m.name ,
                 d.judul ,

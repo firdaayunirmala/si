@@ -69,7 +69,8 @@
 <!-- /.container-fluid -->
 <br>
 <div class="container-fluid">
-    
+<div class="col-lg-12">
+      <div class="card shadow">
     <!-- Page Heading -->
     <?= form_open_multipart('mahasiswa/bimbingan'); ?>
     <h1 class="h3 mb-4 text-gray-800">Kirim Riwayat Bimbingan</h1>
@@ -106,5 +107,7 @@
 
     <a href="<?= base_url('mahasiswa/bimbingan'); ?>" class="btn btn-success">Upload</a>
     </div>
-           
+      
+      </div>
+</div>
 </div>

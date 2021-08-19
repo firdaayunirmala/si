@@ -31,8 +31,8 @@
               <thead class="thead-dark">
                 <tr>
                   <th class="text-center" scope="col">No</th>
-                  <th class="text-center" scope="col">Username</th>
-                  <th class="text-center" scope="col">User Fullname</th>
+                  <th class="text-center" scope="col">Nim</th>
+                  <th class="text-center" scope="col">Nama Lengkap</th>
                   <th class="text-center" scope="col">Status</th>
                   <th class="text-center" scope="col">Opsi</th>
                 </tr>
