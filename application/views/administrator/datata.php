@@ -474,6 +474,39 @@
       })
     })
   })
+
+  function preview(id) {
+    $.ajax({
+      url: '<?= base_url() ?>datata/get_data/' + id,
+      dataType: 'json',
+      success: function(res) {
+        if (!$.isEmptyObject(res.datata)) {
+          const data = res.datata
+          $("#aksi").val("")
+          $("#datata_id").val(data.datata_id)
+          $("#mhs_id").val(data.mhs_id)
+          $("#tanggal").val(data.tanggal)
+          $("#nim").val(data.nim)
+          $("#mhs_id").html(`<option value="${data.mhs_id}" data-nim="${data.nim}">${data.nim} - ${data.name}</option>`)
+          $("#judul").val(data.judul)
+          $("#sinopsis").val(data.sinopsis)
+          $("#jurusan_id").val(data.jurusan_id)
+          $("#id_detail1").val(data.id_detail1)
+          $("#id_detail2").val(data.id_detail2)
+          // $("#pembimbing1").val(data.id_dosen1)
+          $("#pembimbing1").select2('val', data.id_dosen1)
+          // $("#pembimbing2").val(data.id_dosen2)
+          $("#pembimbing2").select2('val', data.id_dosen2)
+          $("#status_dosen1").val(data.status_dosen1)
+          $("#status_dosen2").val(data.status_dosen2)
+          $(".aksi").show()
+          $("#formData").slideDown(500)
+          $("#listData").slideUp(500)
+        }
+      }
+    })
+  }
+
 </script>
 
 </div>

@@ -225,7 +225,7 @@ class Datata extends CI_Controller
                     ];
                     $id = $value->datata_id;
                 } else {
-                    $aksi = "<a class='btn btn-sm btn-info' href='javascript:void(0);' title='detail' onclick='preview($id)'>
+                    $aksi = "<a class='btn btn-sm btn-info' href='datata' title='detail' onclick='preview($id)'>
                             <i class='fa fa-eye'></i>
                         </a>
                         <a class='btn btn-sm btn-warning' href='javascript:void(0);' title='edit' onclick='set_val($id)'>
@@ -251,5 +251,18 @@ class Datata extends CI_Controller
     {
         $data = $this->Datata_model->get_mahasiswa();
         echo json_encode($data);
+    }
+
+    public function detailadmin($id)
+    {
+        $data['title'] = 'Detail Data Tugas Akhir';
+
+        $data['admin'] = $this->Admin_model->getDatataById($id);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('administrator/detaildata', $data);
+        $this->load->view('templates/footer');
     }
 }

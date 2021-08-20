@@ -11,36 +11,16 @@
 
       SELESAI - 20-08-2021 00:05
 
-3. hanya copy karena yang di file model datata di ubah menyesuaikan nama id yg baru,
-      <?php
-              $query = "SELECT
-              d.id ,
-              d.id_user ,
-              m.nim ,
-              m.name ,
-              d.judul ,
-              d.status,
-              j.nama_jurusan,
-              dd.id_dosen,
-              dd.id as id_detail
-          FROM
-              datata d
-          inner join datata_detail dd on
-              dd.id_datata = d.id
-          inner join mahasiswa m on
-              m.id = d.id_user
-          inner join jurusan j on
-          m.kode_jurusan = j.id
-          where
-              d.id = id_dosen";
-            $datata = $this->db->query($query)->result_array();
-              ?>
-
- 4. localhost/sibimta/auth/registration        tidak bisa menambah karna 
+3. localhost/sibimta/auth/registration        tidak bisa menambah karna 
     Unknown column 'email' in 'where clause'
 
-SELECT * FROM `user` WHERE `email` = 'test@gmail.com' LIMIT 1
+    SELECT * FROM `user` WHERE `email` = 'test@gmail.com' LIMIT 1
 
-Filename: C:/xampp/htdocs/sibimta/system/database/DB_driver.php
+    Filename: C:/xampp/htdocs/sibimta/system/database/DB_driver.php
 
-Line Number: 691
+    Line  Number: 691
+
+4. tambah dan edit datata untuk memilih nama dosen pembimbing tidak boleh ada yang sama ..
+5. perpesanan bagian mahasiswa dan dosen pembimbing ..
+6. untuk controller datata di opsi detail aksi on_click preview .. 
+   
