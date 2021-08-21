@@ -9,7 +9,7 @@
         <div class="row no-gutters">
             <div class="col-md-8">
                 <div class="card-body">
-                  <p class="card-title"><?= date('d F Y', strtotime($admin['tanggal'])); ?</p>
+                    <p class="card-title"><?= date('d F Y', strtotime($admin['tanggal'])); ?></p>
                     <h5 class="card-title"><?= $admin['name']; ?></h5>
                     <p class="card-text"><?= $admin['email']; ?></p>
                     <p class="card-text"><?= $admin['hp']; ?></p>

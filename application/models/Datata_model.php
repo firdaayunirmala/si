@@ -29,7 +29,8 @@ class Datata_model extends CI_Model
             inner join jurusan j on
                 j.jurusan_id = d.jurusan_id 
             ORDER BY
-                m.nim"
+                m.nim,
+                dd.pembimbing_ke"
         )->result();
 
         // return $this->db->get('datata')->result_array();

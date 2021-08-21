@@ -16,7 +16,7 @@ class Datata extends CI_Controller
         $data['title'] = 'Data Tugas Akhir';
         $data['mahasiswa'] = $this->Datata_model->get_mahasiswa();
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
-        $data['dosen'] = $this->db->get('dosen')->result_array();
+        $data['dosen'] = $this->db->where('dosen_id !=', 22)->where('dosen_id !=', 23)->order_by('name', 'asc')->get('dosen')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -225,7 +225,7 @@ class Datata extends CI_Controller
                     ];
                     $id = $value->datata_id;
                 } else {
-                    $aksi = "<a class='btn btn-sm btn-info' href='datata' title='detail' onclick='preview($id)'>
+                    $aksi = "<a class='btn btn-sm btn-info' href='javascript:void(0);' title='detail' onclick='preview($id)'>
                             <i class='fa fa-eye'></i>
                         </a>
                         <a class='btn btn-sm btn-warning' href='javascript:void(0);' title='edit' onclick='set_val($id)'>
@@ -264,5 +264,35 @@ class Datata extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('administrator/detaildata', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function get_detail($datata_id)
+    {
+        $datata = $this->Datata_model->getDatataById($datata_id);
+        $id = 0;
+        foreach ($datata as $value) {
+            if ($value->datata_id != $id) {
+                $data['datata'] = [
+                    'datata_id' => $value->datata_id,
+                    'mhs_id' => $value->mhs_id,
+                    'tanggal' => $value->tanggal,
+                    'nim' => $value->nim,
+                    'name' => $value->name,
+                    'judul' => $value->judul,
+                    'sinopsis' => $value->sinopsis,
+                    'status' => $value->status,
+                    'jurusan_id' => $value->jurusan_id,
+                    'id_dosen1' => $value->dosen_id,
+                    'status_dosen1' => $value->status_dosen,
+                    'id_detail1' => $value->id_detail,
+                ];
+                $id = $value->datata_id;
+            } else {
+                $data['datata']['id_dosen2'] = $value->dosen_id;
+                $data['datata']['status_dosen2'] = $value->status_dosen;
+                $data['datata']['id_detail2'] = $value->id_detail;
+            }
+        }
+        echo json_encode($data);
     }
 }

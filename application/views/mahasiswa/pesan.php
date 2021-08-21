@@ -63,8 +63,7 @@
   }
 </style>
 <div class="container-fluid">
-  <?php $nim = $_SESSION['nim']; ?>
-  <input type="hidden" id="nim" value="<?php echo $nim ?>" ;>
+  <input type="hidden" id="nim" value="<?php echo $mhs->nim ?>" ;>
 
   <h1 class="h3 mb-2 text-gray-800"><?= $title; ?></h1>
   <div class="row">
@@ -85,7 +84,7 @@
             <div class="row">
               <div class="col-md-3 image"><img src="<?= base_url('assets/img/profile/default.jpg') ?>" class="rounded"></div>
               <div class="col-md-5 user-detail pt-2">
-                <h6 class="pt-1" id="dosenName"><?php echo $user['name'] ?></h6>
+                <h6 class="pt-1" id="dosenName"><?php echo $mhs->name ?></h6>
                 <i class="fa fa-circle active ml-1" aria-hidden="true"></i>
               </div>
             </div>
@@ -101,7 +100,7 @@
                 <form class="col-lg-12" id="form_pesan" method="POST">
                   <div class="row">
                     <div class="col-md-10">
-                      <input type="hidden" name="user" id="user" value="<?php echo $user['id'] ?>" class="form-control">
+                      <input type="hidden" name="user" id="user" value="<?php echo $mhs->user_id ?>" class="form-control">
                       <input type="hidden" name="target" id="target" value="" class="form-control">
                       <input type="text" class="form-control" placeholder="message ..." id="pesan" name="pesan">
                     </div>
@@ -189,7 +188,7 @@
 
     setInterval(function() {
       tampildata();
-    }, 1000);
+    }, 5000);
   });
 
   $("#pilihDosen").change(function() {

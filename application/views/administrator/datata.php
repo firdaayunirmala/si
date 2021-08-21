@@ -146,7 +146,7 @@
 
           <div class="form-group row justify-content-end">
             <div class="col-sm-9">
-              <small class="text-danger"> Harap semua data yang di isi dengan benar ! </small>
+              <small class="text-danger" id="labelWajibIsiData"> Harap semua data yang di isi dengan benar ! </small>
               <br>
               <button type="button" class="btn btn-primary" id="saveData">Simpan</button>
               <button type="button" id="cancelData" class="btn btn-danger">Kembali</button>
@@ -230,6 +230,8 @@
     $("#datata_id").val("")
     $("#id_detail1").val("")
     $("#id_detail2").val("")
+    $("#saveData").show()
+    $("#labelWajibIsiData").show()
     $(".aksi").hide()
   }
 
@@ -345,7 +347,7 @@
       }, {
         width: "10%",
         targets: [-3, -4]
-      },{
+      }, {
         width: "13%",
         targets: [-3, -4]
       }, {
@@ -425,6 +427,13 @@
       }
 
 
+      if ($("#pembimbing2").val() == $("#pembimbing1").val()) {
+        pesanError += "Dosen 1 dan Dosen 2 Tidak Boleh Sama<br>"
+        error++;
+        elementError.push('#pembimbing1')
+      }
+
+
       if (error > 0) {
         Swal.fire({
           type: 'error',
@@ -477,7 +486,7 @@
 
   function preview(id) {
     $.ajax({
-      url: '<?= base_url() ?>datata/get_data/' + id,
+      url: '<?= base_url() ?>datata/get_detail/' + id,
       dataType: 'json',
       success: function(res) {
         if (!$.isEmptyObject(res.datata)) {
@@ -500,13 +509,14 @@
           $("#status_dosen1").val(data.status_dosen1)
           $("#status_dosen2").val(data.status_dosen2)
           $(".aksi").show()
+          $("#saveData").hide()
+          $("#labelWajibIsiData").hide()
           $("#formData").slideDown(500)
           $("#listData").slideUp(500)
         }
       }
     })
   }
-
 </script>
 
 </div>
