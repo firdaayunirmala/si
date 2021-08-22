@@ -108,25 +108,18 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['title'] = 'Admin';
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
         $data['admin'] = $this->Admin_model->getAllAdmin();
-        $data['dosen'] = $this->Admin_model->getAllDosen();
+        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
+        $this->session->userdata('id')])->row_array();
 
-        if ($this->input->post('tambah') == 'tambah') {
-            list($user_id, $role_id) = explode('|', $this->input->post('user_id'));
-            $data = [
-                'id' => $user_id,
-                'role_id' => ($role_id == 4) ? 8 : 9,
-            ];
-            $this->Admin_model->ubahDataAdmin($data);
-            redirect('admin');
-        } else {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('admin/admin', $data);
-            $this->load->view('templates/footer');
-        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/admin', $data);
+        $this->load->view('templates/footer');
     }
 
     public function detailadmin($id)
@@ -143,15 +136,47 @@ class Admin extends CI_Controller
     }
 
 
-    public function hapusadmin()
+    public function editadmin($id)
     {
+        $data['title'] = 'Admin';
+        $data['user'] = $this->db->get_where('user', ['user_name' =>
+        $this->session->userdata('user_name')])->row_array();
 
-        list($user_id, $role_id) = explode('|', $this->input->get('data'));
-        $data = [
-            'id' => $user_id,
-            'role_id' => ($role_id == 8) ? 4 : 6,
-        ];
-        $this->Admin_model->ubahDataAdmin($data);
+        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
+        $this->session->userdata('id')])->row_array();
+
+
+        $data['admin'] = $this->Admin_model->getAdminById($id);
+        $admin = $this->Admin_model->getAdminById($id);
+
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('password', 'Password', 'trim|min_length[3]|matches[password2]', [
+            'matches' => 'password dont match!',
+            'min_length' => 'password too short!'
+        ]);
+        $this->form_validation->set_rules('password2', 'Password', 'trim|matches[password]');
+    
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/editadmin', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->Admin_model->ubahDataAdmin($admin, $id);
+
+            $this->session->set_flashdata('message', 'Diubah!');
+            redirect('admin/admin');
+        }
+    }
+
+    public function hapusadmin($id)
+    {
+        $admin = $this->Admin_model->getAdminById($id);
+
+        $this->Admin_model->hapusDataAdmin($id, $admin);
+        $this->session->set_flashdata('message', 'Dihapus!');
         redirect('admin');
     }
 }

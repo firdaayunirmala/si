@@ -18,13 +18,6 @@
             </div>
 
             <div class="form-group row">
-                <label for="email" class="col-sm-3 col-form-label">Email</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="masukan email yang valid" value="<?= set_value('email'); ?>">
-                    <?= form_error('email', ' <small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-            <div class="form-group row">
                 <label for="password" class="col-sm-3 col-form-label">Password</label>
                 <div class="col-sm-6">
                     <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password">
@@ -38,13 +31,7 @@
                     <?= form_error('password2', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="hp" class="col-sm-3 col-form-label">Hp</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="hp" name="hp" placeholder="masukan nomer hp" value="<?= set_value('hp'); ?>">
-                    <?= form_error('hp', ' <small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
+
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Aktif</label>
                 <div class="form-check form-check-inline pl-3">
@@ -57,22 +44,7 @@
 
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-sm-3">Foto</div>
-                <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img src="<?= base_url('assets/img/profile/default.jpg') ?>" class="img-thumbnail">
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image">
-                                <label class="custom-file-label" for="image">Pilih foto</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div class="form-group row justify-content-end">
                 <div class="col-sm-9">
                     <button type="submit" class="btn btn-primary">Tambah</button>
@@ -87,6 +59,7 @@
 
     </div>
 
+</div>
 </div>
 <!-- /.container-fluid -->
 

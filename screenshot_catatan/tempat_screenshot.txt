@@ -23,4 +23,4 @@
 4. tambah dan edit datata untuk memilih nama dosen pembimbing tidak boleh ada yang sama ..
 5. perpesanan bagian mahasiswa dan dosen pembimbing ..
 6. untuk controller datata di opsi detail aksi on_click preview .. 
-   
+7. ulangi dan perbaiki bagian admin (tanbah,edit,detail,hapus)  

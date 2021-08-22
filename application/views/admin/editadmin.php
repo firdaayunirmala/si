@@ -9,13 +9,7 @@
 
             <?= form_open_multipart(); ?>
             <input type="hidden" name="id" value="<?= $admin['id']; ?>">
-            <div class="form-group row">
-                <label for="email" class="col-sm-3 col-form-label">Email</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="email" name="email" value="<?= $admin['email']; ?>" readonly>
-                    <?= form_error('email', ' <small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
+
             <div class="form-group row">
                 <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                 <div class="col-sm-6">
@@ -37,13 +31,7 @@
                     <input type="password" class="form-control" id="password2" name="password2">
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="hp" class="col-sm-3 col-form-label">Hp</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="hp" name="hp" value="<?= $admin['hp']; ?>">
-                    <?= form_error('hp', ' <small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
+
             <div class="form-group row">
                 <?php
                 $aktif = $admin['is_active']; ?>
@@ -61,22 +49,7 @@
                     <label class="form-check-label" for="aktif">Tidak</label>
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-sm-3">Foto</div>
-                <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img src="<?= base_url('assets/img/profile/') . $admin['image']; ?>" class="img-thumbnail">
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image">
-                                <label class="custom-file-label" for="image">Pilih foto</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+         
             <div class="form-group row justify-content-end">
                 <div class="col-sm-9">
                     <button type="submit" class="btn btn-primary">Edit</button>

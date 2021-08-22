@@ -69,19 +69,7 @@ class Admin_model extends CI_Model
 
     public function getAllAdmin()
     {
-        return $this->db->query(
-            "SELECT
-                u.*,
-                d.hp ,
-                d.email ,
-                d.name
-            from
-                user u
-            left join dosen d on
-                u.id = d.user_id
-            where
-                u.role_id = 2 or u.role_id = 8 or u.role_id = 9"
-        )->result_array();
+        return $this->db->get_where('user', ['role_id' => 2])->result_array();
     }
 
     public function getAllDosen()
@@ -103,20 +91,7 @@ class Admin_model extends CI_Model
 
     public function getAdminById($id)
     {
-        return $this->db->query(
-            "SELECT
-                d.name,
-                d.image,
-                d.email,
-                d.hp,
-                u.created_at
-            from
-                user u
-            left join dosen d on
-                u.id = d.user_id
-            where
-                u.id = $id"
-        )->row_array();
+        return $this->db->get_where('user', ['id' => $id])->row_array();
     }
 
 
@@ -138,9 +113,7 @@ class Admin_model extends CI_Model
         $this->db->delete('user', ['id' => $id]);
     }
 
-
-
-
+    
     // tugas akhir
     public function tambahDataTa($data)
     {
