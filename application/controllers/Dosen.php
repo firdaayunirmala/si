@@ -110,13 +110,8 @@ class Dosen extends CI_Controller
     public function pesan()
     {
         $data['title'] = 'Pesan';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
-
-        $data['namarole'] = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
-
-        $data['target'] = $this->Pesan_model->ambil_target('mahasiswa', $this->session->userdata('dosen_id'));
+        $data['dosen'] = $this->db->get_where('dosen', ['user_id' => $this->session->userdata('user_data')['user_id']])->row();
+        $data['target'] = $this->Pesan_model->ambil_target('mahasiswa', $this->session->userdata('user_data')['user_id']);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -139,9 +134,9 @@ class Dosen extends CI_Controller
             $pesan = $this->input->post("pesan");
             $id_target =  $this->input->post("target");
             $data = [
-                'id_user' => $userid,
+                'user_id' => $userid,
                 'pesan' => $pesan,
-                'id_target' => $id_target,
+                'target_id' => $id_target,
                 'type_pengirim' => 'dosen',
             ];
             $result = $this->Pesan_model->send_pesan($data);
@@ -149,8 +144,8 @@ class Dosen extends CI_Controller
         $hasil = [];
         if ($result > 0) {
             $req = [
-                'id_user' => $userid,
-                'id_target' => $id_target,
+                'user_id' => $userid,
+                'target_id' => $id_target,
             ];
             $hasil['status'] = 200;
             $hasil['data'] = $this->ambil_pesan($req);
@@ -165,8 +160,8 @@ class Dosen extends CI_Controller
     public function ambil_pesan($custom = [])
     {
         if (count($custom) > 0) {
-            $id_target = $custom['id_target'];
-            $userid = $custom['id_user'];
+            $id_target = $custom['target_id'];
+            $userid = $custom['user_id'];
         } else {
             $id_target = $this->input->GET('target');
             $userid = $this->input->get('user');
@@ -176,7 +171,7 @@ class Dosen extends CI_Controller
 
         $pesan = '';
         foreach ($tampil as $r) {
-            if ($r['id_user'] == $userid && $r['type_pengirim'] == 'dosen') {
+            if ($r['user_id'] == $userid && $r['type_pengirim'] == 'dosen') {
                 $pesan .= "<li class='p-2 mb-1 rounded bg-default'><h5><b>$r[name]</b> : $r[pesan] </h5>(<i>$r[waktu]</i>)</li>";
             } else {
                 $pesan .= "<li class='p-2 mb-1 rounded bg-success text-white'><h6>$r[name] : $r[pesan] </h6>(<i>$r[waktu]</i>)</li>";
