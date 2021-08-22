@@ -36,7 +36,7 @@ class Datata extends CI_Controller
             ];
         } else {
             $datata = [
-                'tanggal' => !empty($this->input->post('tanggal', true)) ? $this->input->post('tanggal', true) : date("Y-m-d"),
+                'tanggal' => !empty($this->input->post('tanggal', true)) ? $this->input->post('tanggal', true) : date("Y-m-d H:i:s"),
                 'mhs_id' => $this->input->post('mhs_id', true),
                 'judul' => $this->input->post('judul', true),
                 'sinopsis' => $this->input->post('sinopsis', true),
@@ -217,9 +217,10 @@ class Datata extends CI_Controller
                 if ($value->datata_id != $id) {
                     $data[$i] = [
                         $i + 1,
-                        date("d-m-Y", strtotime($value->tanggal)),
+                        date("d-m-Y H:i:s", strtotime($value->tanggal)),
                         "$value->name<br>($value->nim)",
                         $value->judul,
+                        $value->sinopsis,
                         $value->jurusan_nama,
                         "$value->dosen<br>$status_dosen",
                     ];

@@ -32,7 +32,7 @@
                   <th class="text-center" width="20%">Jurusan</th>
                   <th class="text-center" width="15%">Email</th>
                   <th class="text-center" width="20%">Foto</th>
-                  <th class="text-center" width="20%">Hp</th>
+                  <th class="text-center" width="20%">Whatsapp</th>
                   <th class="text-center" width="10%">Status</th>
                   <th class="text-center" width="15%">Aksi</th>
                 </tr>

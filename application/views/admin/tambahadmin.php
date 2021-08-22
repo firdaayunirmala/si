@@ -12,8 +12,24 @@
             <div class="form-group row">
                 <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="masukan nama lengkap" value="<?= set_value('user_nama'); ?>">
-                    <?= form_error('nama', ' <small class="text-danger pl-3">', '</small>'); ?>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="masukan nama lengkap" value="<?= set_value('user_nama'); ?>">
+                    <?= form_error('name', ' <small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Masukan email valid" value="<?= set_value('email'); ?>">
+                    <?= form_error('email', ' <small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="hp" class="col-sm-3 col-form-label">Handphone</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="hp" name="hp" placeholder="Masukan Nomer HP" value="<?= set_value('hp'); ?>">
+                    <?= form_error('hp', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
 
@@ -29,6 +45,23 @@
                 <div class="col-sm-6">
                     <input type="password" class="form-control" id="password2" name="password2" placeholder="Ulangi Password">
                     <?= form_error('password2', ' <small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3">Foto</div>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <img src="<?= base_url('assets/img/profile/default.jpg') ?>" class="img-thumbnail">
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="imagedosen" name="imagedosen">
+                                <label class="custom-file-label" for="image">Pilih foto</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -58,8 +91,6 @@
         </div>
 
     </div>
-
-</div>
 </div>
 <!-- /.container-fluid -->
 

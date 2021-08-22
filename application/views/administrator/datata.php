@@ -10,6 +10,7 @@
 
 
   <div class="row" id="formData" style="display: none;">
+
     <div class="col-lg-12">
       <div class="card shadow">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -179,6 +180,7 @@
                   <th class="text-center" width="10%" scope="col">Tanggal</th>
                   <th class="text-center" width="15%" scope="col">Nama</th>
                   <th class="text-center" width="20%" scope="col">Judul</th>
+                  <th class="text-center" width="20%" scope="col">Sinopsis</th>
                   <th class="text-center" width="10%" scope="col">Jurusan</th>
                   <th class="text-center" width="13%" scope="col">DosPem 1</th>
                   <th class="text-center" width="13%" scope="col">DosPem 2</th>

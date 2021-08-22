@@ -26,10 +26,14 @@
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Whatsapp</th>
+                            <th scope="col">Foto</th>
+                            <th scope="col">Aktif</th>
                             <th scope="col">Opsi</th>
                         </tr>
                     </thead>
+                 
                     <tbody>
 
                         <?php $i = 1; ?>
@@ -37,7 +41,10 @@
 
                             <tr>
                                 <th scope="row"><?= $i; ?></th>
-                                <td><?= $adm['user_name']; ?></td>
+                                <td><?= $adm['name']; ?></td>
+                                <td><?= $adm['email']; ?></td>
+                                <td><?= $adm['hp']; ?></td>
+                                <td><?= $adm['image']; ?></td>
                                 <td class="text-center">
                       <?php $aktif = $adm['is_active'];
                       if ($aktif == 1) { ?>
@@ -46,11 +53,9 @@
                         <span class="badge badge-danger">Tidak Aktif</span>
                       <?php } ?>
                     </td>
-
                                 <td>
-                                            <a class=" btn btn-success btn-sm" href="<?= base_url('admin/detailadmin/') . $adm['id']; ?>">detail</a>
-                                            <a class="btn btn-warning btn-sm" href="<?= base_url('admin/editadmin/') . $adm['id']; ?>" class="badge badge-warning">edit</a>
-                                            <a class=" btn btn-danger btn-sm hapusadmin" href="<?= base_url('admin/hapusadmin/') . $adm['id']; ?>">hapus</a>
+                                <a class="btn btn-warning btn-sm" href="<?= base_url('admin/editadmin/') . $adm['id']; ?>" class="badge badge-warning">edit</a>
+                                <a class=" btn btn-danger btn-sm hapusadmin" href="<?= base_url('admin/hapusadmin/') . $adm['id']; ?>">hapus</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

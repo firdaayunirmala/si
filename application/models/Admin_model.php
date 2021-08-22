@@ -69,7 +69,23 @@ class Admin_model extends CI_Model
 
     public function getAllAdmin()
     {
-        return $this->db->get_where('user', ['role_id' => 2])->result_array();
+        return $this->db->query(
+            "SELECT
+            u.id,
+            d.name,
+            d.email ,
+            d.hp ,
+            d.image ,
+            u.role_id,
+            u.is_active
+        from
+            user u
+        left join dosen d on
+            u.id = d.user_id
+        where
+            u.is_active = 1
+            and (u.role_id = 1 or u.role_id = 2)"
+        )->result_array();
     }
 
     public function getAllDosen()
@@ -94,6 +110,38 @@ class Admin_model extends CI_Model
         return $this->db->get_where('user', ['id' => $id])->row_array();
     }
 
+    public function upload()
+    {
+        // cek jika ada gambar yang akan diupload
+        $upload_image = $_FILES['imagedosen']['name'];
+
+        if ($upload_image) {
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size']     = '2048';
+            $config['upload_path'] = './assets/img/profile/dosen';
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('imagedosen')) {
+                return $this->upload->data('file_name');
+            }
+        }
+        return "default.jpg";
+    }
+    
+    public function tambahDataAdmin()
+    {
+        $dosen_id = $this->input->post('dosen_id', true);
+        $data = [
+            'dosen_id' => $dosen_id,
+            'name' => $this->input->post('name', true),
+            'email' => $this->input->post('email', true),
+            'hp' => $this->input->post('hp', true),
+            'image' => $this->upload(),
+            'is_active' => $this->input->post('aktif', true),
+        ];
+
+        $this->db->insert('dosen', $data);
+    }
 
     public function ubahDataAdmin($data)
     {
@@ -101,7 +149,6 @@ class Admin_model extends CI_Model
         $this->db->where('id', $data['id']);
         $this->db->update('user');
     }
-
 
     public function hapusDataAdmin($id, $admin)
     {
@@ -113,7 +160,6 @@ class Admin_model extends CI_Model
         $this->db->delete('user', ['id' => $id]);
     }
 
-    
     // tugas akhir
     public function tambahDataTa($data)
     {

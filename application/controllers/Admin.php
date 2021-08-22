@@ -112,14 +112,39 @@ class Admin extends CI_Controller
         $this->session->userdata('user_name')])->row_array();
 
         $data['admin'] = $this->Admin_model->getAllAdmin();
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
-
+      
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/admin', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function tambahadmin()
+    {
+        $data['title'] = 'Admin';
+
+        $this->form_validation->set_rules('nik', 'NIK', 'required|trim|is_unique[dosen.nik]', [
+            'is_unique' => 'This nik has already registered!'
+        ]);
+        $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[dosen.email]', [
+            'is_unique' => 'This email has already registered!'
+        ]);
+        $this->form_validation->set_rules('hp', 'Hp', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/tambahadmin', $data);
+            $this->load->view('templates/footer');
+        } else {
+
+            $this->Admin_model->tambahDataAdmin();
+            $this->session->set_flashdata('message', 'Ditambahkan!');
+            redirect('admin');
+        }
     }
 
     public function detailadmin($id)

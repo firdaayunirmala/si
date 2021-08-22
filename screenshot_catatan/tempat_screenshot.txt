@@ -23,4 +23,10 @@
 4. tambah dan edit datata untuk memilih nama dosen pembimbing tidak boleh ada yang sama .. SELESAI - 21-08-2021
 5. perpesanan bagian mahasiswa dan dosen pembimbing .. SELESAI
 6. untuk controller datata di opsi detail aksi on_click preview .. SELESAI, tampilan perbaiki sendiri
-   
+7. untuk sinopsis nya menyimpan file docx. yang bisa di download oleh dosen 
+8. Dashboard untuk mahasiswa dan dosen nya masing" memiliki informasi pembimbingnya 
+9. Proses pembimbingan logika nya belum tau, saat mahasiswa dan dosen mengirimkan file / riwayat bimbingan
+10. Baru bisa menampilkan data Admin, (tambah,edit,hapus) kembali seperti dulu lagi 
+
+kedepannya kurang pimpinan melihat data mahasiswa yang sudah selesai bimbingan dengan grafik sb admin 2 dan
+mahasiswa bisa mencetak/print data laporan selama bimbingan disertai dengan tanggal dan tanda tangan mahasiswa.
