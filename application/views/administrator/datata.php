@@ -60,10 +60,10 @@
           <div class="form-group row">
             <label for="sinopsis" class="col-sm-3 col-form-label">Sinopsis</label>
             <div class="col-sm-6">
-              <div class="custom-file">
-                <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input">
+                <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input" id="customFile" required>
+                <?= form_error('sinopsis', ' <small class="text-danger pl-3">', '</small>'); ?>
                 <label class="custom-file-label" for="customFile">Choose File</label>
-              </div>
+                <p class="text-gray-800 ml-6">*Pastikan file yang dipilih adalah file yang sesuai data mahasiswa!</p>
             </div>
           </div>
 

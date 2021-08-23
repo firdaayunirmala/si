@@ -23,10 +23,25 @@
 4. tambah dan edit datata untuk memilih nama dosen pembimbing tidak boleh ada yang sama .. SELESAI - 21-08-2021
 5. perpesanan bagian mahasiswa dan dosen pembimbing .. SELESAI
 6. untuk controller datata di opsi detail aksi on_click preview .. SELESAI, tampilan perbaiki sendiri
-7. untuk sinopsis nya menyimpan file docx. yang bisa di download oleh dosen 
+   masih jadi untuk membedakan kalimat edit data dan detail data
+   walaupun tampilannya hampir sama, apa mendingan detail data engga perlu/dihilangkan saja?
+
+7. untuk sinopsis nya menyimpan file docx. 
+   yang bisa di download oleh admin dan dosen 
+   masih binggung untuk menyatukan script ini dengan mengambil id nya untuk mengarahkan mendownload / tulisannya 
+   ada link garis bawahnya
+        $file =  $this->db->get_where('datata', ['id' => $id])->row_array();
+        $sinopsis = $file['sinopsis'];
+        force_download('uploads/' . $sinopsis, null);
+
+untuk upload file ternyata ada ukuran size nya sedangkan di datata model untuk menyatukan script function upload 
+dengan function getAlldatata belum tau 
+
 8. Dashboard untuk mahasiswa dan dosen nya masing" memiliki informasi pembimbingnya 
 9. Proses pembimbingan logika nya belum tau, saat mahasiswa dan dosen mengirimkan file / riwayat bimbingan
-10. Baru bisa menampilkan data Admin, (tambah,edit,hapus) kembali seperti dulu lagi 
+10. sudah menampilkan data Admin kembali seperti dulu (untuk tambah,edit,hapus fungsinya belum selesai) 
+11. ukuran yang buat scroll side bar kurang geser ..
 
-kedepannya kurang pimpinan melihat data mahasiswa yang sudah selesai bimbingan dengan grafik sb admin 2 dan
-mahasiswa bisa mencetak/print data laporan selama bimbingan disertai dengan tanggal dan tanda tangan mahasiswa.
+kedepannya nanti pimpinan bisa melihat data mahasiswa yang sudah selesai bimbingan dengan grafik sb admin 2 dan
+mahasiswa bisa mencetak/print data laporan selama bimbingan disertai dengan kop surat, lalu ada tanggal dan 
+nama mahasiswa untuk ditanda tangani..

@@ -136,4 +136,26 @@ class Datata_model extends CI_Model
             return false;
         }
     }
+
+    public function upload()
+    {
+        $upload_file = $_FILES['sinopsis']['name'];
+        if ($upload_file) {
+            $config['upload_path']          = './uploads/';
+            $config['allowed_types']        = 'doc|docx|pdf';
+            $config['max_size']             = 1000000;
+            // $config['max_width']            = 1024;
+            // $config['max_height']           = 768;
+            $this->load->library('upload', $config);
+            if ($this->upload->do_upload('sinopsis')) {
+                $sinopsis =  $this->upload->data('sinopsis');
+            } else {
+                echo $this->upload->display_errors();
+            }
+            $data = [
+                'sinopsis' =>  $sinopsis
+            ];
+            $this->db->insert('datata', $data);
+        }
+    }
 }

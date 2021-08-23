@@ -61,7 +61,7 @@ class Auth extends CI_Controller
                     }
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah </div>');
-                    redirect('auth');
+                    redirect('home');
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akun tidak aktif! </div>');

@@ -115,11 +115,6 @@ class Mahasiswa extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function uploadFile()
-    {
-        $this->load->view('mahasiswa/uploadfile');
-    }
-
     public function laporan()
     {
         $data['title'] = 'Laporan';
