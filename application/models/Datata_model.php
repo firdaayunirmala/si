@@ -2,7 +2,7 @@
 
 class Datata_model extends CI_Model
 {
-    public function getAllDatata()
+    public function getAllDatata($where)
     {
         return $this->db->query(
             "SELECT
@@ -16,7 +16,6 @@ class Datata_model extends CI_Model
                 d.sinopsis,
                 d.status,
                 dd.status as status_dosen,
-                j.jurusan_nama ,
                 d2.name dosen
             FROM
                 datata d
@@ -26,8 +25,9 @@ class Datata_model extends CI_Model
                 m.mhs_id = d.mhs_id 
             inner join dosen d2 on
                 d2.dosen_id = dd.dosen_id 
-            inner join jurusan j on
-                j.jurusan_id = d.jurusan_id 
+            WHERE
+                0 = 0
+                $where
             ORDER BY
                 m.nim,
                 dd.pembimbing_ke"
@@ -38,7 +38,7 @@ class Datata_model extends CI_Model
 
 
     // get mahasiswa
-    public function get_mahasiswa()
+    public function get_mahasiswa($jurusan_id)
     {
         $sql = "SELECT
                     m.mhs_id ,
@@ -48,6 +48,7 @@ class Datata_model extends CI_Model
                     mahasiswa m
                 where
                     m.is_active = 1
+                    and m.jurusan_id = $jurusan_id
                     and m.mhs_id not in (
                     SELECT
                         d.mhs_id

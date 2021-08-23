@@ -35,6 +35,18 @@
           </div>
 
           <div class="form-group row">
+            <label for="jurusan_id" class="col-sm-3 col-form-label">Jurusan</label>
+            <div class="col-sm-6">
+              <select name="jurusan_id" id="jurusan_id" class="form-control">
+                <option value="0" selected>Pilih Jurusan</option>
+                <?php foreach ($jurusan as $j) : ?>
+                  <option value="<?= $j['jurusan_id'] ?>"><?= $j['jurusan_nama'] ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
             <label for="nim" class="col-sm-3 col-form-label">NIM</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" id="nim" name="nim" placeholder="Masukan NIM" value="" readonly>
@@ -60,22 +72,10 @@
           <div class="form-group row">
             <label for="sinopsis" class="col-sm-3 col-form-label">Sinopsis</label>
             <div class="col-sm-6">
-                <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input" id="customFile" required>
-                <?= form_error('sinopsis', ' <small class="text-danger pl-3">', '</small>'); ?>
-                <label class="custom-file-label" for="customFile">Choose File</label>
-                <p class="text-gray-800 ml-6">*Pastikan file yang dipilih adalah file yang sesuai data mahasiswa!</p>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="jurusan_id" class="col-sm-3 col-form-label">Jurusan</label>
-            <div class="col-sm-6">
-              <select name="jurusan_id" id="jurusan_id" class="form-control">
-                <option value="0" selected>Pilih Jurusan</option>
-                <?php foreach ($jurusan as $j) : ?>
-                  <option value="<?= $j['jurusan_id'] ?>"><?= $j['jurusan_nama'] ?></option>
-                <?php endforeach; ?>
-              </select>
+              <input type="file" id="sinopsis" name="sinopsis" class="custom-file-input" id="customFile" required>
+              <?= form_error('sinopsis', ' <small class="text-danger pl-3">', '</small>'); ?>
+              <label class="custom-file-label" for="customFile">Choose File</label>
+              <p class="text-gray-800 ml-6">*Pastikan file yang dipilih adalah file yang sesuai data mahasiswa!</p>
             </div>
           </div>
 
@@ -173,19 +173,32 @@
 
           <button type="button" class="btn btn-success mb-3" id="tambahData">Tambah data tugas akhir</button>
           <div class="table-responsive">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="control-label col-md-3">Jurusan</label>
+                  <div class="col-md-9">
+                    <select name="f_jurusan_id" id="f_jurusan_id" class="form-control">
+                      <?php foreach ($jurusan as $j) : ?>
+                        <option value="<?= $j['jurusan_id'] ?>"><?= $j['jurusan_nama'] ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
             <table class="table table-bordered table-hover table-sm" id="table-container">
               <thead class="thead-dark">
                 <tr>
                   <th class="text-center" width="5%" scope="col">No</th>
-                  <th class="text-center" width="10%" scope="col">Tanggal</th>
+                  <th class="text-center" width="8%" scope="col">Tanggal</th>
                   <th class="text-center" width="15%" scope="col">Nama</th>
-                  <th class="text-center" width="20%" scope="col">Judul</th>
-                  <th class="text-center" width="20%" scope="col">Sinopsis</th>
-                  <th class="text-center" width="10%" scope="col">Jurusan</th>
+                  <th class="text-center" width="15%" scope="col">Judul</th>
+                  <th class="text-center" width="15%" scope="col">Sinopsis</th>
                   <th class="text-center" width="13%" scope="col">DosPem 1</th>
                   <th class="text-center" width="13%" scope="col">DosPem 2</th>
-                  <th class="text-center" width="5%" scope="col">Status</th>
-                  <th class="text-center" width="14%" scope="col">Opsi</th>
+                  <th class="text-center" width="6%" scope="col">Status</th>
+                  <th class="text-center" width="10%" scope="col">Opsi</th>
                 </tr>
               </thead>
               <tbody>
@@ -203,7 +216,7 @@
 <script>
   $("#tambahData").on('click', function() {
     resetForm()
-    getMahasiswa()
+    getMahasiswa($("#jurusan_id").val())
     $('#nim').val($("#mhs_id").select2().find(":selected").data("nim"))
     $("#formData").slideDown(500)
     $("#listData").slideUp(500)
@@ -230,8 +243,12 @@
     $("#formData").find("form")[0].reset()
     $("#aksi").val("add")
     $("#datata_id").val("")
+    $("#nim").val("")
     $("#id_detail1").val("")
     $("#id_detail2").val("")
+    $("#pembimbing1").select2('val', $("#pembimbing1").val())
+    $("#pembimbing2").select2('val', $("#pembimbing2").val())
+    $("#jurusan_id").removeAttr('disabled', 'disabled')
     $("#saveData").show()
     $("#labelWajibIsiData").show()
     $(".aksi").hide()
@@ -243,6 +260,9 @@
     $.ajax({
       url: "<?= base_url() ?>datata/get_data",
       dataType: "json",
+      data: {
+        jurusan_id: $("#f_jurusan_id").val()
+      },
       success: function(res) {
         const datatable = $("#table-container").DataTable()
         datatable.clear().draw();
@@ -269,6 +289,7 @@
           $("#judul").val(data.judul)
           $("#sinopsis").val(data.sinopsis)
           $("#jurusan_id").val(data.jurusan_id)
+          $("#jurusan_id").attr('disabled', 'disabled')
           $("#id_detail1").val(data.id_detail1)
           $("#id_detail2").val(data.id_detail2)
           // $("#pembimbing1").val(data.id_dosen1)
@@ -314,11 +335,19 @@
     })
   }
 
+  $("#jurusan_id").change(function() {
+    getMahasiswa($(this).val())
+  })
+
+  $("#f_jurusan_id").change(function() {
+    loadTbl()
+  })
+
 
   // mengambil data mahasiswa
-  const getMahasiswa = () => {
+  const getMahasiswa = (jurusan_id) => {
     $.ajax({
-      url: "<?= base_url() ?>datata/get_mahasiswa",
+      url: "<?= base_url() ?>datata/get_mahasiswa/" + jurusan_id,
       dataType: 'json',
       success: res => {
         let opt = '';
@@ -326,6 +355,8 @@
           $.each(res, (index, item) => {
             opt += `<option value="${item.mhs_id}" data-nim="${item.nim}">${item.nim} - ${item.name}</option>`
           })
+          $("#mhs_id").html(opt)
+        } else {
           $("#mhs_id").html(opt)
         }
       }

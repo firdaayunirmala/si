@@ -14,8 +14,8 @@ class Datata extends CI_Controller
     public function index()
     {
         $data['title'] = 'Data Tugas Akhir';
-        $data['mahasiswa'] = $this->Datata_model->get_mahasiswa();
         $data['jurusan'] = $this->db->get('jurusan')->result_array();
+        $data['mahasiswa'] = $this->Datata_model->get_mahasiswa($data['jurusan'][0]['jurusan_id']);
         $data['dosen'] = $this->db->where('dosen_id !=', 22)->where('dosen_id !=', 23)->order_by('name', 'asc')->get('dosen')->result_array();
 
         $this->load->view('templates/header', $data);
@@ -92,7 +92,7 @@ class Datata extends CI_Controller
                 $data['datata'] = [
                     'datata_id' => $value->datata_id,
                     'mhs_id' => $value->mhs_id,
-                    'tanggal' => $value->tanggal,
+                    'tanggal' => date("Y-m-d", strtotime($value->tanggal)),
                     'nim' => $value->nim,
                     'name' => $value->name,
                     'judul' => $value->judul,
@@ -136,7 +136,6 @@ class Datata extends CI_Controller
             $datata = [
                 'judul' => $this->input->post('judul', true),
                 'sinopsis' => $this->input->post('sinopsis', true),
-                'jurusan_id' => $this->input->post('jurusan_id', true),
                 'updated_by' =>  $this->session->userdata('id'),
                 'updated_at' =>  date("Y-m-d H:i:s"),
             ];
@@ -192,7 +191,11 @@ class Datata extends CI_Controller
 
     public function get_data()
     {
-        $datata = $this->Datata_model->getAllDatata();
+        $jurusan_id = $this->input->get('jurusan_id');
+        $where = "";
+        $where .= " AND m.jurusan_id = $jurusan_id";
+
+        $datata = $this->Datata_model->getAllDatata($where);
         $id = $i = 0;
         $data = [];
         if (count($datata) > 0) {
@@ -214,6 +217,13 @@ class Datata extends CI_Controller
                     $status = "<span class='badge badge-warning'>Proses</span>";
                 }
 
+                $verifikasi = "";
+                if ($value->status == 1 || $value->status == 2) {
+                    $verifikasi = "<a class='btn btn-sm btn-success' href='javascript:void(0);' title='Verifikasi' onclick='verifikasi($id)'>
+                                        <i class='fa fa-check'></i>
+                                    </a>";
+                }
+
                 if ($value->datata_id != $id) {
                     $data[$i] = [
                         $i + 1,
@@ -221,7 +231,6 @@ class Datata extends CI_Controller
                         "$value->name<br>($value->nim)",
                         $value->judul,
                         $value->sinopsis,
-                        $value->jurusan_nama,
                         "$value->dosen<br>$status_dosen",
                     ];
                     $id = $value->datata_id;
@@ -229,6 +238,7 @@ class Datata extends CI_Controller
                     $aksi = "<a class='btn btn-sm btn-info' href='javascript:void(0);' title='detail' onclick='preview($id)'>
                             <i class='fa fa-eye'></i>
                         </a>
+                        $verifikasi
                         <a class='btn btn-sm btn-warning' href='javascript:void(0);' title='edit' onclick='set_val($id)'>
                             <i class='fa fa-pencil-alt'></i>
                         </a>
@@ -248,9 +258,9 @@ class Datata extends CI_Controller
 
 
     // mengambil data mahasiswa yang belum terdaftar ta
-    public function get_mahasiswa()
+    public function get_mahasiswa($jurusan_id)
     {
-        $data = $this->Datata_model->get_mahasiswa();
+        $data = $this->Datata_model->get_mahasiswa($jurusan_id);
         echo json_encode($data);
     }
 
