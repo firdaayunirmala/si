@@ -376,24 +376,21 @@
         targets: [0, -2, -1]
       }, {
         width: "5%",
-        targets: [0, -2]
+        targets: [0]
       }, {
-        width: "10%",
-        targets: [-3, -4]
-      }, {
-        width: "13%",
-        targets: [-3, -4]
-      }, {
-        width: "15%",
+        width: "8%",
         targets: 1
       }, {
-        width: "20%",
-        targets: 2
+        width: "15%",
+        targets: [2, 3, 4]
+      }, {
+        width: "13%",
+        targets: [5, 6]
+      }, {
+        width: "6%",
+        targets: -2
       }, {
         width: "10%",
-        targets: 3
-      }, {
-        width: "14%",
         targets: -1
       }],
       "oLanguage": {

@@ -44,6 +44,14 @@
             font-size: 1em !important;
             color: #dc3545;
         }
+
+        .btn-group-xs>.btn,
+        .btn-xs {
+            padding: .4rem .4rem;
+            font-size: .875rem;
+            line-height: .5;
+            border-radius: .2rem;
+        }
     </style>
 
     <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.js"></script>

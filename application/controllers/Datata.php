@@ -219,7 +219,7 @@ class Datata extends CI_Controller
 
                 $verifikasi = "";
                 if ($value->status == 1 || $value->status == 2) {
-                    $verifikasi = "<a class='btn btn-sm btn-success' href='javascript:void(0);' title='Verifikasi' onclick='verifikasi($id)'>
+                    $verifikasi = "<a class='btn btn-xs btn-success' href='javascript:void(0);' title='Verifikasi' onclick='verifikasi($id)'>
                                         <i class='fa fa-check'></i>
                                     </a>";
                 }
@@ -235,14 +235,14 @@ class Datata extends CI_Controller
                     ];
                     $id = $value->datata_id;
                 } else {
-                    $aksi = "<a class='btn btn-sm btn-info' href='javascript:void(0);' title='detail' onclick='preview($id)'>
+                    $aksi = "<a class='btn btn-xs btn-info' href='javascript:void(0);' title='detail' onclick='preview($id)'>
                             <i class='fa fa-eye'></i>
                         </a>
                         $verifikasi
-                        <a class='btn btn-sm btn-warning' href='javascript:void(0);' title='edit' onclick='set_val($id)'>
+                        <a class='btn btn-xs btn-warning' href='javascript:void(0);' title='edit' onclick='set_val($id)'>
                             <i class='fa fa-pencil-alt'></i>
                         </a>
-                        <a class='btn btn-sm btn-danger' href='javascript:void(0);' title='hapus' onclick='set_del($id)'>
+                        <a class='btn btn-xs btn-danger' href='javascript:void(0);' title='hapus' onclick='set_del($id)'>
                             <i class='fa fa-trash'></i>
                         </a>";
                     $data[$i][] = "$value->dosen<br>$status_dosen";
