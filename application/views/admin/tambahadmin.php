@@ -10,6 +10,14 @@
             <?= form_open_multipart('admin/tambahadmin'); ?>
 
             <div class="form-group row">
+                <label for="nik" class="col-sm-3 col-form-label">NIDN</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukkan NIDN" value="<?= set_value('nik'); ?>">
+                    <?= form_error('nik', ' <small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+            </div>
+            
+            <div class="form-group row">
                 <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="name" name="name" placeholder="masukan nama lengkap" value="<?= set_value('user_nama'); ?>">

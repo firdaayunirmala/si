@@ -133,6 +133,7 @@ class Admin_model extends CI_Model
         $dosen_id = $this->input->post('dosen_id', true);
         $data = [
             'dosen_id' => $dosen_id,
+            'nik' => $this->input->post('nik', true),
             'name' => $this->input->post('name', true),
             'email' => $this->input->post('email', true),
             'hp' => $this->input->post('hp', true),
@@ -143,11 +144,43 @@ class Admin_model extends CI_Model
         $this->db->insert('dosen', $data);
     }
 
-    public function ubahDataAdmin($data)
+    public function ubahDataAdmin($dosen, $dosen_id)
     {
+        $upload_image = $_FILES['imagedosen']['name'];
+
+        if ($upload_image) {
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size']     = '2048';
+            $config['upload_path'] = './assets/img/profile/dosen';
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('imagedosen')) {
+
+                $old_image = $dosen['image'];
+                if ($old_image != 'default.jpg') {
+                    unlink(FCPATH . 'assets/img/profile/dosen/' . $old_image);
+                }
+                $new_image =  $this->upload->data('file_name');
+                $this->db->set('image', $new_image);
+            } else {
+                echo $this->upload->display_errors();
+            }
+        }
+
+        $nik = $this->input->post('nik', true);
+        $name = $this->input->post('namalengkap', true);
+        $email = $this->input->post('email', true);
+        $hp = $this->input->post('hp', true);
+
+        $data = [
+            'nik' => $nik,
+            'name' => $name,
+            'email' => $email,
+            'hp' => $hp,
+        ];
         $this->db->set($data);
-        $this->db->where('id', $data['id']);
-        $this->db->update('user');
+        $this->db->where('dosen_id', $dosen_id);
+        $this->db->update('dosen');
     }
 
     public function hapusDataAdmin($id, $admin)

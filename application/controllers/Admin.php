@@ -147,33 +147,12 @@ class Admin extends CI_Controller
         }
     }
 
-    public function detailadmin($id)
-    {
-        $data['title'] = 'Admin';
-
-        $data['admin'] = $this->Admin_model->getAdminById($id);
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/detailadmin', $data);
-        $this->load->view('templates/footer');
-    }
-
-
     public function editadmin($id)
     {
         $data['title'] = 'Admin';
-        $data['user'] = $this->db->get_where('user', ['user_name' =>
-        $this->session->userdata('user_name')])->row_array();
-
-        $data['namarole']  = $this->db->get_where('user_role', ['id' =>
-        $this->session->userdata('id')])->row_array();
-
-
-        $data['admin'] = $this->Admin_model->getAdminById($id);
-        $admin = $this->Admin_model->getAdminById($id);
-
+    
+        $data['user'] = $this->Admin_model->getAdminById($id);
+        $user = $this->Admin_model->getAdminById($id);
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'trim|min_length[3]|matches[password2]', [
@@ -189,7 +168,7 @@ class Admin extends CI_Controller
             $this->load->view('admin/editadmin', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->Admin_model->ubahDataAdmin($admin, $id);
+            $this->Admin_model->ubahDataAdmin($user, $id);
 
             $this->session->set_flashdata('message', 'Diubah!');
             redirect('admin/admin');

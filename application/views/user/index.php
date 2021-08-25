@@ -11,19 +11,21 @@
         </div>
     </div>
     <div class="card mb-3" style="max-width: 540px;">
+    <div class="card border-left-primary shadow h-100">
         <div class="row no-gutters">
             <div class="col-md-4">
                 <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="card-img">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-
                     <h5 class="card-title"><?= $user['name']; ?></h5>
-
                     <p class="card-text"><?= $user['email']; ?></p>
+                    <p class="card-text"><?= $user['hp']; ?></p>
+              
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <!-- /.container-fluid -->
@@ -35,3 +37,4 @@
 </body>
 
 </html>
+
