@@ -133,7 +133,7 @@ class Admin_model extends CI_Model
         $dosen_id = $this->input->post('dosen_id', true);
         $data = [
             'dosen_id' => $dosen_id,
-            'nik' => $this->input->post('nik', true),
+            'user_id' => $this->input->post('user_id', true),
             'name' => $this->input->post('name', true),
             'email' => $this->input->post('email', true),
             'hp' => $this->input->post('hp', true),

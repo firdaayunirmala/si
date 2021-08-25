@@ -191,13 +191,13 @@
               <thead class="thead-dark">
                 <tr>
                   <th class="text-center" width="5%" scope="col">No</th>
-                  <th class="text-center" width="8%" scope="col">Tanggal</th>
-                  <th class="text-center" width="15%" scope="col">Nama</th>
-                  <th class="text-center" width="15%" scope="col">Judul</th>
+                  <th class="text-center" width="5%" scope="col">Tanggal</th>
+                  <th class="text-center" width="10%" scope="col">Nama</th>
+                  <th class="text-center" width="25%" scope="col">Judul</th>
                   <th class="text-center" width="15%" scope="col">Sinopsis</th>
-                  <th class="text-center" width="13%" scope="col">DosPem 1</th>
-                  <th class="text-center" width="13%" scope="col">DosPem 2</th>
-                  <th class="text-center" width="6%" scope="col">Status</th>
+                  <th class="text-center" width="10%" scope="col">DosPem 1</th>
+                  <th class="text-center" width="10%" scope="col">DosPem 2</th>
+                  <th class="text-center" width="5%" scope="col">Status</th>
                   <th class="text-center" width="10%" scope="col">Opsi</th>
                 </tr>
               </thead>
