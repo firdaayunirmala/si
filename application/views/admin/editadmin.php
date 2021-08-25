@@ -8,16 +8,32 @@
         <div class="col-lg-8">
 
             <?= form_open_multipart(); ?>
-            <input type="hidden" name="id" value="<?= $admin['id']; ?>">
+            <input type="hidden" name="id" value="<?= $user['id']; ?>">
+
+            <div class="form-group row">
+                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
+                    <?= form_error('email', ' <small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+            </div>
 
             <div class="form-group row">
                 <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="nama" name="nama" value="<?= $admin['user_name']; ?>">
+                    <input type="text" class="form-control" id="nama" name="nama" value="<?= $user['user_name']; ?>">
                     <?= form_error('nama', ' <small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label for="hp" class="col-sm-3 col-form-label">Hp</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="hp" name="hp" value="<?= $user['hp']; ?>">
+                    <?= form_error('hp', ' <small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+            </div>
+      
             <div class="form-group row">
                 <label for="password" class="col-sm-3 col-form-label">Password</label>
                 <div class="col-sm-6">
@@ -34,7 +50,7 @@
 
             <div class="form-group row">
                 <?php
-                $aktif = $admin['is_active']; ?>
+                $aktif = $user['is_active']; ?>
                 <label for="aktif" class="col-sm-3 col-form-label">Aktif</label>
                 <div class="form-check form-check-inline pl-3">
                     <input type="radio" name="aktif" <?php if ($aktif == '1') {
@@ -50,11 +66,27 @@
                 </div>
             </div>
          
+            <div class="form-group row">
+                <div class="col-sm-3">Foto</div>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail">
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="image" name="image">
+                                <label class="custom-file-label" for="image">Pilih foto</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group row justify-content-end">
                 <div class="col-sm-9">
                     <button type="submit" class="btn btn-primary">Edit</button>
-                    <button type="reset" class="btn btn-warning">Reset</button>
-                    <a href="<?= base_url('admin'); ?>" class="btn btn-danger">Batal</a>
+                    <a href="<?= base_url('user'); ?>" class="btn btn-danger">Kembali</a>
                 </div>
             </div>
 

@@ -10,6 +10,16 @@
             <?= form_open_multipart('admin/tambahadmin'); ?>
 
             <div class="form-group row">
+                <label for="user_id" class="col-sm-3 col-form-label">Sebagai</label>
+                <div class="col-sm-6">
+                    <select name="user_id" id="user_id" class="form-control col-sm-9">
+                        <option value="1">Superadmin</option>
+                        <option value="2">Admin</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group row">
                 <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="name" name="name" placeholder="masukan nama lengkap" value="<?= set_value('user_nama'); ?>">
@@ -81,7 +91,7 @@
             <div class="form-group row justify-content-end">
                 <div class="col-sm-9">
                     <button type="submit" class="btn btn-primary">Tambah</button>
-                    <a href="<?= base_url('admin'); ?>" class="btn btn-danger">Batal</a>
+                    <a href="<?= base_url('admin'); ?>" class="btn btn-danger">Kembali</a>
                 </div>
             </div>
 

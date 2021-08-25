@@ -40,6 +40,19 @@ dengan function getAlldatata belum tau
 8. Dashboard untuk mahasiswa dan dosen nya masing" memiliki informasi pembimbingnya 
 9. Proses pembimbingan logika nya belum tau, saat mahasiswa dan dosen mengirimkan file / riwayat bimbingan
 10. sudah menampilkan data Admin kembali seperti dulu (untuk tambah,edit,hapus fungsinya belum selesai) 
+    untuk tambah nya data berhasil ditambah dan masuk didatabase tapi tidak muncul dihalaman admin ..
+    
+    untuk edit masih ada eror, editadmin baru bisa menampilkan nama yang diambil dari $user[user_name];
+    karena admin_model 
+      public function getAdminById($id)
+    {
+        return $this->db->get_where('user', ['id' => $id])->row_array();
+    }
+
+    kalo manggil dosen juga error
+
+    untuk hapusnya misal mau hapus superadmin tapi yang ke hapus semua role id nya 1 ..
+
 11. ukuran yang buat scroll side bar kurang geser ..
 
 kedepannya nanti pimpinan bisa melihat data mahasiswa yang sudah selesai bimbingan dengan grafik sb admin 2 dan
