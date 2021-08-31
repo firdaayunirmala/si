@@ -6,8 +6,7 @@
         <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
 
-    <?php $nim = $_SESSION['nim']; ?>
-    <input type="hidden" id="nim" value="<?php echo $nim ?>" ;>
+    <input type="hidden" id="mhs_id" value="<?php echo $mhs_id ?>" ;>
 
     <div class="row">
         <div class="col-lg">
