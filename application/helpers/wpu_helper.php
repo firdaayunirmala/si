@@ -9,20 +9,20 @@ function is_logged_in()
         $role_id = $ci->session->userdata('user_data')['role_id'];
         // print_r($role_id);
         // die;
-        $menu = $ci->uri->segment(1);
+        // $menu = $ci->uri->segment(1);
 
-        $queryMenu = $ci->db->get_where('user_sub_menu', ['url' => $menu])->row_array();
-        $menu_id = $queryMenu['id'];
+        // $queryMenu = $ci->db->get_where('user_sub_menu', ['url' => $menu])->row_array();
+        // $menu_id = $queryMenu['id'];
         // print_r($menu_id);
         // die;
-        $userAccess = $ci->db->get_where('user_access_menu', [
-            'role_id' => $role_id,
-            'menu_id' => $menu_id
-        ]);
+        // $userAccess = $ci->db->get_where('user_access_menu', [
+        //     'role_id' => $role_id,
+        //     'menu_id' => $menu_id
+        // ]);
 
-        if ($userAccess->result() < 1) {
-            redirect('auth/blocked');
-        }
+        // if ($userAccess->result() < 1) {
+        //     redirect('auth/blocked');
+        // }
     }
 }
 
