@@ -13,6 +13,13 @@
             <?php endif; ?>
 
             <a href="<?= base_url('mahasiswa/pesan') ?>" class="btn btn-success mb-3">Kirim Pesan</a>
+            <div class="row">
+           <div class="mt-3 col-sm-12 ">
+              
+           <div class="alert alert-success" role="alert"> Batas Waktu Bimbingan  </div>
+           </div>
+        </div>
+
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable">
                     <thead class="thead-dark">

@@ -46,7 +46,7 @@
                 <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
                 <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
                 <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                <a href="https://www.instagram.com/stikomyospwt" class="instagram"><i class="fa fa-instagram"></i></a>
             </div>
         </div>
     </div>
@@ -63,10 +63,9 @@
                 <ul>
                     <li><a></a></li>
                     <li class="active"><a href="<?= base_url('home'); ?>">Beranda</a></li>
-                    <li><a></a></li>
                     <li><a href="#about">Tentang</a></li>
                     <li><a href="#services">Informasi</a></li>
-                    <!-- <li><a href="#team">Kaprodi</a></li> -->
+                    <li><a href="#contact">Kontak</a></li>
                     <li class="drop-down"><a href="">Login</a>
                         <ul>
                             <li><a href="<?= base_url('auth'); ?>">Admin</a></li>
@@ -287,25 +286,59 @@
                 </div>
             </section>End Team Section -->
 
+ <!-- ======= Contact Section ======= -->
+ <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+      <div class="row justify-content-center">
+        <div class="section-title">
+        <div class="pl-4">
+          <h2>Kontak</h2>
+        </div>
+          <h3 >Hubungi Kami</h3>
+        </div>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-6">
+            <div class="info-box mb-4">
+            <div class="icon">
+              <i class="bx bx-map"></i>
+            </div>
+              <h3>Alamat</h3>
+              <p>Jalan SMP 5 Karang Klesem, Purwokerto Selatan, Kabupaten Banyumas, Jawa Tengah 53144</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-box  mb-4">
+              <i class="bx bx-envelope"></i>
+              <h3>Email</h3>
+              <p>stikomyos@stikomyos.ac.id</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-box  mb-4">
+              <i class="bx bx-phone-call"></i>
+              <h3>Telepon</h3>
+              <p>081542038100</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      </div>
+    </section><!-- End Contact Section -->
+
             </footer>
-            <footer>
-                <div class="container text-center ">
-                    <!-- Footer -->
-                    <footer class="sticky-footer bg-white">
-                        <div class="container my-auto">
-                            <div class="copyright text-center my-auto">
-                                <span>Copyright &copy; STIKOM Yos Sudarso Purwokerto <?= date('Y'); ?></span>
-                            </div>
-                        </div>
-                    </footer>
-                    <!-- End of Footer -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p>Sistem Informasi Bimbingan Tugas Akhir</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+
+            	<!-- Footer-->
+	<footer class="bg-light py-5">
+		<div class="container my-auto">
+			<div class="small text-center text-muted">Copyright © <?= date('Y'); ?> 
+            Support by <a style="color: #000080; " href="https://spmb.stikomyos.ac.id/">STIKOM YOS SUDARSO PURWOKERTO</a>
+        </div>
+      
+	</footer>
 
             <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
@@ -322,8 +355,10 @@
             <script src="<?php echo base_url(); ?>assets/frontend/assets/vendor/aos/aos.js"></script>
 
             <!-- Template Main JS File -->
+            
             <script src="<?php echo base_url(); ?>assets/frontend/assets/js/main.js"></script>
-
+	<!-- Core theme JS-->
+	
 </body>
 
 
